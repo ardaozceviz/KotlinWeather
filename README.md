@@ -7,6 +7,3 @@ In order to build this project, you will need to apply for your own api key from
 API_KEY = "your api key goes here"
 
 Then you should be able to use it without a problem.
-
-You can find loopj's github repository here:
-"https://github.com/loopj/android-async-http"
