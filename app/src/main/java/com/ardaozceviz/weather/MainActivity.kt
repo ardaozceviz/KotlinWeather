@@ -107,6 +107,9 @@ class MainActivity : AppCompatActivity() {
 
         client.get(WEATHER_URL, params, object : JsonHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<out Header>?, response: JSONObject?) {
+                if (response != null) {
+                    val weatherData = WeatherDataModel().jsonToWeatherDataModel(response)
+                }
                 Log.d("Weather", "Succes! JSON: ${response.toString()}")
             }
 
