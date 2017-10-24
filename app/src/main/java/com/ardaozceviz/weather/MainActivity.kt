@@ -14,6 +14,7 @@ import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.JsonHttpResponseHandler
 import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
+import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
@@ -60,8 +61,8 @@ class MainActivity : AppCompatActivity() {
 
                 val params = RequestParams()
                 params.put("appid", API_KEY)
-                params.put("lon", 139)
-                params.put("lat", 35)
+                params.put("lon", longitude)
+                params.put("lat", latitude)
                 System.out.println(params)
                 requestForecastData(params)
             }
@@ -109,6 +110,7 @@ class MainActivity : AppCompatActivity() {
             override fun onSuccess(statusCode: Int, headers: Array<out Header>?, response: JSONObject?) {
                 if (response != null) {
                     val weatherData = WeatherDataModel().jsonToWeatherDataModel(response)
+                    updateUI(weatherData)
                 }
                 Log.d("Weather", "Succes! JSON: ${response.toString()}")
             }
@@ -119,5 +121,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Request failed", Toast.LENGTH_LONG).show()
             }
         })
+    }
+
+    private fun updateUI(weatherDataModel: WeatherDataModel){
+        temperatureTextView.text = weatherDataModel.temperature
+        locationTextView.text = weatherDataModel.city
     }
 }
