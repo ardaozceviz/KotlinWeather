@@ -9,10 +9,19 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.widget.Toast
+import com.loopj.android.http.AsyncHttpClient
+import com.loopj.android.http.JsonHttpResponseHandler
+import com.loopj.android.http.RequestParams
+import cz.msebera.android.httpclient.Header
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
     // Constants:
+    val WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
+    val API_KEY = BuildConfig.API_KEY
+
     val REQUEST_CODE = 123
     val LOCATION_PROVIDER = LocationManager.GPS_PROVIDER
 
@@ -46,10 +55,15 @@ class MainActivity : AppCompatActivity() {
         // The component that will do the checking for updates on the device location is the location listener
         locationListener = object : LocationListener {
             override fun onLocationChanged(location: Location?) {
-                var longitude = location?.longitude.toString()
-                var latitude = location?.latitude.toString()
-                Log.d("Weather", "onLocationChanged() callback received.")
-                Log.d("Longitude", "$longitude, $latitude")
+                val longitude = location?.longitude.toString()
+                val latitude = location?.latitude.toString()
+
+                val params = RequestParams()
+                params.put("appid", API_KEY)
+                params.put("lon", 139)
+                params.put("lat", 35)
+                System.out.println(params)
+                requestForecastData(params)
             }
 
             override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
@@ -85,5 +99,22 @@ class MainActivity : AppCompatActivity() {
                 Log.d("Weather", "Permission denied.")
             }
         }
+    }
+
+    fun requestForecastData(params: RequestParams) {
+        val client = AsyncHttpClient()
+
+
+        client.get(WEATHER_URL, params, object : JsonHttpResponseHandler() {
+            override fun onSuccess(statusCode: Int, headers: Array<out Header>?, response: JSONObject?) {
+                Log.d("Weather", "Succes! JSON: ${response.toString()}")
+            }
+
+            override fun onFailure(statusCode: Int, headers: Array<out Header>?, throwable: Throwable?, errorResponse: JSONObject?) {
+                Log.e("Weather", "Fail ${throwable.toString()}")
+                Log.d("Weather", "Status code $statusCode")
+                Toast.makeText(this@MainActivity, "Request failed", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 }
