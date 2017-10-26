@@ -123,8 +123,12 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun updateUI(weatherDataModel: WeatherDataModel){
+    private fun updateUI(weatherDataModel: WeatherDataModel) {
         temperatureTextView.text = weatherDataModel.temperature
         locationTextView.text = weatherDataModel.city
+        Log.d("Weaather-IconName", weatherDataModel.iconName)
+
+        val resourceId = resources.getIdentifier(weatherDataModel.iconName, "drawable", packageName)
+        weatherSymbolImageView.setImageResource(resourceId)
     }
 }

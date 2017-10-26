@@ -8,7 +8,7 @@ import org.json.JSONObject
 data class WeatherDataModel(var temperature: String = "",
                             var condition: Int = 0,
                             var city: String = "") {
-    private var iconName: String = ""
+    var iconName: String = ""
     private val fullTemperature: String
         get() = "$temperature °"
 
