@@ -33,7 +33,6 @@
         android:hint="@string/default_query"
         android:imeOptions="actionGo"
         android:inputType="textAutoCorrect"
-        android:textColor="@android:color/white"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

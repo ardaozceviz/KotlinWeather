@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity() {
 
     // LocationManager is the component that will start or stop with the location updates.
     // LocationListener is the component that will be notified when the location is actually changed
-    lateinit var locationManager: LocationManager
-    lateinit var locationListener: LocationListener
+    var locationManager: LocationManager? = null
+    var locationListener: LocationListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +53,19 @@ class MainActivity : AppCompatActivity() {
 
         val intent = intent
         val city = intent.getStringExtra("City")
-        getWeatherForCurrentLocation()
+
+        if (city != null) {
+            getWeatherForSelectedCity(city)
+        } else {
+            getWeatherForCurrentLocation()
+        }
+    }
+
+    private fun getWeatherForSelectedCity(city: String) {
+        val params = RequestParams()
+        params.put("q", city)
+        params.put("appid", API_KEY)
+        requestForecastData(params)
     }
 
     fun getWeatherForCurrentLocation() {
@@ -94,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Instruct the location manager start requesting updates
-        locationManager.requestLocationUpdates(LOCATION_PROVIDER, MIN_TIME, MIN_DISTANCE, locationListener)
+        locationManager!!.requestLocationUpdates(LOCATION_PROVIDER, MIN_TIME, MIN_DISTANCE, locationListener)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -134,9 +146,18 @@ class MainActivity : AppCompatActivity() {
     private fun updateUI(weatherDataModel: WeatherDataModel) {
         temperatureTextView.text = weatherDataModel.temperature
         locationTextView.text = weatherDataModel.city
-        Log.d("Weaather-IconName", weatherDataModel.iconName)
+        Log.d("Weather-IconName", weatherDataModel.iconName)
 
         val resourceId = resources.getIdentifier(weatherDataModel.iconName, "drawable", packageName)
         weatherSymbolImageView.setImageResource(resourceId)
+    }
+
+    override fun onPause() {
+        Log.d("Weather", "onPause() called")
+        super.onPause()
+        if (locationManager != null) {
+            locationManager!!.removeUpdates(locationListener)
+            Log.d("Weather", "locationManager.removeUpdates")
+        }
     }
 }
