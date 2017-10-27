@@ -1,6 +1,7 @@
 package com.ardaozceviz.weather
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -39,13 +40,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        selectCityButton.setOnClickListener({})
+        selectCityButton.setOnClickListener({
+            val intent = Intent(this, SelectCityActivity::class.java)
+            startActivity(intent)
+        })
     }
 
     // onResume gets executed just after onCreate() and just before user can interact with the activity.
     override fun onResume() {
         super.onResume()
         Log.d("Weather", "onResume() called.")
+
+        val intent = intent
+        val city = intent.getStringExtra("City")
         getWeatherForCurrentLocation()
     }
 
