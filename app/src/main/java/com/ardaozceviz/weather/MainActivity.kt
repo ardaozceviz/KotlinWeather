@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        selectCityButton.setOnClickListener({})
     }
 
     // onResume gets executed just after onCreate() and just before user can interact with the activity.
