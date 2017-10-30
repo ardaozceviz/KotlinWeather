@@ -1,4 +1,4 @@
-package com.ardaozceviz.weather
+package com.ardaozceviz.weather.view
 
 import org.json.JSONObject
 

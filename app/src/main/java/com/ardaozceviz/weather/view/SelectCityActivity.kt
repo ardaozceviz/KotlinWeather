@@ -1,8 +1,9 @@
-package com.ardaozceviz.weather
+package com.ardaozceviz.weather.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.ardaozceviz.weather.R
 import kotlinx.android.synthetic.main.change_city_layout.*
 
 class SelectCityActivity : AppCompatActivity() {
@@ -15,7 +16,7 @@ class SelectCityActivity : AppCompatActivity() {
 
         selectCityEditText.setOnEditorActionListener { p0, p1, p2 ->
             val selectedCity: String = selectCityEditText.text.toString()
-            val myIntent = Intent(this,MainActivity::class.java)
+            val myIntent = Intent(this, MainActivity::class.java)
             myIntent.putExtra("City", selectedCity)
             startActivity(myIntent)
             return@setOnEditorActionListener false

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/weather_background"
-    tools:context="com.ardaozceviz.weather.MainActivity"
+    tools:context="com.ardaozceviz.weather.view.MainActivity"
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
