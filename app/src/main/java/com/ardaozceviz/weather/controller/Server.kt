@@ -44,7 +44,7 @@ class Server(val activity: MainActivity) {
             override fun onSuccess(statusCode: Int, headers: Array<out Header>?, response: JSONObject?) {
                 if (response != null) {
                     val weatherDataModel = Gson().fromJson(response.toString(), WeatherDataModel::class.java)
-                    activity.updateUI(weatherDataModel)
+                    activity.updateUI(WeatherDataMapper(weatherDataModel))
                 }
                 Log.d("Weather", "Succes! JSON: ${response.toString()}")
             }

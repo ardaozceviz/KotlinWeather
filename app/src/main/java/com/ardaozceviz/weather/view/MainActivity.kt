@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.controller.Server
-import com.ardaozceviz.weather.model.WeatherDataModel
+import com.ardaozceviz.weather.controller.WeatherDataMapper
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -37,9 +37,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun updateUI(weatherDataModel: WeatherDataModel) {
-        temperatureTextView.text = weatherDataModel.main?.temp.toString()
-        locationTextView.text = weatherDataModel.name
+    fun updateUI(weatherDataMapper: WeatherDataMapper) {
+        temperatureTextView.text = weatherDataMapper.tempString
+        locationTextView.text = weatherDataMapper.location
+        
         //Log.d("Weather-IconName", weatherDataModel.iconName)
 /*
         val resourceId = resources.getIdentifier(weatherDataModel.iconName, "drawable", packageName)
