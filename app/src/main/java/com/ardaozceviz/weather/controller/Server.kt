@@ -7,9 +7,10 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
-import com.ardaozceviz.weather.BuildConfig
+import com.ardaozceviz.weather.BuildConfig.API_KEY
+import com.ardaozceviz.weather.model.WeatherDataModel
 import com.ardaozceviz.weather.view.MainActivity
-import com.ardaozceviz.weather.view.WeatherDataModel
+import com.google.gson.Gson
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
@@ -27,8 +28,7 @@ import org.json.JSONObject
  */
 class Server(val activity: MainActivity) {
     // Constants:
-    private val WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
-    private val API_KEY = BuildConfig.API_KEY
+    private val weatherUrl = "http://api.openweathermap.org/data/2.5/weather"
 
     fun getWeatherForSelectedCity(city: String) {
         val params = RequestParams()
@@ -40,11 +40,11 @@ class Server(val activity: MainActivity) {
     private fun requestForecastData(params: RequestParams) {
         val client = AsyncHttpClient()
 
-        client.get(WEATHER_URL, params, object : JsonHttpResponseHandler() {
+        client.get(weatherUrl, params, object : JsonHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<out Header>?, response: JSONObject?) {
                 if (response != null) {
-                    val weatherData = WeatherDataModel().jsonToWeatherDataModel(response)
-                    activity.updateUI(weatherData)
+                    val weatherDataModel = Gson().fromJson(response.toString(), WeatherDataModel::class.java)
+                    activity.updateUI(weatherDataModel)
                 }
                 Log.d("Weather", "Succes! JSON: ${response.toString()}")
             }
