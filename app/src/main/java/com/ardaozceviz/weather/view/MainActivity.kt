@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.controller.Server
 import com.ardaozceviz.weather.controller.WeatherDataMapper
@@ -38,9 +39,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateUI(weatherDataMapper: WeatherDataMapper) {
+        fetchingProgressBar.visibility = View.GONE
+        temperatureTextView.visibility = View.VISIBLE
         temperatureTextView.text = weatherDataMapper.tempString
         locationTextView.text = weatherDataMapper.location
-        
         //Log.d("Weather-IconName", weatherDataModel.iconName)
 /*
         val resourceId = resources.getIdentifier(weatherDataModel.iconName, "drawable", packageName)
