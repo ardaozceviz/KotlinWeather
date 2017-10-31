@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/city_background">
+    android:background="@color/background">
 
     <ImageButton
         android:id="@+id/backButton"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@null"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
