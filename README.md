@@ -7,3 +7,7 @@ In order to build this project, you will need to apply for your own api key from
 API_KEY = "your api key goes here"
 
 Then you should be able to use it without a problem.
+
+## Screenshots
+
+<a href="https://imgflip.com/gif/1ykek1"><img src="https://i.imgflip.com/1ykek1.gif" title="made at imgflip.com"/></a>
