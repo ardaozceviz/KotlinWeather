@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/open_sans_semibold"
         android:text="@string/default_location"
         android:textColor="@android:color/white"
@@ -27,43 +27,20 @@
         android:id="@+id/temperatureTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/open_sans_semibold"
         android:text="@string/default_temp"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@android:color/white"
-        android:textSize="90sp"
+        android:textSize="80sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="@+id/locationTextView"
-        app:layout_constraintStart_toStartOf="@+id/locationTextView"
-        app:layout_constraintTop_toBottomOf="@+id/locationTextView" />
-
-    <ImageButton
-        android:id="@+id/selectCityButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="@null"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/weatherConditionImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/arrow"
-        tools:ignore="VectorDrawableCompat" />
-
-    <ImageButton
-        android:id="@+id/refreshButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="8dp"
-        android:background="@null"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/reload"
-        tools:ignore="VectorDrawableCompat" />
+        app:layout_constraintTop_toBottomOf="@+id/locationTextView"
+        app:layout_constraintVertical_bias="0.52" />
 
     <ProgressBar
         android:id="@+id/fetchingProgressBar"
@@ -79,22 +56,81 @@
         app:layout_constraintStart_toStartOf="@+id/temperatureTextView"
         app:layout_constraintTop_toTopOf="@+id/temperatureTextView" />
 
+    <ImageButton
+        android:id="@+id/selectCityButton"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:srcCompat="@drawable/arrow"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageButton
+        android:id="@+id/refreshButton"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:srcCompat="@drawable/reload"
+        tools:ignore="VectorDrawableCompat" />
+
     <ImageView
         android:id="@+id/weatherConditionImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/temperatureTextView"
-        app:layout_constraintStart_toStartOf="@+id/temperatureTextView"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/weatherDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:srcCompat="@drawable/dunno"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/weatherDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/open_sans_semibold"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Clear Sky"
+        tools:visibility="visible" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.44" />
+        app:layout_constraintGuide_percent="0.35" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
 
 </android.support.constraint.ConstraintLayout>

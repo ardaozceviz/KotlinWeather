@@ -22,8 +22,9 @@ class MainActivity : AppCompatActivity() {
 
         refreshButton.setOnClickListener({
             Log.d("Weather", "refreshButton clicked")
-            weatherConditionImageView.visibility = View.INVISIBLE
             temperatureTextView.visibility = View.INVISIBLE
+            weatherConditionImageView.visibility = View.INVISIBLE
+            weatherDescription.visibility = View.INVISIBLE
             locationTextView.text = getString(R.string.default_location)
             fetchingProgressBar.visibility = View.VISIBLE
             Server(this).getWeatherForCurrentLocation()
@@ -54,9 +55,11 @@ class MainActivity : AppCompatActivity() {
         Log.d("WeatherImageResourceId", imageResourceId.toString())
         fetchingProgressBar.visibility = View.INVISIBLE
         temperatureTextView.visibility = View.VISIBLE
-        weatherConditionImageView.visibility = View.VISIBLE
-        temperatureTextView.text = weatherDataMapper.tempString
+        weatherDescription.visibility = View.VISIBLE
         locationTextView.text = weatherDataMapper.location
+        temperatureTextView.text = weatherDataMapper.tempString
+        weatherDescription.text = weatherDataMapper.weatherDescription
+        weatherConditionImageView.visibility = View.VISIBLE
         weatherConditionImageView.setImageResource(imageResourceId)
     }
 }

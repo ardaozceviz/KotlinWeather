@@ -11,15 +11,19 @@ class WeatherDataMapper(weatherDataModel: WeatherDataModel) {
     var tempString: String = "NA"
     var location: String = "NA"
     var iconName: String = ""
+    var weatherDescription = ""
 
     private val temperature = weatherDataModel.main?.temp?.minus(273.15)
-    private val condition : Int? = weatherDataModel.weather?.get(0)?.id
+    private val condition: Int? = weatherDataModel.weather?.get(0)?.id
+    private var tmpWeatherDescription: String? = null
 
     init {
         tempString = temperature?.let { Math.rint(it) }?.toInt().toString()
         tempString = "$tempString°C"
         location = weatherDataModel.name
-        if (condition!= null) iconName =  updateWeatherIcon(condition)
+        tmpWeatherDescription = weatherDataModel.weather?.get(0)?.description
+        if (tmpWeatherDescription != null) weatherDescription = tmpWeatherDescription as String
+        if (condition != null) iconName = updateWeatherIcon(condition)
     }
 
     private fun updateWeatherIcon(condition: Int): String {
