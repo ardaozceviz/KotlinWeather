@@ -53,7 +53,7 @@
         tools:ignore="VectorDrawableCompat" />
 
     <ImageButton
-        android:id="@+id/selectCityButton2"
+        android:id="@+id/refreshButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginBottom="16dp"

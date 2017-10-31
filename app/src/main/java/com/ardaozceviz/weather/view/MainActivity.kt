@@ -19,6 +19,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SelectCityActivity::class.java)
             startActivity(intent)
         })
+
+        refreshButton.setOnClickListener({
+            Log.d("Weather", "refreshButton clicked")
+            weatherConditionImageView.visibility = View.INVISIBLE
+            temperatureTextView.visibility = View.INVISIBLE
+            locationTextView.text = getString(R.string.default_location)
+            fetchingProgressBar.visibility = View.VISIBLE
+            Server(this).getWeatherForCurrentLocation()
+        })
     }
 
     // onResume gets executed just after onCreate() and just before user can interact with the activity.
@@ -43,15 +52,11 @@ class MainActivity : AppCompatActivity() {
         Log.d("WeatherCity", weatherDataMapper.location)
         Log.d("WeatherIconName", weatherDataMapper.iconName)
         Log.d("WeatherImageResourceId", imageResourceId.toString())
-        fetchingProgressBar.visibility = View.GONE
+        fetchingProgressBar.visibility = View.INVISIBLE
         temperatureTextView.visibility = View.VISIBLE
+        weatherConditionImageView.visibility = View.VISIBLE
         temperatureTextView.text = weatherDataMapper.tempString
         locationTextView.text = weatherDataMapper.location
         weatherConditionImageView.setImageResource(imageResourceId)
-        //Log.d("Weather-IconName", weatherDataModel.iconName)
-/*
-        val resourceId = resources.getIdentifier(weatherDataModel.iconName, "drawable", packageName)
-        weatherSymbolImageView.setImageResource(resourceId)
-        */
     }
 }
