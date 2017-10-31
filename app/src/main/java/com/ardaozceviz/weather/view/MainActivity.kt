@@ -39,10 +39,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateUI(weatherDataMapper: WeatherDataMapper) {
+        val imageResourceId = resources.getIdentifier(weatherDataMapper.iconName, "drawable", packageName)
+        Log.d("WeatherCity", weatherDataMapper.location)
+        Log.d("WeatherIconName", weatherDataMapper.iconName)
+        Log.d("WeatherImageResourceId", imageResourceId.toString())
         fetchingProgressBar.visibility = View.GONE
         temperatureTextView.visibility = View.VISIBLE
         temperatureTextView.text = weatherDataMapper.tempString
         locationTextView.text = weatherDataMapper.location
+        weatherConditionImageView.setImageResource(imageResourceId)
         //Log.d("Weather-IconName", weatherDataModel.iconName)
 /*
         val resourceId = resources.getIdentifier(weatherDataModel.iconName, "drawable", packageName)

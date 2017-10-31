@@ -36,5 +36,5 @@ data class Sys(val country: String = "",
                val type: Int = 0,
                val message: Double = 0.0)
 
-data class Wind(val deg: Int = 0,
+data class Wind(val deg: Double = 0.0,
                 val speed: Double = 0.0)
