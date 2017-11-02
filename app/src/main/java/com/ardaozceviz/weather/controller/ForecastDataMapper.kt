@@ -11,6 +11,8 @@ import com.ardaozceviz.weather.model.ListItem
 class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
 
     var location = "NA"
+    var temperature = "NA"
+
     val listOfDaysForecastData = ArrayList<ListItem>()
     init {
         if (forecastDataModel.list != null) {

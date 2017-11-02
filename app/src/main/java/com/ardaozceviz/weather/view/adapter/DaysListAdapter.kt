@@ -10,7 +10,6 @@ import android.widget.TextView
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.model.ListItem
 import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * Created by arda on 02/11/2017.
@@ -33,14 +32,23 @@ class DaysListAdapter(private val context: Context, private val forecastList: Li
 
     inner class WeatherInfoHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         private val day = itemView?.findViewById<TextView>(R.id.dyas_list_item_day)
-        private val date = itemView?.findViewById<TextView>(R.id.dyas_list_item_date)
+        private val temp = itemView?.findViewById<TextView>(R.id.dyas_list_item_temperature)
 
         fun bindForecastItem(forecast: ListItem) {
             Log.d("DaysListAdapter", "bindForecastItem() forecast.dtTxt: ${forecast.dt}")
             val time = java.util.Date(forecast.dt.toLong() * 1000)
             val sdf = SimpleDateFormat("EE")
+            var temperature = "NA"
+            if (forecast.main != null) {
+                temperature = calculateTemperature(forecast.main.temp)
+            }
+            temp?.text = temperature
             day?.text = sdf.format(time)
-            date?.text = forecast.dtTxt
+        }
+
+        private fun calculateTemperature(temp: Double): String {
+            val temperature = temp - 273.15
+            return "%.0f".format(temperature)+"°C"
         }
 
     }
