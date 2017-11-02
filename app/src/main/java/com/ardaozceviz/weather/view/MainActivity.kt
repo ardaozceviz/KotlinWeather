@@ -15,22 +15,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        selectCityButton.setOnClickListener({
-            val intent = Intent(this, SelectCityActivity::class.java)
-            startActivity(intent)
-        })
-
-        refreshButton.setOnClickListener({
-            Log.d("Weather", "refreshButton clicked")
-            temperatureTextView.visibility = View.INVISIBLE
-            weatherConditionImageView.visibility = View.INVISIBLE
-            weatherDescription.visibility = View.INVISIBLE
-            locationTextView.text = getString(R.string.default_location)
-            fetchingProgressBar.visibility = View.VISIBLE
-            Server(this).getWeatherForCurrentLocation()
-        })
     }
 
+    override fun onResume() {
+        super.onResume()
+        Server(this).getWeatherForCurrentLocation()
+    }
+
+    /*
     // onResume gets executed just after onCreate() and just before user can interact with the activity.
     override fun onResume() {
         super.onResume()
@@ -62,4 +54,5 @@ class MainActivity : AppCompatActivity() {
         weatherConditionImageView.visibility = View.VISIBLE
         weatherConditionImageView.setImageResource(imageResourceId)
     }
+    */
 }
