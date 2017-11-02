@@ -1,13 +1,32 @@
 package com.ardaozceviz.weather.controller
 
-import com.ardaozceviz.weather.model.WeatherDataModel
+import com.ardaozceviz.weather.model.ForecastDataModel
+import com.ardaozceviz.weather.model.ListItem
 
 /**
  * Created by arda on 30/10/2017.
  */
 
-class WeatherDataMapper(weatherDataModel: WeatherDataModel) {
+class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
 
+    var location = "NA"
+    var listOfDaysForecastData : List<ListItem>? = null
+
+    init {
+        location = forecastDataModel.city?.name.toString()
+        listOfDaysForecastData = forecastDataModel.list
+        /*if (forecastDataModel.list != null) {
+            var counter = 0
+            for (i in 4..forecastDataModel.list.count()){
+                listOfDaysForecastData[counter] = forecastDataModel.list[i]
+            }
+            for(forecastData in forecastDataModel.list){
+
+            }
+        }*/
+    }
+
+    /*
     var tempString: String = "NA"
     var location: String = "NA"
     var iconName: String = ""
@@ -41,5 +60,6 @@ class WeatherDataMapper(weatherDataModel: WeatherDataModel) {
             else -> "dunno"
         }
     }
+    */
 
 }

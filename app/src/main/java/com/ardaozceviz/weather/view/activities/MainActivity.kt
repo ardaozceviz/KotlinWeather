@@ -1,13 +1,13 @@
-package com.ardaozceviz.weather.view
+package com.ardaozceviz.weather.view.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.View
 import com.ardaozceviz.weather.R
+import com.ardaozceviz.weather.controller.ForecastDataMapper
 import com.ardaozceviz.weather.controller.Server
-import com.ardaozceviz.weather.controller.WeatherDataMapper
+import com.ardaozceviz.weather.view.adapter.DaysListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +19,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        Server(this).getWeatherForCurrentLocation()
+        //Server(this).getWeatherForCurrentLocation()
+        Server(this).getWeatherForSelectedCity("istanbul")
+    }
+
+    fun updateUI(forecastData: ForecastDataMapper) {
+        Log.d("MainActivity", "updateUI() listOfDaysForecastData: ${forecastData.listOfDaysForecastData}")
+        main_city_name.text = forecastData.location
+        if (forecastData.listOfDaysForecastData != null) {
+            val adapter = DaysListAdapter(this, forecastData.listOfDaysForecastData!!)
+            daysRecyclerView.adapter = adapter
+            val layoutManager = LinearLayoutManager(this)
+            daysRecyclerView.layoutManager = layoutManager
+            daysRecyclerView.setHasFixedSize(true)
+        }
     }
 
     /*
