@@ -29,6 +29,22 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
         Log.d("ForecastDataMapper","forecastDataModel.lis is null")
     }
 
+    private fun updateWeatherIcon(condition: Int): String {
+
+        return when (condition) {
+            in 0..299 -> "storm"
+            in 300..599 -> "rain"
+            in 600..700 -> "snow"
+            in 701..771 -> "fog"
+            in 772..799 -> "tornado"
+            800 -> "sunny"
+            in 801..804 -> "cloud"
+            904 -> "sunny"
+            in 905..1000 -> "tornado"
+            else -> "dunno"
+        }
+    }
+
     /*
     var tempString: String = "NA"
     var location: String = "NA"

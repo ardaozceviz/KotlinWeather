@@ -12,11 +12,13 @@
         android:id="@+id/dyas_list_item_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/days_list_item_icon"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Tue" />
 
@@ -31,5 +33,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="10 C" />
+
+    <ImageView
+        android:id="@+id/days_list_item_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/dyas_list_item_day"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/dyas_list_item_day"
+        app:srcCompat="@drawable/dunno" />
 
 </android.support.constraint.ConstraintLayout>
