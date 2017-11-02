@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.model.ListItem
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by arda on 02/11/2017.
@@ -31,10 +33,14 @@ class DaysListAdapter(private val context: Context, private val forecastList: Li
 
     inner class WeatherInfoHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         private val day = itemView?.findViewById<TextView>(R.id.dyas_list_item_day)
+        private val date = itemView?.findViewById<TextView>(R.id.dyas_list_item_date)
 
         fun bindForecastItem(forecast: ListItem) {
-            Log.d("DaysListAdapter", "bindForecastItem() forecast.dtTxt: ${forecast.dtTxt}")
-            day?.text = forecast.dtTxt
+            Log.d("DaysListAdapter", "bindForecastItem() forecast.dtTxt: ${forecast.dt}")
+            val time = java.util.Date(forecast.dt.toLong() * 1000)
+            val sdf = SimpleDateFormat("EE")
+            day?.text = sdf.format(time)
+            date?.text = forecast.dtTxt
         }
 
     }

@@ -26,13 +26,13 @@ class MainActivity : AppCompatActivity() {
     fun updateUI(forecastData: ForecastDataMapper) {
         Log.d("MainActivity", "updateUI() listOfDaysForecastData: ${forecastData.listOfDaysForecastData}")
         main_city_name.text = forecastData.location
-        if (forecastData.listOfDaysForecastData != null) {
-            val adapter = DaysListAdapter(this, forecastData.listOfDaysForecastData!!)
-            daysRecyclerView.adapter = adapter
-            val layoutManager = LinearLayoutManager(this)
-            daysRecyclerView.layoutManager = layoutManager
-            daysRecyclerView.setHasFixedSize(true)
-        }
+
+        val adapter = forecastData.listOfDaysForecastData?.let { DaysListAdapter(this, it) }
+        val layoutManager = LinearLayoutManager(this)
+        daysRecyclerView.adapter = adapter
+        daysRecyclerView.layoutManager = layoutManager
+        daysRecyclerView.setHasFixedSize(true)
+
     }
 
     /*
