@@ -9,7 +9,7 @@
     tools:layout_editor_absoluteY="25dp">
 
     <TextView
-        android:id="@+id/main_city_name"
+        android:id="@+id/mainCityName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -23,66 +23,33 @@
         tools:text="Istanbul" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/mainDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:paddingTop="-20dp"
-        android:text="14C"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
         android:textColor="@android:color/white"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_city_name"
-        tools:text="14C" />
+        app:layout_constraintTop_toBottomOf="@+id/mainCityName" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/mainTemperature"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/daysRecyclerView"
+        android:paddingTop="-20dp"
+        android:textColor="@android:color/white"
+        android:textSize="90sp"
+        app:layout_constraintBottom_toTopOf="@+id/mainWeatherDescription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
-
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainDate"
+        tools:text="14C" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/daysRecyclerView"
@@ -93,5 +60,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/mainWeatherConditionIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/daysRecyclerView"
+        app:layout_constraintEnd_toStartOf="@+id/mainWeatherDescription"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/dunno" />
+
+    <TextView
+        android:id="@+id/mainWeatherDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/mainWeatherConditionIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mainWeatherConditionIcon"
+        app:layout_constraintTop_toTopOf="@+id/mainWeatherConditionIcon"
+        tools:text="Clear Sky" />
 
 </android.support.constraint.ConstraintLayout>

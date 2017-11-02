@@ -21,15 +21,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        //Server(this).getWeatherForCurrentLocation()
-        Server(this).getWeatherForSelectedCity("istanbul")
+        Server(this).getWeatherForCurrentLocation()
+        //Server(this).getWeatherForSelectedCity("istanbul")
     }
 
     fun updateUI(mappedForecastData: ForecastDataMapper) {
         Log.d("MainActivity", "updateUI() listOfDaysForecastData: ${mappedForecastData.listOfDaysForecastData}")
-        main_city_name.text = mappedForecastData.location
+        // Today's information
+        val mainConditionImageResourceId = resources.getIdentifier(mappedForecastData.iconName, "drawable", packageName)
+        mainCityName.text = mappedForecastData.location
+        mainDate.text = mappedForecastData.currentDateTimeString
+        mainTemperature.text = mappedForecastData.temperature
+        mainWeatherConditionIcon.setImageResource(mainConditionImageResourceId)
+        mainWeatherDescription.text = mappedForecastData.weatherDescription
 
-        //val adapter = mappedForecastData.listOfDaysForecastData.let { DaysListAdapter(this, it) }
+        // Days recycler view information
         val adapter = DaysListAdapter(this, mappedForecastData.listOfDaysForecastData)
         val layoutManager = LinearLayoutManager(this)
         daysRecyclerView.adapter = adapter
