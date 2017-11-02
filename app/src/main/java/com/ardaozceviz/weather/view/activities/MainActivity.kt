@@ -23,11 +23,12 @@ class MainActivity : AppCompatActivity() {
         Server(this).getWeatherForSelectedCity("istanbul")
     }
 
-    fun updateUI(forecastData: ForecastDataMapper) {
-        Log.d("MainActivity", "updateUI() listOfDaysForecastData: ${forecastData.listOfDaysForecastData}")
-        main_city_name.text = forecastData.location
+    fun updateUI(mappedForecastData: ForecastDataMapper) {
+        Log.d("MainActivity", "updateUI() listOfDaysForecastData: ${mappedForecastData.listOfDaysForecastData}")
+        main_city_name.text = mappedForecastData.location
 
-        val adapter = forecastData.listOfDaysForecastData?.let { DaysListAdapter(this, it) }
+        //val adapter = mappedForecastData.listOfDaysForecastData.let { DaysListAdapter(this, it) }
+        val adapter = DaysListAdapter(this, mappedForecastData.listOfDaysForecastData)
         val layoutManager = LinearLayoutManager(this)
         daysRecyclerView.adapter = adapter
         daysRecyclerView.layoutManager = layoutManager

@@ -1,5 +1,6 @@
 package com.ardaozceviz.weather.controller
 
+import android.util.Log
 import com.ardaozceviz.weather.model.ForecastDataModel
 import com.ardaozceviz.weather.model.ListItem
 
@@ -10,20 +11,20 @@ import com.ardaozceviz.weather.model.ListItem
 class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
 
     var location = "NA"
-    var listOfDaysForecastData : List<ListItem>? = null
-
+    val listOfDaysForecastData = ArrayList<ListItem>()
     init {
+        if (forecastDataModel.list != null) {
+            listOfDaysForecastData.add(forecastDataModel.list[8])
+            listOfDaysForecastData.add(forecastDataModel.list[16])
+            listOfDaysForecastData.add(forecastDataModel.list[24])
+            listOfDaysForecastData.add(forecastDataModel.list[32])
+            listOfDaysForecastData.add(forecastDataModel.list[39])
+        }
         location = forecastDataModel.city?.name.toString()
-        listOfDaysForecastData = forecastDataModel.list
-        /*if (forecastDataModel.list != null) {
-            var counter = 0
-            for (i in 4..forecastDataModel.list.count()){
-                listOfDaysForecastData[counter] = forecastDataModel.list[i]
-            }
-            for(forecastData in forecastDataModel.list){
-
-            }
-        }*/
+        if (forecastDataModel.list != null) {
+            Log.d("ForecastDataMapper","forecastDataModel.lis is not null")
+        }
+        Log.d("ForecastDataMapper","forecastDataModel.lis is null")
     }
 
     /*
