@@ -2,6 +2,7 @@ package com.ardaozceviz.weather.view.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.ardaozceviz.weather.R
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         daysRecyclerView.adapter = adapter
         daysRecyclerView.layoutManager = layoutManager
         daysRecyclerView.setHasFixedSize(true)
+        daysRecyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
     }
 
