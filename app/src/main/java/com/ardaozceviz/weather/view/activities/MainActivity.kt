@@ -1,16 +1,16 @@
 package com.ardaozceviz.weather.view.activities
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.ardaozceviz.weather.R
+import com.ardaozceviz.weather.controller.CustomDividerItemDecoration
 import com.ardaozceviz.weather.controller.ForecastDataMapper
 import com.ardaozceviz.weather.controller.Server
 import com.ardaozceviz.weather.view.adapter.DaysListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,9 +35,7 @@ class MainActivity : AppCompatActivity() {
         daysRecyclerView.adapter = adapter
         daysRecyclerView.layoutManager = layoutManager
         daysRecyclerView.setHasFixedSize(true)
-        val itemDecorator = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider))
-        daysRecyclerView.addItemDecoration(itemDecorator)
+        daysRecyclerView.addItemDecoration(CustomDividerItemDecoration(this))
     }
 
     /*
