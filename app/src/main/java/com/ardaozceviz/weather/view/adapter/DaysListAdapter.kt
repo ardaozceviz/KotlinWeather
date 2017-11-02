@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.ardaozceviz.weather.R
+import com.ardaozceviz.weather.controller.ForecastListItemMapper.Companion.getListItemDay
+import com.ardaozceviz.weather.controller.ForecastListItemMapper.Companion.getListItemIcon
+import com.ardaozceviz.weather.controller.ForecastListItemMapper.Companion.getListItemTemperature
 import com.ardaozceviz.weather.model.ListItem
-import java.text.SimpleDateFormat
 
 /**
  * Created by arda on 02/11/2017.
@@ -38,37 +40,19 @@ class DaysListAdapter(private val context: Context, private val forecastList: Li
 
         fun bindForecastItem(forecast: ListItem) {
             Log.d("DaysListAdapter", "bindForecastItem() forecast.dtTxt: ${forecast.dt}")
-            val time = java.util.Date(forecast.dt.toLong() * 1000)
-            val sdf = SimpleDateFormat("EE")
             var temperature = "NA"
-            if (forecast.main != null) temperature = calculateTemperature(forecast.main.temp)
             val condition = forecast.weather?.get(0)?.id
-            if (condition != null) icon?.setImageResource(getListItemIcon(condition))
-            temp?.text = temperature
-            day?.text = sdf.format(time).toUpperCase()
-        }
 
-        private fun calculateTemperature(temp: Double): String {
-            val temperature = temp - 273.15
-            return "%.0f".format(temperature) + "°C"
-        }
-
-        private fun getListItemIcon(condition: Int): Int {
-            val iconName = when (condition) {
-                in 0..299 -> "storm"
-                in 300..599 -> "rain"
-                in 600..700 -> "snow"
-                in 701..771 -> "fog"
-                in 772..799 -> "tornado"
-                800 -> "sunny"
-                in 801..804 -> "cloud"
-                904 -> "sunny"
-                in 905..1000 -> "tornado"
-                else -> "dunno"
+            if (forecast.main != null) temperature = getListItemTemperature(forecast.main.temp)
+            if (condition != null) {
+                val listItemImageResourceId = context.resources.getIdentifier(getListItemIcon(condition), "drawable", context.packageName)
+                icon?.setImageResource(listItemImageResourceId)
             }
 
-            return context.resources.getIdentifier(iconName, "drawable", context.packageName)
+            temp?.text = temperature
+            day?.text = getListItemDay(forecast.dt)
         }
+
 
     }
 
