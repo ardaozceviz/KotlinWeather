@@ -27,19 +27,6 @@ class MainActivity : AppCompatActivity() {
         Log.d(LOG_TAG, "onCreate() executed.")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        refreshInternetButton.setOnClickListener({
-            Log.d(LOG_TAG, "refreshInternetButton clicked.")
-            refreshInternetButton.visibility = View.INVISIBLE
-            val anim = AlphaAnimation(0.0f, 1.0f)
-            anim.duration = 250 //Manage the time of the blink with this parameter
-            anim.startOffset = 20
-            anim.repeatMode = Animation.REVERSE
-            anim.repeatCount = Animation.INFINITE
-            noInternetImageView.startAnimation(anim)
-            noInternetConnectionTextView.text = getString(R.string.connecting_internet)
-            Server(this).getWeatherForCurrentLocation()
-        })
     }
 
     override fun onResume() {
@@ -71,11 +58,23 @@ class MainActivity : AppCompatActivity() {
         daysRecyclerView.addItemDecoration(CustomDividerItemDecoration(this))
     }
 
+    fun refreshInternetButtonClicked(view: View){
+        Log.d(LOG_TAG, "refreshInternetButtonClicked() executed.")
+        refreshInternetButton.visibility = View.INVISIBLE
+        val anim = AlphaAnimation(0.0f, 1.0f)
+        anim.duration = 250 //Manage the time of the blink with this parameter
+        anim.startOffset = 20
+        anim.repeatMode = Animation.REVERSE
+        anim.repeatCount = Animation.INFINITE
+        noInternetImageView.startAnimation(anim)
+        noInternetConnectionTextView.text = getString(R.string.connecting_internet)
+        Server(this).getWeatherForCurrentLocation()
+    }
+
     fun noInternetWarningUI() {
         noInternetImageView.clearAnimation()
         refreshInternetButton.visibility = View.VISIBLE
         noInternetConnectionTextView.text = getString(R.string.no_internet_connection)
-
         viewFlipper.displayedChild = viewFlipper.indexOfChild(noInternetLayoutInclude)
     }
 
