@@ -1,6 +1,7 @@
 package com.ardaozceviz.weather.view.activities
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -13,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
+    val LOG_TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateUI(mappedForecastData: ForecastDataMapper) {
-        Log.d("MainActivity", "updateUI() listOfDaysForecastData: ${mappedForecastData.listOfDaysForecastData}")
+        Log.d(LOG_TAG, "updateUI() listOfDaysForecastData: ${mappedForecastData.listOfDaysForecastData}.")
         // Today's information
         val mainConditionImageResourceId = resources.getIdentifier(mappedForecastData.iconName, "drawable", packageName)
         mainCityName.text = mappedForecastData.location
@@ -42,6 +44,10 @@ class MainActivity : AppCompatActivity() {
         daysRecyclerView.layoutManager = layoutManager
         daysRecyclerView.setHasFixedSize(true)
         daysRecyclerView.addItemDecoration(CustomDividerItemDecoration(this))
+    }
+
+    fun gpsDisabledWarningUI(){
+        Log.d(LOG_TAG,"gpsDisabledWarningUI() executed.")
     }
 
     /*

@@ -28,8 +28,10 @@ import org.json.JSONObject
  */
 class Server(val activity: MainActivity) {
     // Constants:
-    //private val weatherUrl = "http://api.openweathermap.org/data/2.5/weather"
+    private val TAG = "Server()"
     private val forecast = "http://api.openweathermap.org/data/2.5/forecast"
+
+    private var isDataRetrieved = false
 
     fun getWeatherForSelectedCity(city: String) {
         val params = RequestParams()
@@ -44,15 +46,16 @@ class Server(val activity: MainActivity) {
         client.get(forecast, params, object : JsonHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<out Header>?, response: JSONObject?) {
                 if (response != null) {
+                    isDataRetrieved = true
                     val forecastDataModel = Gson().fromJson(response.toString(), ForecastDataModel::class.java)
                     activity.updateUI(ForecastDataMapper(forecastDataModel))
                 }
-                Log.d("Weather", "Succes! JSON: ${response.toString()}")
+                Log.d(TAG, "requestForecastData() onSuccess response: ${response.toString()}.")
             }
 
             override fun onFailure(statusCode: Int, headers: Array<out Header>?, throwable: Throwable?, errorResponse: JSONObject?) {
-                Log.e("Weather", "Fail ${throwable.toString()}")
-                Log.d("Weather", "Status code $statusCode")
+                Log.e(TAG, "requestForecastData() onFailure() ${throwable.toString()}.")
+                Log.d(TAG, "requestForecastData() statusCode: $statusCode.")
             }
         })
     }
@@ -80,15 +83,19 @@ class Server(val activity: MainActivity) {
             }
 
             override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
+                Log.d(TAG, "onStatusChanged() received.")
 
             }
 
             override fun onProviderEnabled(p0: String?) {
-
+                Log.d(TAG, "onProviderEnabled() received.")
             }
 
             override fun onProviderDisabled(p0: String?) {
-                Log.d("Weather", "onProvideDisabled() received.")
+                Log.d(TAG, "onProvideDisabled() received.")
+                if (!isDataRetrieved){
+                    activity.gpsDisabledWarningUI()
+                }
             }
         }
 

@@ -12,6 +12,7 @@ import java.util.*
  */
 
 class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
+    private val TAG = "ForecastDataMapper()"
 
     var location = "NA"
     var temperature = "NA"
@@ -34,11 +35,7 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
             listOfDaysForecastData.add(forecastDataModel.list[16])
             listOfDaysForecastData.add(forecastDataModel.list[24])
             listOfDaysForecastData.add(forecastDataModel.list[32])
-            if (forecastDataModel.list.size == 39) {
-                listOfDaysForecastData.add(forecastDataModel.list[38])
-            } else if (forecastDataModel.list.size == 40) {
-                listOfDaysForecastData.add(forecastDataModel.list[39])
-            }
+            listOfDaysForecastData.add(forecastDataModel.list.last())
         }
         if (forecastDataModel.city?.name != null) location = forecastDataModel.city.name
         val tmpTemperature = forecastDataModel.list?.get(0)?.main?.temp
@@ -47,7 +44,7 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
         val tmpWeatherDescription = forecastDataModel.list?.get(0)?.weather?.get(0)?.description?.toUpperCase()
         if (tmpWeatherDescription != null) weatherDescription = tmpWeatherDescription
 
-        Log.d("ForecastDataMapper", "forecastDataModel.lis is null")
+        Log.d(TAG, "forecastDataModel.lis is null")
     }
 
     private fun updateWeatherIcon(condition: Int): String {
