@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun gpsFetchingLocationUI() {
+        Server(this).getWeatherForCurrentLocation()
         Log.d(LOG_TAG, "gpsFetchingLocationUI() executed.")
         val anim = AlphaAnimation(0.0f, 1.0f)
         anim.duration = 250 //Manage the time of the blink with this parameter
