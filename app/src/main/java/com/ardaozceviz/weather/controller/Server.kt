@@ -60,6 +60,10 @@ class Server(val activity: MainActivity) {
             override fun onFailure(statusCode: Int, headers: Array<out Header>?, throwable: Throwable?, errorResponse: JSONObject?) {
                 Log.e(TAG, "requestForecastData() onFailure() ${throwable.toString()}.")
                 Log.d(TAG, "requestForecastData() statusCode: $statusCode.")
+                if (!isDataRetrieved) {
+                    activity.noInternetWarningUI()
+                }
+
             }
         })
     }
@@ -101,7 +105,7 @@ class Server(val activity: MainActivity) {
             override fun onProviderDisabled(p0: String?) {
                 Log.d(TAG, "onProvideDisabled() received.")
                 if (!isDataRetrieved) {
-                    activity.gpsDisabledWarningUI()
+                    activity.noGpsWarningUI()
                 }
             }
         }

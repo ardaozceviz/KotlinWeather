@@ -56,8 +56,12 @@ class MainActivity : AppCompatActivity() {
         daysRecyclerView.addItemDecoration(CustomDividerItemDecoration(this))
     }
 
-    fun gpsDisabledWarningUI() {
-        Log.d(LOG_TAG, "gpsDisabledWarningUI() executed.")
+    fun noInternetWarningUI() {
+        viewFlipper.displayedChild = viewFlipper.indexOfChild(noInternetLayoutInclude)
+    }
+
+    fun noGpsWarningUI() {
+        Log.d(LOG_TAG, "noGpsWarningUI() executed.")
         viewFlipper.displayedChild = viewFlipper.indexOfChild(noGpsLayoutInclude)
         noGpsImageView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.no_gps_rotate))
     }

@@ -16,5 +16,9 @@
         android:id="@+id/fetchingLocationLayoutInclude"
         layout="@layout/fetching_location_layout" />
 
+    <include
+        android:id="@+id/noInternetLayoutInclude"
+        layout="@layout/no_internet_layout" />
+
 </ViewFlipper>
 
