@@ -1,16 +1,17 @@
 package com.ardaozceviz.weather.view.activities
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.controller.CustomDividerItemDecoration
 import com.ardaozceviz.weather.controller.ForecastDataMapper
 import com.ardaozceviz.weather.controller.Server
 import com.ardaozceviz.weather.view.adapter.DaysListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.main_data_layout.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val viewFlipper = viewFlipper
     }
 
     override fun onResume() {
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateUI(mappedForecastData: ForecastDataMapper) {
+        viewFlipper.displayedChild = viewFlipper.indexOfChild(mainDataLayoutInclude)
         Log.d(LOG_TAG, "updateUI() listOfDaysForecastData: ${mappedForecastData.listOfDaysForecastData}.")
         // Today's information
         val mainConditionImageResourceId = resources.getIdentifier(mappedForecastData.iconName, "drawable", packageName)
@@ -46,8 +49,10 @@ class MainActivity : AppCompatActivity() {
         daysRecyclerView.addItemDecoration(CustomDividerItemDecoration(this))
     }
 
-    fun gpsDisabledWarningUI(){
-        Log.d(LOG_TAG,"gpsDisabledWarningUI() executed.")
+    fun gpsDisabledWarningUI() {
+        Log.d(LOG_TAG, "gpsDisabledWarningUI() executed.")
+        viewFlipper.displayedChild = viewFlipper.indexOfChild(noGpsLayoutInclude)
+
     }
 
     /*
