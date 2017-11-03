@@ -10,4 +10,5 @@
     <string name="no_gps_message">Please enable your GPS</string>
     <string name="fetching_your_location">Fetching your location</string>
     <string name="no_internet_connection">No internet connection</string>
+    <string name="connecting_internet">Connecting ...</string>
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fetching_location_layout.*
 import kotlinx.android.synthetic.main.main_data_layout.*
 import kotlinx.android.synthetic.main.no_gps_layout.*
+import kotlinx.android.synthetic.main.no_internet_layout.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +27,19 @@ class MainActivity : AppCompatActivity() {
         Log.d(LOG_TAG, "onCreate() executed.")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        refreshInternetButton.setOnClickListener({
+            Log.d(LOG_TAG, "refreshInternetButton clicked.")
+            refreshInternetButton.visibility = View.INVISIBLE
+            val anim = AlphaAnimation(0.0f, 1.0f)
+            anim.duration = 250 //Manage the time of the blink with this parameter
+            anim.startOffset = 20
+            anim.repeatMode = Animation.REVERSE
+            anim.repeatCount = Animation.INFINITE
+            noInternetImageView.startAnimation(anim)
+            noInternetConnectionTextView.text = getString(R.string.connecting_internet)
+            Server(this).getWeatherForCurrentLocation()
+        })
     }
 
     override fun onResume() {
@@ -57,6 +72,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun noInternetWarningUI() {
+        noInternetImageView.clearAnimation()
+        refreshInternetButton.visibility = View.VISIBLE
+        noInternetConnectionTextView.text = getString(R.string.no_internet_connection)
+
         viewFlipper.displayedChild = viewFlipper.indexOfChild(noInternetLayoutInclude)
     }
 
