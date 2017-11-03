@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.no_internet_layout.*
 
 class MainActivity : AppCompatActivity() {
     val LOG_TAG = "MainActivity"
+    var isDataLoaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(LOG_TAG, "onCreate() executed.")
@@ -32,12 +33,15 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         Log.d(LOG_TAG, "onResume() executed.")
         super.onResume()
-        Server(this).getWeatherForCurrentLocation()
-        gpsFetchingLocationUI()
+        if (!isDataLoaded) {
+            Server(this).getWeatherForCurrentLocation()
+            gpsFetchingLocationUI()
+        }
         //Server(this).getWeatherForSelectedCity("istanbul")
     }
 
     fun updateUI(mappedForecastData: ForecastDataMapper) {
+        isDataLoaded = true
         Log.d(LOG_TAG, "updateUI() executed.")
         viewFlipper.displayedChild = viewFlipper.indexOfChild(mainDataLayoutInclude)
         Log.d(LOG_TAG, "updateUI() listOfDaysForecastData: ${mappedForecastData.listOfDaysForecastData}.")

@@ -29,22 +29,30 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
 
     init {
         currentDateTimeString = simpleDateFormatDate.format(Date().time)
+
         if (forecastDataModel.list != null) {
-            Log.d("ForecastDataMapper", "forecastDataModel listSize: ${forecastDataModel.list.size}")
-            listOfDaysForecastData.add(forecastDataModel.list[8])
-            listOfDaysForecastData.add(forecastDataModel.list[16])
-            listOfDaysForecastData.add(forecastDataModel.list[24])
-            listOfDaysForecastData.add(forecastDataModel.list[32])
-            listOfDaysForecastData.add(forecastDataModel.list.last())
+            Log.d(TAG, "forecastDataModel listSize: ${forecastDataModel.list.size}")
+            val listSize = forecastDataModel.list.size
+            //val increment: Int = listSize / 5
+            val increment = 8
+            var position = 11 // next day 9.00 am
+            for (i in 1..4) {
+                if (position >= listSize) {
+                    listOfDaysForecastData.add(forecastDataModel.list.last())
+                } else{
+                    Log.d(TAG, "increment in for loop - else: $position")
+                    listOfDaysForecastData.add(forecastDataModel.list[position])
+                }
+                position += increment
+            }
         }
+
         if (forecastDataModel.city?.name != null) location = forecastDataModel.city.name
         val tmpTemperature = forecastDataModel.list?.get(0)?.main?.temp
         if (tmpTemperature != null) temperature = calculateTemperature(tmpTemperature)
         if (condition != null) iconName = updateWeatherIcon(condition)
         val tmpWeatherDescription = forecastDataModel.list?.get(0)?.weather?.get(0)?.description?.toUpperCase()
         if (tmpWeatherDescription != null) weatherDescription = tmpWeatherDescription
-
-        Log.d(TAG, "forecastDataModel.lis is null")
     }
 
     private fun updateWeatherIcon(condition: Int): String {

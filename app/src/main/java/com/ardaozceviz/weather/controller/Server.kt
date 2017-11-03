@@ -46,7 +46,7 @@ class Server(val activity: MainActivity) {
 
     private fun requestForecastData(params: RequestParams) {
         val client = AsyncHttpClient()
-
+        Log.d(TAG, "params: $params")
         client.get(forecast, params, object : JsonHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<out Header>?, response: JSONObject?) {
                 if (response != null) {
