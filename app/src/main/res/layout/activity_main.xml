@@ -12,5 +12,9 @@
         android:id="@+id/noGpsLayoutInclude"
         layout="@layout/no_gps_layout" />
 
+    <include
+        android:id="@+id/fetchingLocationLayoutInclude"
+        layout="@layout/fetching_location_layout" />
+
 </ViewFlipper>
 

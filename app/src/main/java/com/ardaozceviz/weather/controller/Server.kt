@@ -30,8 +30,12 @@ class Server(val activity: MainActivity) {
     // Constants:
     private val TAG = "Server()"
     private val forecast = "http://api.openweathermap.org/data/2.5/forecast"
-
     private var isDataRetrieved = false
+
+    init {
+        isDataRetrieved = false
+    }
+
 
     fun getWeatherForSelectedCity(city: String) {
         val params = RequestParams()
@@ -89,11 +93,14 @@ class Server(val activity: MainActivity) {
 
             override fun onProviderEnabled(p0: String?) {
                 Log.d(TAG, "onProviderEnabled() received.")
+                if (!isDataRetrieved) {
+                    activity.gpsFetchingLocationUI()
+                }
             }
 
             override fun onProviderDisabled(p0: String?) {
                 Log.d(TAG, "onProvideDisabled() received.")
-                if (!isDataRetrieved){
+                if (!isDataRetrieved) {
                     activity.gpsDisabledWarningUI()
                 }
             }

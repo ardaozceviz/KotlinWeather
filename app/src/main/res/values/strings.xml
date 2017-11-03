@@ -7,5 +7,6 @@
     <string name="back_button_description">Dismiss Change City Screen</string>
     <string name="get_weather">Change City</string>
     <string name="default_query">Enter city name</string>
-    <string name="noGpsMessage">Please enable your GPS</string>
+    <string name="no_gps_message">Please enable your GPS</string>
+    <string name="fetching_your_location">Fetching your location</string>
 </resources>
