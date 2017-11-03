@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.controller.CustomDividerItemDecoration
 import com.ardaozceviz.weather.controller.ForecastDataMapper
@@ -12,6 +13,7 @@ import com.ardaozceviz.weather.controller.Server
 import com.ardaozceviz.weather.view.adapter.DaysListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_data_layout.*
+import kotlinx.android.synthetic.main.no_gps_layout.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -52,6 +54,7 @@ class MainActivity : AppCompatActivity() {
     fun gpsDisabledWarningUI() {
         Log.d(LOG_TAG, "gpsDisabledWarningUI() executed.")
         viewFlipper.displayedChild = viewFlipper.indexOfChild(noGpsLayoutInclude)
+        noGpsImageView.startAnimation(AnimationUtils.loadAnimation(this,R.anim.no_gps_rotate))
 
     }
 
