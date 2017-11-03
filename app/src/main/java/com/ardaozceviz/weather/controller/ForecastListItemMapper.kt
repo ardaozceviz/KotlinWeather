@@ -12,7 +12,7 @@ class ForecastListItemMapper {
             return "%.0f".format(temperature) + "°C"
         }
 
-        fun getListItemDay(date: Int): String{
+        fun getListItemDay(date: Int): String {
             val time = java.util.Date(date.toLong() * 1000)
             val sdf = SimpleDateFormat("EE")
             return sdf.format(time).toUpperCase()
