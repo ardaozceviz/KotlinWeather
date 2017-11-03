@@ -34,23 +34,25 @@ class DaysListAdapter(private val context: Context, private val forecastList: Li
     }
 
     inner class WeatherInfoHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        private val day = itemView?.findViewById<TextView>(R.id.dyas_list_item_day)
-        private val temp = itemView?.findViewById<TextView>(R.id.dyas_list_item_temperature)
-        private val icon = itemView?.findViewById<ImageView>(R.id.days_list_item_icon)
+        private val dayTextView = itemView?.findViewById<TextView>(R.id.daysListItemDay)
+        private val iconImageView = itemView?.findViewById<ImageView>(R.id.daysListItemIcon)
+        private val descriptionTextView = itemView?.findViewById<TextView>(R.id.daysListItemWeatherDescription)
+        private val tempTextView = itemView?.findViewById<TextView>(R.id.daysListItemTemperature)
 
         fun bindForecastItem(forecast: ListItem) {
             Log.d("DaysListAdapter", "bindForecastItem() forecast.dtTxt: ${forecast.dt}")
             var temperature = "NA"
             val condition = forecast.weather?.get(0)?.id
-
+            val description = forecast.weather?.get(0)?.description?.capitalize()
+            if (description != null) descriptionTextView?.text = description.capitalize()
             if (forecast.main != null) temperature = getListItemTemperature(forecast.main.temp)
             if (condition != null) {
                 val listItemImageResourceId = context.resources.getIdentifier(getListItemIcon(condition), "drawable", context.packageName)
-                icon?.setImageResource(listItemImageResourceId)
+                iconImageView?.setImageResource(listItemImageResourceId)
             }
 
-            temp?.text = temperature
-            day?.text = getListItemDay(forecast.dt)
+            tempTextView?.text = temperature
+            dayTextView?.text = getListItemDay(forecast.dt)
         }
 
 

@@ -29,11 +29,16 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
     init {
         currentDateTimeString = simpleDateFormatDate.format(Date().time)
         if (forecastDataModel.list != null) {
+            Log.d("ForecastDataMapper", "forecastDataModel listSize: ${forecastDataModel.list.size}")
             listOfDaysForecastData.add(forecastDataModel.list[8])
             listOfDaysForecastData.add(forecastDataModel.list[16])
             listOfDaysForecastData.add(forecastDataModel.list[24])
             listOfDaysForecastData.add(forecastDataModel.list[32])
-            listOfDaysForecastData.add(forecastDataModel.list[39])
+            if (forecastDataModel.list.size == 39) {
+                listOfDaysForecastData.add(forecastDataModel.list[38])
+            } else if (forecastDataModel.list.size == 40) {
+                listOfDaysForecastData.add(forecastDataModel.list[39])
+            }
         }
         if (forecastDataModel.city?.name != null) location = forecastDataModel.city.name
         val tmpTemperature = forecastDataModel.list?.get(0)?.main?.temp

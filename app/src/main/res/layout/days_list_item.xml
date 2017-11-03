@@ -9,39 +9,57 @@
     tools:layout_editor_absoluteY="25dp">
 
     <TextView
-        android:id="@+id/dyas_list_item_day"
+        android:id="@+id/daysListItemDay"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/daysListItemIcon"
+        app:layout_constraintStart_toEndOf="@+id/daysListItemIcon"
+        app:layout_constraintTop_toTopOf="@+id/daysListItemIcon"
+        tools:text="WWW" />
+
+    <TextView
+        android:id="@+id/daysListItemTemperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/days_list_item_icon"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Tue" />
-
-    <TextView
-        android:id="@+id/dyas_list_item_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="10 C" />
 
     <ImageView
-        android:id="@+id/days_list_item_icon"
+        android:id="@+id/daysListItemIcon"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/dyas_list_item_day"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dyas_list_item_day"
-        app:srcCompat="@drawable/dunno" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/daysListItemWeatherDescription"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/daysListItemTemperature"
+        app:layout_constraintStart_toEndOf="@+id/daysListItemDay"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="CLEAR SKY" />
 
 </android.support.constraint.ConstraintLayout>
