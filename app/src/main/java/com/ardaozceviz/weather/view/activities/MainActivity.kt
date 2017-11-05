@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         val viewGroup: ViewGroup = view.parent as ViewGroup
         mainRefreshButton.visibility = View.INVISIBLE
         mainChangeCityButton.visibility = View.INVISIBLE
-        Blurry.with(this).radius(25).sampling(1).animate().onto(viewGroup)
+        Blurry.with(this).radius(25).sampling(1).onto(viewGroup)
         isBlured = true
     }
 
