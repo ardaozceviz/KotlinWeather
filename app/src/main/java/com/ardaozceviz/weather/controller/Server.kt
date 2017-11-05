@@ -69,6 +69,7 @@ class Server(val activity: MainActivity) {
     }
 
     fun getWeatherForCurrentLocation() {
+        Log.d(TAG, "getWeatherForCurrentLocation() is executed.")
         val locationProvider = LocationManager.GPS_PROVIDER
 
         // Time between location updates (5000 milliseconds or 5 seconds)
@@ -91,19 +92,19 @@ class Server(val activity: MainActivity) {
             }
 
             override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
-                Log.d(TAG, "onStatusChanged() received.")
+                Log.d(TAG, "onStatusChanged() is received.")
 
             }
 
             override fun onProviderEnabled(p0: String?) {
-                Log.d(TAG, "onProviderEnabled() received.")
+                Log.d(TAG, "onProviderEnabled() is received.")
                 if (!isDataRetrieved) {
                     activity.gpsFetchingLocationUI()
                 }
             }
 
             override fun onProviderDisabled(p0: String?) {
-                Log.d(TAG, "onProvideDisabled() received.")
+                Log.d(TAG, "onProvideDisabled() is received.")
                 if (!isDataRetrieved) {
                     activity.noGpsWarningUI()
                 }
@@ -115,7 +116,7 @@ class Server(val activity: MainActivity) {
                 .withListener(object : PermissionListener {
                     @SuppressLint("MissingPermission")
                     override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-                        Log.d(TAG,"onPermissionGranted()")
+                        Log.d(TAG, "onPermissionGranted() is executed.")
                         // This line of code below that gets hold of a LocationManager and assigns
                         // that locationManager object to location manager variable
                         val locationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -123,12 +124,12 @@ class Server(val activity: MainActivity) {
                     }
 
                     override fun onPermissionRationaleShouldBeShown(permission: PermissionRequest?, token: PermissionToken?) {
-                        Log.d(TAG,"onPermissionRationaleShouldBeShown()")
+                        Log.d(TAG, "onPermissionRationaleShouldBeShown() is executed.")
                         //token?.continuePermissionRequest()
                     }
 
                     override fun onPermissionDenied(response: PermissionDeniedResponse?) {
-                        Log.d(TAG,"onPermissionDenied()")
+                        Log.d(TAG, "onPermissionDenied() is executed.")
                     }
                 }).check()
 

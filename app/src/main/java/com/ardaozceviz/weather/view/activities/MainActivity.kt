@@ -28,13 +28,13 @@ class MainActivity : AppCompatActivity() {
     private var isBlurred = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d(TAG, "onCreate() executed.")
+        Log.d(TAG, "onCreate() is executed.")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
 
     override fun onResume() {
-        Log.d(TAG, "onResume() executed.")
+        Log.d(TAG, "onResume() is executed.")
         super.onResume()
         if (!isDataLoaded) {
             Server(this).getWeatherForCurrentLocation()
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateUI(mappedForecastData: ForecastDataMapper) {
-        Log.d(TAG, "updateUI() executed.")
+        Log.d(TAG, "updateUI() is executed.")
         val viewGroup: ViewGroup = findViewById(R.id.mainDataLayoutInclude)
         if (isBlurred) {
             Log.d(TAG, "updateUI() isBlured: $isBlurred.")
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun refreshInternetButtonClicked(view: View) {
-        Log.d(TAG, "refreshInternetButtonClicked() executed.")
+        Log.d(TAG, "refreshInternetButtonClicked() is executed.")
         refreshInternetButton.visibility = View.INVISIBLE
         noInternetImageView.startAnimation(blinkAnimation())
         noInternetConnectionTextView.text = getString(R.string.connecting_internet)
@@ -99,14 +99,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun noGpsWarningUI() {
-        Log.d(TAG, "noGpsWarningUI() executed.")
+        Log.d(TAG, "noGpsWarningUI() is executed.")
         viewFlipper.displayedChild = viewFlipper.indexOfChild(noGpsLayoutInclude)
         noGpsImageView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.no_gps_rotate))
     }
 
     fun gpsFetchingLocationUI() {
         Server(this).getWeatherForCurrentLocation()
-        Log.d(TAG, "gpsFetchingLocationUI() executed.")
+        Log.d(TAG, "gpsFetchingLocationUI() is executed.")
         viewFlipper.displayedChild = viewFlipper.indexOfChild(fetchingLocationLayoutInclude)
         fetchingLocationImageView.startAnimation(blinkAnimation())
     }
@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         anim.repeatCount = Animation.INFINITE
         return anim
     }
-
+    
     /*
     // onResume gets executed just after onCreate() and just before user can interact with the activity.
     override fun onResume() {
