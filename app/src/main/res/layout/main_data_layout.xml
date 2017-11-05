@@ -20,8 +20,8 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mainChangeCityButton"
+        app:layout_constraintStart_toEndOf="@+id/mainRefreshButton"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Istanbul" />
 
@@ -42,7 +42,7 @@
 
     <TextView
         android:id="@+id/mainTemperature"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -67,10 +67,9 @@
 
     <ImageView
         android:id="@+id/mainWeatherConditionIcon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/mainWeatherDescription"
         app:layout_constraintEnd_toStartOf="@+id/mainWeatherDescription"
         app:layout_constraintHorizontal_bias="0.5"
@@ -90,4 +89,34 @@
         app:layout_constraintStart_toEndOf="@+id/mainWeatherConditionIcon"
         app:layout_constraintTop_toBottomOf="@+id/mainTemperature"
         tools:text="Clear Sky" />
+
+    <ImageButton
+        android:id="@+id/mainRefreshButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:background="@null"
+        android:onClick="mainRefreshButtonClicked"
+        android:padding="5dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/mainCityName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mainCityName"
+        app:srcCompat="@drawable/reload"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageButton
+        android:id="@+id/mainChangeCityButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:background="@null"
+        android:onClick="refreshInternetButtonClicked"
+        android:padding="5dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/mainCityName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mainCityName"
+        app:srcCompat="@drawable/arrow"
+        tools:ignore="VectorDrawableCompat" />
 </android.support.constraint.ConstraintLayout>

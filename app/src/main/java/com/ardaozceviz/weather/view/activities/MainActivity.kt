@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -13,6 +14,7 @@ import com.ardaozceviz.weather.controller.CustomDividerItemDecoration
 import com.ardaozceviz.weather.controller.ForecastDataMapper
 import com.ardaozceviz.weather.controller.Server
 import com.ardaozceviz.weather.view.adapter.DaysListAdapter
+import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fetching_location_layout.*
 import kotlinx.android.synthetic.main.main_data_layout.*
@@ -23,6 +25,7 @@ import kotlinx.android.synthetic.main.no_internet_layout.*
 class MainActivity : AppCompatActivity() {
     val LOG_TAG = "MainActivity"
     var isDataLoaded = false
+    var isBlured = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(LOG_TAG, "onCreate() executed.")
@@ -41,8 +44,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateUI(mappedForecastData: ForecastDataMapper) {
-        isDataLoaded = true
         Log.d(LOG_TAG, "updateUI() executed.")
+        val viewGroup: ViewGroup = findViewById(R.id.mainDataLayoutInclude)
+        if (isBlured){
+            Log.d(LOG_TAG, "updateUI() isBlured: $isBlured.")
+            Blurry.delete(viewGroup)
+            isBlured = false
+            mainRefreshButton.visibility = View.VISIBLE
+            mainChangeCityButton.visibility = View.VISIBLE
+        }
+        isDataLoaded = true
         viewFlipper.displayedChild = viewFlipper.indexOfChild(mainDataLayoutInclude)
         Log.d(LOG_TAG, "updateUI() listOfDaysForecastData: ${mappedForecastData.listOfDaysForecastData}.")
         // Today's information
@@ -62,7 +73,17 @@ class MainActivity : AppCompatActivity() {
         daysRecyclerView.addItemDecoration(CustomDividerItemDecoration(this))
     }
 
-    fun refreshInternetButtonClicked(view: View){
+    fun mainRefreshButtonClicked(view: View) {
+        Log.d(LOG_TAG,"mainRefreshButtonClicked() is executed.")
+        Server(this).getWeatherForCurrentLocation()
+        val viewGroup: ViewGroup = view.parent as ViewGroup
+        mainRefreshButton.visibility = View.INVISIBLE
+        mainChangeCityButton.visibility = View.INVISIBLE
+        Blurry.with(this).radius(25).sampling(1).animate().onto(viewGroup)
+        isBlured = true
+    }
+
+    fun refreshInternetButtonClicked(view: View) {
         Log.d(LOG_TAG, "refreshInternetButtonClicked() executed.")
         refreshInternetButton.visibility = View.INVISIBLE
         val anim = AlphaAnimation(0.0f, 1.0f)
