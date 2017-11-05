@@ -115,6 +115,7 @@ class Server(val activity: MainActivity) {
                 .withListener(object : PermissionListener {
                     @SuppressLint("MissingPermission")
                     override fun onPermissionGranted(response: PermissionGrantedResponse?) {
+                        Log.d(TAG,"onPermissionGranted()")
                         // This line of code below that gets hold of a LocationManager and assigns
                         // that locationManager object to location manager variable
                         val locationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -122,10 +123,12 @@ class Server(val activity: MainActivity) {
                     }
 
                     override fun onPermissionRationaleShouldBeShown(permission: PermissionRequest?, token: PermissionToken?) {
+                        Log.d(TAG,"onPermissionRationaleShouldBeShown()")
                         //token?.continuePermissionRequest()
                     }
 
                     override fun onPermissionDenied(response: PermissionDeniedResponse?) {
+                        Log.d(TAG,"onPermissionDenied()")
                     }
                 }).check()
 

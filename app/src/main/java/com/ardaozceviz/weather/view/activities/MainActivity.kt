@@ -23,39 +23,39 @@ import kotlinx.android.synthetic.main.no_internet_layout.*
 
 
 class MainActivity : AppCompatActivity() {
-    val LOG_TAG = "MainActivity"
-    var isDataLoaded = false
-    var isBlured = false
+    private val TAG = "MainActivity"
+    private var isDataLoaded = false
+    private var isBlurred = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d(LOG_TAG, "onCreate() executed.")
+        Log.d(TAG, "onCreate() executed.")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
 
     override fun onResume() {
-        Log.d(LOG_TAG, "onResume() executed.")
+        Log.d(TAG, "onResume() executed.")
         super.onResume()
         if (!isDataLoaded) {
             Server(this).getWeatherForCurrentLocation()
             gpsFetchingLocationUI()
         }
-        //Server(this).getWeatherForSelectedCity("istanbul")
     }
 
     fun updateUI(mappedForecastData: ForecastDataMapper) {
-        Log.d(LOG_TAG, "updateUI() executed.")
+        Log.d(TAG, "updateUI() executed.")
         val viewGroup: ViewGroup = findViewById(R.id.mainDataLayoutInclude)
-        if (isBlured) {
-            Log.d(LOG_TAG, "updateUI() isBlured: $isBlured.")
+        if (isBlurred) {
+            Log.d(TAG, "updateUI() isBlured: $isBlurred.")
             Blurry.delete(viewGroup)
-            isBlured = false
+            isBlurred = false
             mainRefreshButton.visibility = View.VISIBLE
             mainChangeCityButton.visibility = View.VISIBLE
         }
         isDataLoaded = true
         viewFlipper.displayedChild = viewFlipper.indexOfChild(mainDataLayoutInclude)
-        Log.d(LOG_TAG, "updateUI() listOfDaysForecastData: ${mappedForecastData.listOfDaysForecastData}.")
+        Log.d(TAG, "updateUI() listOfDaysForecastData: ${mappedForecastData.listOfDaysForecastData}.")
+
         // Today's information
         val mainConditionImageResourceId = resources.getIdentifier(mappedForecastData.iconName, "drawable", packageName)
         mainCityName.text = mappedForecastData.location
@@ -74,20 +74,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun mainRefreshButtonClicked(view: View) {
-        Log.d(LOG_TAG, "mainRefreshButtonClicked() is executed.")
+        Log.d(TAG, "mainRefreshButtonClicked() is executed.")
         Server(this).getWeatherForCurrentLocation()
         val viewGroup: ViewGroup = view.parent as ViewGroup
         mainRefreshButton.visibility = View.INVISIBLE
         mainChangeCityButton.visibility = View.INVISIBLE
         Blurry.with(this).radius(25).sampling(1).onto(viewGroup)
-        isBlured = true
+        isBlurred = true
     }
 
     fun refreshInternetButtonClicked(view: View) {
-        Log.d(LOG_TAG, "refreshInternetButtonClicked() executed.")
+        Log.d(TAG, "refreshInternetButtonClicked() executed.")
         refreshInternetButton.visibility = View.INVISIBLE
-        val anim = blinkAnimation()
-        noInternetImageView.startAnimation(anim)
+        noInternetImageView.startAnimation(blinkAnimation())
         noInternetConnectionTextView.text = getString(R.string.connecting_internet)
         Server(this).getWeatherForCurrentLocation()
     }
@@ -100,17 +99,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun noGpsWarningUI() {
-        Log.d(LOG_TAG, "noGpsWarningUI() executed.")
+        Log.d(TAG, "noGpsWarningUI() executed.")
         viewFlipper.displayedChild = viewFlipper.indexOfChild(noGpsLayoutInclude)
         noGpsImageView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.no_gps_rotate))
     }
 
     fun gpsFetchingLocationUI() {
         Server(this).getWeatherForCurrentLocation()
-        Log.d(LOG_TAG, "gpsFetchingLocationUI() executed.")
-        val anim = blinkAnimation()
+        Log.d(TAG, "gpsFetchingLocationUI() executed.")
         viewFlipper.displayedChild = viewFlipper.indexOfChild(fetchingLocationLayoutInclude)
-        fetchingLocationImageView.startAnimation(anim)
+        fetchingLocationImageView.startAnimation(blinkAnimation())
     }
 
     private fun blinkAnimation(): Animation {
