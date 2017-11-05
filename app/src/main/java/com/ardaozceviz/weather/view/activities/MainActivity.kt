@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     fun updateUI(mappedForecastData: ForecastDataMapper) {
         Log.d(LOG_TAG, "updateUI() executed.")
         val viewGroup: ViewGroup = findViewById(R.id.mainDataLayoutInclude)
-        if (isBlured){
+        if (isBlured) {
             Log.d(LOG_TAG, "updateUI() isBlured: $isBlured.")
             Blurry.delete(viewGroup)
             isBlured = false
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun mainRefreshButtonClicked(view: View) {
-        Log.d(LOG_TAG,"mainRefreshButtonClicked() is executed.")
+        Log.d(LOG_TAG, "mainRefreshButtonClicked() is executed.")
         Server(this).getWeatherForCurrentLocation()
         val viewGroup: ViewGroup = view.parent as ViewGroup
         mainRefreshButton.visibility = View.INVISIBLE
@@ -86,11 +86,7 @@ class MainActivity : AppCompatActivity() {
     fun refreshInternetButtonClicked(view: View) {
         Log.d(LOG_TAG, "refreshInternetButtonClicked() executed.")
         refreshInternetButton.visibility = View.INVISIBLE
-        val anim = AlphaAnimation(0.0f, 1.0f)
-        anim.duration = 250 //Manage the time of the blink with this parameter
-        anim.startOffset = 20
-        anim.repeatMode = Animation.REVERSE
-        anim.repeatCount = Animation.INFINITE
+        val anim = blinkAnimation()
         noInternetImageView.startAnimation(anim)
         noInternetConnectionTextView.text = getString(R.string.connecting_internet)
         Server(this).getWeatherForCurrentLocation()
@@ -112,13 +108,18 @@ class MainActivity : AppCompatActivity() {
     fun gpsFetchingLocationUI() {
         Server(this).getWeatherForCurrentLocation()
         Log.d(LOG_TAG, "gpsFetchingLocationUI() executed.")
+        val anim = blinkAnimation()
+        viewFlipper.displayedChild = viewFlipper.indexOfChild(fetchingLocationLayoutInclude)
+        fetchingLocationImageView.startAnimation(anim)
+    }
+
+    private fun blinkAnimation(): Animation {
         val anim = AlphaAnimation(0.0f, 1.0f)
         anim.duration = 250 //Manage the time of the blink with this parameter
         anim.startOffset = 20
         anim.repeatMode = Animation.REVERSE
         anim.repeatCount = Animation.INFINITE
-        viewFlipper.displayedChild = viewFlipper.indexOfChild(fetchingLocationLayoutInclude)
-        fetchingLocationImageView.startAnimation(anim)
+        return anim
     }
 
     /*
