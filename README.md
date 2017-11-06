@@ -9,6 +9,9 @@ API_KEY = "your api key goes here"
 Then you should be able to use it without a problem.
 
 All the icons in the app downloaded from "https://www.flaticon.com/".
+
+Design inspiration from "http://www.mobile-patterns.com" 
+
 ## Screenshots
 
 <a href="https://imgflip.com/gif/1yv3l5"><img src="https://i.imgflip.com/1yv3l5.gif" title="made at imgflip.com"/></a>
