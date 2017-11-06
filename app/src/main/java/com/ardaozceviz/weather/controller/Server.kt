@@ -1,22 +1,10 @@
 package com.ardaozceviz.weather.controller
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
-import android.os.Bundle
 import android.util.Log
 import com.ardaozceviz.weather.BuildConfig.API_KEY
 import com.ardaozceviz.weather.model.ForecastDataModel
 import com.ardaozceviz.weather.view.activities.MainActivity
 import com.google.gson.Gson
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.JsonHttpResponseHandler
 import com.loopj.android.http.RequestParams
@@ -30,12 +18,6 @@ class Server(val activity: MainActivity) {
     // Constants:
     private val TAG = "Server()"
     private val forecast = "http://api.openweathermap.org/data/2.5/forecast"
-    private var isDataRetrieved = false
-
-    init {
-        isDataRetrieved = false
-    }
-
 
     fun getWeatherForSelectedCity(city: String) {
         val params = RequestParams()
@@ -45,13 +27,14 @@ class Server(val activity: MainActivity) {
     }
 
     private fun requestForecastData(params: RequestParams) {
+        Log.d(TAG, "requestForecastData() is executed.")
         val client = AsyncHttpClient()
         Log.d(TAG, "params: $params")
         client.get(forecast, params, object : JsonHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<out Header>?, response: JSONObject?) {
                 if (response != null) {
-                    isDataRetrieved = true
                     val forecastDataModel = Gson().fromJson(response.toString(), ForecastDataModel::class.java)
+                    LocalForecastData.save(forecastDataModel, activity)
                     activity.updateUI(ForecastDataMapper(forecastDataModel))
                 }
                 Log.d(TAG, "requestForecastData() onSuccess response: ${response.toString()}.")
@@ -60,15 +43,22 @@ class Server(val activity: MainActivity) {
             override fun onFailure(statusCode: Int, headers: Array<out Header>?, throwable: Throwable?, errorResponse: JSONObject?) {
                 Log.e(TAG, "requestForecastData() onFailure() ${throwable.toString()}.")
                 Log.d(TAG, "requestForecastData() statusCode: $statusCode.")
-                if (!isDataRetrieved) {
-                    activity.noInternetWarningUI()
-                }
-
+                activity.onError()
             }
         })
     }
 
-    fun getWeatherForCurrentLocation() {
+    fun getWeatherForCurrentLocation(longitude: String, latitude: String) {
+        Log.d(TAG, "getWeatherForCurrentLocation() is executed.")
+        Log.d(TAG, "getWeatherForCurrentLocation() longitude: $longitude, latitude: $latitude.")
+        val params = RequestParams()
+        params.put("appid", API_KEY)
+        params.put("lon", longitude)
+        params.put("lat", latitude)
+        System.out.println(params)
+        requestForecastData(params)
+
+        /*
         Log.d(TAG, "getWeatherForCurrentLocation() is executed.")
         val locationProvider = LocationManager.GPS_PROVIDER
 
@@ -132,6 +122,7 @@ class Server(val activity: MainActivity) {
                         Log.d(TAG, "onPermissionDenied() is executed.")
                     }
                 }).check()
-
+                */
     }
+
 }
