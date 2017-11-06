@@ -6,3 +6,4 @@ package com.ardaozceviz.weather.model
 const val TAG_A_MAIN = "MainActivity"
 const val TAG_C_LOCATION = "LocationServices"
 const val TAG_C_SERVER = "Server"
+const val TAG_C_INTERFACE = "UserInterface"

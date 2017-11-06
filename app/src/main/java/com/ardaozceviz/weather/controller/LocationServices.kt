@@ -40,8 +40,7 @@ class LocationServices(private val context: Context) {
                 val longitude = location.longitude.toString()
                 val latitude = location.latitude.toString()
                 Log.d(TAG_C_LOCATION, "longitude: $longitude, latitude: $latitude")
-                Server.getWeatherForCurrentLocation(longitude, latitude)
-                //Server(this@MainActivity).getWeatherForCurrentLocation(longitude, latitude)
+                Server(context).getWeatherForCurrentLocation(longitude, latitude)
             } else {
                 Log.d(TAG_C_LOCATION, "location is null.")
             }
@@ -67,6 +66,7 @@ class LocationServices(private val context: Context) {
     }
 
     fun gpsPermission() {
+        Log.d(TAG_C_LOCATION, "gpsPermission() is executed.")
         Dexter.withActivity(activity)
                 .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 .withListener(object : PermissionListener {
