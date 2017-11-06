@@ -1,14 +1,3 @@
 <resources>
-    <string name="app_name">Weather</string>
-    <string name="default_location">Fetching location…</string>
-    <string name="default_temp">NA</string>
-    <string name="change_city_description">Click Here to Change City</string>
-    <string name="weather_description">This is the weather symbol</string>
-    <string name="back_button_description">Dismiss Change City Screen</string>
-    <string name="get_weather">Change City</string>
-    <string name="default_query">Enter city name</string>
-    <string name="no_gps_message">Please enable your GPS</string>
-    <string name="fetching_your_location">Fetching your location</string>
-    <string name="no_internet_connection">No internet connection</string>
-    <string name="connecting_internet">Connecting ...</string>
+    <string name="app_name">My Application</string>
 </resources>
