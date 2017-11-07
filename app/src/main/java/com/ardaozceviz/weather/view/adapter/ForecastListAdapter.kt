@@ -17,6 +17,14 @@ import com.ardaozceviz.weather.view.mappers.IconFinder
  * Created by arda on 07/11/2017.
  */
 class ForecastListAdapter(private val context: Context, private val forecastList: List<ListItem>) : RecyclerView.Adapter<ForecastListAdapter.WeatherInfoHolder>() {
+
+    /*
+    * Using Lambda function
+    * to listen to click events
+    * when any forecast item is clicked
+    * */
+    private var clickListener: (forecast: ListItem) -> Unit = {}
+
     override fun onBindViewHolder(holder: WeatherInfoHolder?, position: Int) {
         holder?.bindForecastItem(forecastList[position])
 
@@ -32,7 +40,11 @@ class ForecastListAdapter(private val context: Context, private val forecastList
         return WeatherInfoHolder(view)
     }
 
-    inner class WeatherInfoHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    inner class WeatherInfoHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        init {
+            itemView?.setOnClickListener(this)
+        }
+
         private val dayTextView = itemView?.findViewById<TextView>(R.id.list_item_day)
         private val iconImageView = itemView?.findViewById<ImageView>(R.id.list_item_image)
         //private val descriptionTextView = itemView?.findViewById<TextView>(R.id.list_item_description)
@@ -55,7 +67,13 @@ class ForecastListAdapter(private val context: Context, private val forecastList
             //descriptionTextView?.text = description
         }
 
+        override fun onClick(p0: View?) {
+            clickListener(forecastList[adapterPosition])
+        }
+    }
 
+    fun addOnclickListener(listener: (forecast: ListItem) -> Unit) {
+        clickListener = listener
     }
 
 }

@@ -12,6 +12,7 @@ import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.controller.LocalForecastData
 import com.ardaozceviz.weather.controller.LocationServices
 import com.ardaozceviz.weather.model.ForecastDataModel
+import com.ardaozceviz.weather.model.ListItem
 import com.ardaozceviz.weather.model.TAG_C_INTERFACE
 import com.ardaozceviz.weather.view.adapter.ForecastListAdapter
 import com.ardaozceviz.weather.view.mappers.ForecastDataMapper
@@ -63,6 +64,11 @@ class UserInterface(private val context: Context) {
         // Forecast recycler view information
         val forecastRecyclerView = activity.findViewById<RecyclerView>(R.id.main_view_forecast_recycler_view) as RecyclerView
         val adapter = ForecastListAdapter(context, mappedForecastData.listOfDaysForecastData)
+        adapter.addOnclickListener{
+           forecast: ListItem ->
+            Log.d(TAG_C_INTERFACE,"$forecast")
+        }
+
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         forecastRecyclerView.adapter = adapter
         forecastRecyclerView.layoutManager = layoutManager
