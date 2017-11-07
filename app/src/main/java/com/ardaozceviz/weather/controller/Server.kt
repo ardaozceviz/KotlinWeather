@@ -36,6 +36,7 @@ class Server(val context: Context) {
             override fun onSuccess(statusCode: Int, headers: Array<out Header>?, response: JSONObject?) {
                 if (response != null) {
                     val forecastDataModel = Gson().fromJson(response.toString(), ForecastDataModel::class.java)
+                    LocalForecastData(context).save(forecastDataModel)
                     Log.d(TAG_C_SERVER, "forecastDataModel: $forecastDataModel")
                     UserInterface(context).stopRefresh()
                     //LocalForecastData.save(forecastDataModel, activity)
@@ -47,8 +48,7 @@ class Server(val context: Context) {
             override fun onFailure(statusCode: Int, headers: Array<out Header>?, throwable: Throwable?, errorResponse: JSONObject?) {
                 Log.e(TAG_C_SERVER, "requestForecastData() onFailure() ${throwable.toString()}.")
                 Log.d(TAG_C_SERVER, "requestForecastData() statusCode: $statusCode.")
-                UserInterface(context).stopRefresh()
-                //activity.onError()
+                UserInterface(context).onError()
             }
         })
     }
