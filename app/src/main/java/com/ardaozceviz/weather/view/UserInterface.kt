@@ -8,9 +8,11 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 import com.ardaozceviz.weather.R
+import com.ardaozceviz.weather.controller.LocalForecastData
 import com.ardaozceviz.weather.controller.LocationServices
 import com.ardaozceviz.weather.model.ForecastDataModel
 import com.ardaozceviz.weather.model.TAG_C_INTERFACE
+import com.ardaozceviz.weather.view.mappers.ForecastDataMapper
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -22,8 +24,8 @@ class UserInterface(private val context: Context) {
     private val swipeRefreshLayout = activity.findViewById<SwipeRefreshLayout>(R.id.main_swipe_refresh_layout) as SwipeRefreshLayout
 
     // Snackbar
-    private val coordinatorLayout = activity.findViewById<ConstraintLayout>(R.id.main_constraint_layout) as ConstraintLayout
-    private val retrySnackBar = Snackbar.make(coordinatorLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_INDEFINITE)
+    private val constraintLayout = activity.findViewById<ConstraintLayout>(R.id.main_constraint_layout) as ConstraintLayout
+    private var retrySnackBar = Snackbar.make(constraintLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_INDEFINITE)
 
     fun initialize() {
         Log.i(TAG_C_INTERFACE, "initialize() is executed.")
@@ -36,7 +38,6 @@ class UserInterface(private val context: Context) {
         swipeRefreshLayout.setOnRefreshListener(
                 {
                     Log.i(TAG_C_INTERFACE, "onRefresh called from swipeRefreshLayout")
-                    Log.i(TAG_C_INTERFACE, "swipeRefreshLayout on refresh snackBar shown: ${retrySnackBar.isShown}")
                     // This method performs the actual data-refresh operation.
                     // The method calls setRefreshing(false) when it's finished.
                     LocationServices(context).gpsPermission()
@@ -46,26 +47,34 @@ class UserInterface(private val context: Context) {
 
     fun updateUI(forecastDataModel: ForecastDataModel) {
         Log.d(TAG_C_INTERFACE, "updateUI() is executed.")
-        if (forecastDataModel.city?.name != null) {
-            val location = forecastDataModel.city.name
-            activity.main_view_city_name.text = location
-        }
+        val mappedForecastData = ForecastDataMapper(forecastDataModel)
+
+        // Today's information
+        activity.main_view_city_name.text = mappedForecastData.location
+        activity.main_view_date.text = mappedForecastData.currentDateTimeString
     }
 
     fun onError() {
         Log.d(TAG_C_INTERFACE, "onError() is executed.")
         stopRefresh()
 
-        if (!retrySnackBar.isShown) {
-            retrySnackBar.setAction("Retry") { _ ->
-                Log.d(TAG_C_INTERFACE, "onError() Retry is clicked.")
-                swipeRefreshLayout.isRefreshing = true
-                LocationServices(context).gpsPermission()
-                retrySnackBar.dismiss()
+        val localForecastData = LocalForecastData(context).retrieve()
+        if (localForecastData == null) {
+            Log.d(TAG_C_INTERFACE, "onError() localForecastData is null.")
+            // No connection and no data info screen
+            // ....
+        } else {
+            retrySnackBar = Snackbar.make(constraintLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_LONG)
+            if (!retrySnackBar.isShown) {
+                retrySnackBar.setAction("Retry") { _ ->
+                    Log.d(TAG_C_INTERFACE, "onError() Retry is clicked.")
+                    swipeRefreshLayout.isRefreshing = true
+                    LocationServices(context).gpsPermission()
+                    retrySnackBar.dismiss()
+                }
+                retrySnackBar.setActionTextColor(ContextCompat.getColor(context, R.color.colorAccent))
+                retrySnackBar.show()
             }
-            retrySnackBar.setActionTextColor(ContextCompat.getColor(context, R.color.colorAccent))
-            swipeRefreshLayout.isEnabled = false
-            retrySnackBar.show()
         }
     }
 
