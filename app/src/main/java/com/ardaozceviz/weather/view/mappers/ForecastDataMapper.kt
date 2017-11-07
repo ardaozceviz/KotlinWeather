@@ -60,7 +60,7 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
         }
         val tmpWeatherDescription = forecastDataModel.list?.get(0)?.weather?.get(0)?.description?.toUpperCase()
         if (tmpWeatherDescription != null) weatherDescription = tmpWeatherDescription
-        val tmpWind = forecastDataModel.list?.get(0)?.wind?.speed.toString()
+        val tmpWind = forecastDataModel.list?.get(0)?.wind?.speed?.times(3.6).toString()
         wind = "$tmpWind km/h"
     }
 
