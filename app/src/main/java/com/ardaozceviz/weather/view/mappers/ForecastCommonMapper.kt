@@ -1,9 +1,25 @@
 package com.ardaozceviz.weather.view.mappers
 
+import java.text.SimpleDateFormat
+import java.util.*
+
 /**
  * Created by arda on 07/11/2017.
  */
-object IconFinder {
+object ForecastCommonMapper {
+
+    fun calculateTemperature(temp: Double): String {
+        val temperature = temp - 273.15
+        return "%.0f".format(temperature) + "°C"
+    }
+
+    fun getListItemDay(date: Int): String {
+        val time = java.util.Date(date.toLong() * 1000)
+        val sdf = SimpleDateFormat("EE")
+        return sdf.format(time).toUpperCase()
+
+    }
+
     fun dayConditionToIcon(condition: Int): String {
         return when (condition) {
         // Group 2xx: Thunderstorm
@@ -73,4 +89,11 @@ object IconFinder {
             else -> "night_clear_sky"
         }
     }
+
+    fun unixToDate(unixTime: Long): String {
+        val date = Date(unixTime * 1000L) // *1000 is to convert seconds to milliseconds
+        val sdf = SimpleDateFormat("E, MMM dd, yyyy", Locale.getDefault())
+        return sdf.format(date)
+    }
+
 }

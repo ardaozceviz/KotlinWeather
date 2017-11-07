@@ -10,8 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.model.ListItem
-import com.ardaozceviz.weather.view.mappers.ForecastListItemMapper
-import com.ardaozceviz.weather.view.mappers.IconFinder
+import com.ardaozceviz.weather.view.mappers.ForecastCommonMapper
 
 /**
  * Created by arda on 07/11/2017.
@@ -56,13 +55,13 @@ class ForecastListAdapter(private val context: Context, private val forecastList
             val condition = forecast.weather?.get(0)?.id
             //val description = forecast.weather?.get(0)?.description?.capitalize()
             //if (description != null) descriptionTextView?.text = description.capitalize()
-            if (forecast.main != null) temperature = ForecastListItemMapper.getListItemTemperature(forecast.main.temp)
+            if (forecast.main != null) temperature = ForecastCommonMapper.calculateTemperature(forecast.main.temp)
             if (condition != null) {
-                val iconName = IconFinder.dayConditionToIcon(condition)
+                val iconName = ForecastCommonMapper.dayConditionToIcon(condition)
                 val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
                 iconImageView?.setImageResource(listItemImageResourceId)
             }
-            dayTextView?.text = ForecastListItemMapper.getListItemDay(forecast.dt)
+            dayTextView?.text = ForecastCommonMapper.getListItemDay(forecast.dt)
             temperatureTextView?.text = temperature
             //descriptionTextView?.text = description
         }

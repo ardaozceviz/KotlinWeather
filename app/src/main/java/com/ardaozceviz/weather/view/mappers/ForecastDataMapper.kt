@@ -50,22 +50,17 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
 
         if (forecastDataModel.city?.name != null) location = forecastDataModel.city.name
         val tmpTemperature = forecastDataModel.list?.get(0)?.main?.temp
-        if (tmpTemperature != null) temperature = calculateTemperature(tmpTemperature)
+        if (tmpTemperature != null) temperature = ForecastCommonMapper.calculateTemperature(tmpTemperature)
         if (condition != null) {
             iconName = if (isNight) {
-                IconFinder.nightConditionToIcon(condition)
+                ForecastCommonMapper.nightConditionToIcon(condition)
             } else {
-                IconFinder.dayConditionToIcon(condition)
+                ForecastCommonMapper.dayConditionToIcon(condition)
             }
         }
         val tmpWeatherDescription = forecastDataModel.list?.get(0)?.weather?.get(0)?.description?.toUpperCase()
         if (tmpWeatherDescription != null) weatherDescription = tmpWeatherDescription
-        val tmpWind = forecastDataModel.list?.get(0)?.wind?.speed?.times(3.6).toString()
-        wind = "$tmpWind km/h"
-    }
-
-    private fun calculateTemperature(temp: Double): String {
-        val temperature = temp - 273.15
-        return "%.0f".format(temperature) + "°C"
+        val tmpWind = forecastDataModel.list?.get(0)?.wind?.speed?.times(3.6)
+        wind =  "%.2f".format(tmpWind) + " km/h"
     }
 }
