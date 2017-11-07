@@ -6,11 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.model.ListItem
-import com.ardaozceviz.weather.view.adapter.ForecastListItemMapper.Companion.getListItemDay
-import com.ardaozceviz.weather.view.adapter.ForecastListItemMapper.Companion.getListItemTemperature
+import com.ardaozceviz.weather.view.mappers.ForecastListItemMapper.Companion.getListItemDay
+import com.ardaozceviz.weather.view.mappers.ForecastListItemMapper.Companion.getListItemTemperature
+import com.ardaozceviz.weather.view.mappers.IconFinder
 
 /**
  * Created by arda on 07/11/2017.
@@ -33,22 +35,22 @@ class ForecastListAdapter(private val context: Context, private val forecastList
 
     inner class WeatherInfoHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         private val dayTextView = itemView?.findViewById<TextView>(R.id.list_item_day)
-        //private val iconImageView = itemView?.findViewById<ImageView>(R.id.daysListItemIcon)
+        private val iconImageView = itemView?.findViewById<ImageView>(R.id.list_item_image)
         //private val descriptionTextView = itemView?.findViewById<TextView>(R.id.list_item_description)
         private val temperatureTextView = itemView?.findViewById<TextView>(R.id.list_item_temperature)
 
         fun bindForecastItem(forecast: ListItem) {
             Log.d("DaysListAdapter", "bindForecastItem() forecast.dtTxt: ${forecast.dt}")
             var temperature = "NA"
-            //val condition = forecast.weather?.get(0)?.id
-            val description = forecast.weather?.get(0)?.description?.capitalize()
+            val condition = forecast.weather?.get(0)?.id
+            //val description = forecast.weather?.get(0)?.description?.capitalize()
             //if (description != null) descriptionTextView?.text = description.capitalize()
             if (forecast.main != null) temperature = getListItemTemperature(forecast.main.temp)
-            /*if (condition != null) {
-                val listItemImageResourceId = context.resources.getIdentifier(getListItemIcon(condition), "drawable", context.packageName)
+            if (condition != null) {
+                val iconName = IconFinder.conditionToIcon(condition)
+                val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
                 iconImageView?.setImageResource(listItemImageResourceId)
-            }*/
-
+            }
             dayTextView?.text = getListItemDay(forecast.dt)
             temperatureTextView?.text = temperature
             //descriptionTextView?.text = description

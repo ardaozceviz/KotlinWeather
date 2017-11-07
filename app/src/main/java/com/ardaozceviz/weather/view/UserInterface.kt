@@ -50,6 +50,7 @@ class UserInterface(private val context: Context) {
     fun updateUI(forecastDataModel: ForecastDataModel) {
         Log.d(TAG_C_INTERFACE, "updateUI() is executed.")
         val mappedForecastData = ForecastDataMapper(forecastDataModel)
+        val mainViewImageResourceId = activity.resources.getIdentifier(mappedForecastData.iconName, "drawable", activity.packageName)
 
         // Today's information
         activity.main_view_city_name.text = mappedForecastData.location
@@ -57,6 +58,7 @@ class UserInterface(private val context: Context) {
         activity.main_view_description.text = mappedForecastData.weatherDescription
         activity.main_view_temperature.text = mappedForecastData.temperature
         activity.main_view_wind.text = mappedForecastData.wind
+        activity.main_view_image.setImageResource(mainViewImageResourceId)
 
         // Forecast recycler view information
         val forecastRecyclerView = activity.findViewById<RecyclerView>(R.id.main_view_forecast_recycler_view) as RecyclerView

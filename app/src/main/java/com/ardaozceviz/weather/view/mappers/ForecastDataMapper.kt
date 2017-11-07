@@ -46,7 +46,7 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
         if (forecastDataModel.city?.name != null) location = forecastDataModel.city.name
         val tmpTemperature = forecastDataModel.list?.get(0)?.main?.temp
         if (tmpTemperature != null) temperature = calculateTemperature(tmpTemperature)
-        //if (condition != null) iconName = updateWeatherIcon(condition)
+        if (condition != null) iconName = IconFinder.conditionToIcon(condition)
         val tmpWeatherDescription = forecastDataModel.list?.get(0)?.weather?.get(0)?.description?.toUpperCase()
         if (tmpWeatherDescription != null) weatherDescription = tmpWeatherDescription
         val tmpWind = forecastDataModel.list?.get(0)?.wind?.speed.toString()

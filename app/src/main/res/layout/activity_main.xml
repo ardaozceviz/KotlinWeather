@@ -26,7 +26,7 @@
             tools:text="İstanbul" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/main_view_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="32dp"
@@ -35,8 +35,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_view_date"
-            app:srcCompat="@drawable/mostly_sunny" />
+            app:layout_constraintTop_toBottomOf="@+id/main_view_date" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline"
@@ -88,6 +87,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
             android:layout_marginStart="16dp"
             android:textAlignment="center"
             android:textColor="@color/colorText"
@@ -120,14 +121,14 @@
             app:layout_constraintBottom_toBottomOf="@+id/main_view_wind"
             app:layout_constraintStart_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toTopOf="@+id/main_view_wind"
-            app:srcCompat="@drawable/breezy" />
+            app:srcCompat="@drawable/day_night_breeze" />
 
         <TextView
             android:id="@+id/main_view_wind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:textColor="@color/colorText"
