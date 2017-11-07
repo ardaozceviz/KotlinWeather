@@ -24,8 +24,8 @@ class UserInterface(private val context: Context) {
     private val swipeRefreshLayout = activity.findViewById<SwipeRefreshLayout>(R.id.main_swipe_refresh_layout) as SwipeRefreshLayout
 
     // Snackbar
-    private val constraintLayout = activity.findViewById<ConstraintLayout>(R.id.main_constraint_layout) as ConstraintLayout
-    private var retrySnackBar = Snackbar.make(constraintLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_INDEFINITE)
+    //private val constraintLayout = activity.findViewById<ConstraintLayout>(R.id.main_constraint_layout) as ConstraintLayout
+    private var retrySnackBar = Snackbar.make(swipeRefreshLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_INDEFINITE)
 
     fun initialize() {
         Log.i(TAG_C_INTERFACE, "initialize() is executed.")
@@ -52,6 +52,8 @@ class UserInterface(private val context: Context) {
         // Today's information
         activity.main_view_city_name.text = mappedForecastData.location
         activity.main_view_date.text = mappedForecastData.currentDateTimeString
+        activity.main_view_description.text = mappedForecastData.weatherDescription
+        activity.main_view_temperature.text = mappedForecastData.temperature
     }
 
     fun onError() {
@@ -64,7 +66,7 @@ class UserInterface(private val context: Context) {
             // No connection and no data info screen
             // ....
         } else {
-            retrySnackBar = Snackbar.make(constraintLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_LONG)
+            retrySnackBar = Snackbar.make(swipeRefreshLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_LONG)
             if (!retrySnackBar.isShown) {
                 retrySnackBar.setAction("Retry") { _ ->
                     Log.d(TAG_C_INTERFACE, "onError() Retry is clicked.")
