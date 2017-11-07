@@ -19,14 +19,16 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/city_name_text_view"
-                android:layout_width="wrap_content"
+                android:id="@+id/main_view_city_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 tools:text="İstanbul" />

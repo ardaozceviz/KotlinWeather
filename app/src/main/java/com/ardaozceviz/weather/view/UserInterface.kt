@@ -1,4 +1,4 @@
-package com.ardaozceviz.weather.controller
+package com.ardaozceviz.weather.view
 
 import android.app.Activity
 import android.content.Context
@@ -8,7 +8,10 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 import com.ardaozceviz.weather.R
+import com.ardaozceviz.weather.controller.LocationServices
+import com.ardaozceviz.weather.model.ForecastDataModel
 import com.ardaozceviz.weather.model.TAG_C_INTERFACE
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 /**
@@ -41,11 +44,19 @@ class UserInterface(private val context: Context) {
         )
     }
 
+    fun updateUI(forecastDataModel: ForecastDataModel) {
+        Log.d(TAG_C_INTERFACE, "updateUI() is executed.")
+        if (forecastDataModel.city?.name != null) {
+            val location = forecastDataModel.city.name
+            activity.main_view_city_name.text = location
+        }
+    }
+
     fun onError() {
         Log.d(TAG_C_INTERFACE, "onError() is executed.")
         stopRefresh()
 
-        if (!retrySnackBar.isShown){
+        if (!retrySnackBar.isShown) {
             retrySnackBar.setAction("Retry") { _ ->
                 Log.d(TAG_C_INTERFACE, "onError() Retry is clicked.")
                 swipeRefreshLayout.isRefreshing = true
@@ -53,11 +64,18 @@ class UserInterface(private val context: Context) {
                 retrySnackBar.dismiss()
             }
             retrySnackBar.setActionTextColor(ContextCompat.getColor(context, R.color.colorAccent))
+            swipeRefreshLayout.isEnabled = false
             retrySnackBar.show()
         }
     }
 
-    fun stopRefresh() {
+    fun stopRefresh(forecastDataModel: ForecastDataModel? = null) {
+        Log.d(TAG_C_INTERFACE, "stopRefresh() is executed.")
+        swipeRefreshLayout.isEnabled = true
         swipeRefreshLayout.isRefreshing = false
+        if (forecastDataModel != null) {
+            Log.d(TAG_C_INTERFACE, "forecastDataModel is not null.")
+            updateUI(forecastDataModel)
+        }
     }
 }

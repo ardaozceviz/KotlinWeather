@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.controller.LocalForecastData
-import com.ardaozceviz.weather.controller.UserInterface
+import com.ardaozceviz.weather.view.UserInterface
 import com.ardaozceviz.weather.model.ForecastDataModel
 import com.ardaozceviz.weather.model.TAG_A_MAIN
 
@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         storedForecastData = LocalForecastData(this).retrieve()
         if (storedForecastData != null) {
             Log.d(TAG_A_MAIN, "onResume() storedForecastData: $storedForecastData.")
+            UserInterface(this).updateUI(storedForecastData!!)
         }
         UserInterface(this).initialize()
     }

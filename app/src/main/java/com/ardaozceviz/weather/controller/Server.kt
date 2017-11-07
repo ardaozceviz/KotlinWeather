@@ -5,6 +5,7 @@ import android.util.Log
 import com.ardaozceviz.weather.BuildConfig
 import com.ardaozceviz.weather.model.ForecastDataModel
 import com.ardaozceviz.weather.model.TAG_C_SERVER
+import com.ardaozceviz.weather.view.UserInterface
 import com.google.gson.Gson
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.JsonHttpResponseHandler
@@ -38,8 +39,7 @@ class Server(val context: Context) {
                     val forecastDataModel = Gson().fromJson(response.toString(), ForecastDataModel::class.java)
                     LocalForecastData(context).save(forecastDataModel)
                     Log.d(TAG_C_SERVER, "forecastDataModel: $forecastDataModel")
-                    UserInterface(context).stopRefresh()
-                    //LocalForecastData.save(forecastDataModel, activity)
+                    UserInterface(context).stopRefresh(forecastDataModel)
                     //activity.updateUI(ForecastDataMapper(forecastDataModel))
                 }
                 Log.d(TAG_C_SERVER, "requestForecastData() onSuccess response: ${response.toString()}.")

@@ -13,6 +13,7 @@ import android.provider.Settings
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import com.ardaozceviz.weather.model.TAG_C_LOCATION
+import com.ardaozceviz.weather.view.UserInterface
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
@@ -91,7 +92,7 @@ class LocationServices(private val context: Context) {
         // NETWORK_PROVIDER determines location based on availability of cell tower and WiFi access points. Results are retrieved by means of a network lookup.
         val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
         if (!isGpsEnabled) {
-            // Gps is not enavled
+            // Gps is not enabled
             Log.d(TAG_C_LOCATION, "isGpsEnabled: $isGpsEnabled")
             Log.d(TAG_C_LOCATION, "checkGpsEnabledAndPrompt() AlertDialog show.")
             AlertDialog.Builder(context)
@@ -106,6 +107,7 @@ class LocationServices(private val context: Context) {
                     .setNegativeButton(android.R.string.cancel, { dialog, _ ->
                         Log.d(TAG_C_LOCATION, "checkGpsEnabledAndPrompt() AlertDialog cancel clicked.")
                         dialog.dismiss()
+                        UserInterface(context).stopRefresh()
                     })
                     .create()
                     .show()
