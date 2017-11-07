@@ -54,6 +54,7 @@ class UserInterface(private val context: Context) {
         activity.main_view_date.text = mappedForecastData.currentDateTimeString
         activity.main_view_description.text = mappedForecastData.weatherDescription
         activity.main_view_temperature.text = mappedForecastData.temperature
+        activity.main_view_wind.text = mappedForecastData.wind
     }
 
     fun onError() {

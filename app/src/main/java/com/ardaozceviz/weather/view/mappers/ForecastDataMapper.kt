@@ -16,6 +16,7 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
     var iconName: String = ""
     var weatherDescription = ""
     var currentDateTimeString = ""
+    var wind = ""
 
     private val condition: Int? = forecastDataModel.list?.get(0)?.weather?.get(0)?.id
     private val simpleDateFormatDate = SimpleDateFormat("E, MMM dd, yyyy", Locale.getDefault())
@@ -48,6 +49,8 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
         //if (condition != null) iconName = updateWeatherIcon(condition)
         val tmpWeatherDescription = forecastDataModel.list?.get(0)?.weather?.get(0)?.description?.toUpperCase()
         if (tmpWeatherDescription != null) weatherDescription = tmpWeatherDescription
+        val tmpWind = forecastDataModel.list?.get(0)?.wind?.speed.toString()
+        wind = "$tmpWind km/h"
     }
 
     private fun calculateTemperature(temp: Double): String {

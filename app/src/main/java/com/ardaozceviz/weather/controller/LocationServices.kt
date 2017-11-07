@@ -63,6 +63,7 @@ class LocationServices(private val context: Context) {
 
         override fun onProviderDisabled(provider: String?) {
             Log.d(TAG, "locationListener onProviderDisabled() is executed.")
+            UserInterface(context).onError()
         }
     }
 
