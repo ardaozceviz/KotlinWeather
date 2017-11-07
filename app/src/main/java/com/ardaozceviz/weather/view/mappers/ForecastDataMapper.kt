@@ -58,7 +58,7 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
                 ForecastCommonMapper.dayConditionToIcon(condition)
             }
         }
-        val tmpWeatherDescription = forecastDataModel.list?.get(0)?.weather?.get(0)?.description?.toUpperCase()
+        val tmpWeatherDescription = forecastDataModel.list?.get(0)?.weather?.get(0)?.description?.capitalize()
         if (tmpWeatherDescription != null) weatherDescription = tmpWeatherDescription
         val tmpWind = forecastDataModel.list?.get(0)?.wind?.speed?.times(3.6)
         wind =  "%.2f".format(tmpWind) + " km/h"

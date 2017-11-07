@@ -19,7 +19,7 @@ class ForecastItemMapper(listItem: ListItem) {
 
     init {
         dateTimeString = ForecastCommonMapper.unixToDate(listItem.dt.toLong())
-        val tmpWeatherDescription = listItem.weather?.get(0)?.description?.toUpperCase()
+        val tmpWeatherDescription = listItem.weather?.get(0)?.description?.capitalize()
         val tmpWind = listItem.wind?.speed?.times(3.6)
 
         if (listItem.main != null) temperature = ForecastCommonMapper.calculateTemperature(listItem.main.temp)
