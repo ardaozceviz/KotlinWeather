@@ -62,7 +62,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:textColor="@color/colorText"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/main_view_city_name"
@@ -76,11 +76,11 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:textColor="@color/colorText"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toTopOf="@+id/guideline2"
-            tools:text="Clear" />
+            tools:text="Scattered Clouds" />
 
         <TextView
             android:id="@+id/main_view_temperature"
@@ -109,12 +109,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.46" />
+            app:layout_constraintGuide_percent="0.5" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="40dp"
-            android:layout_height="21dp"
+            android:layout_height="18dp"
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/main_view_wind"
             app:layout_constraintStart_toStartOf="@+id/guideline4"
@@ -130,7 +130,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:textColor="@color/colorText"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
