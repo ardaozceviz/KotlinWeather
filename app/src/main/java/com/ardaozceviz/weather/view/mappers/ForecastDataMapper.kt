@@ -17,6 +17,7 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
     var weatherDescription = ""
     var currentDateTimeString = ""
     var wind = ""
+    private var isNight = false
 
     private val condition: Int? = forecastDataModel.list?.get(0)?.weather?.get(0)?.id
     private val simpleDateFormatDate = SimpleDateFormat("E, MMM dd, yyyy", Locale.getDefault())
@@ -25,6 +26,10 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
 
     init {
         currentDateTimeString = simpleDateFormatDate.format(Date().time)
+
+        val cal = Calendar.getInstance()
+        val hour = cal.get(Calendar.HOUR_OF_DAY)
+        isNight = hour < 6 || hour > 18
 
         if (forecastDataModel.list != null) {
             Log.d(TAG_M_FORECAST, "forecastDataModel listSize: ${forecastDataModel.list.size}")
@@ -46,7 +51,13 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
         if (forecastDataModel.city?.name != null) location = forecastDataModel.city.name
         val tmpTemperature = forecastDataModel.list?.get(0)?.main?.temp
         if (tmpTemperature != null) temperature = calculateTemperature(tmpTemperature)
-        if (condition != null) iconName = IconFinder.conditionToIcon(condition)
+        if (condition != null) {
+            iconName = if (isNight) {
+                IconFinder.nightConditionToIcon(condition)
+            } else {
+                IconFinder.dayConditionToIcon(condition)
+            }
+        }
         val tmpWeatherDescription = forecastDataModel.list?.get(0)?.weather?.get(0)?.description?.toUpperCase()
         if (tmpWeatherDescription != null) weatherDescription = tmpWeatherDescription
         val tmpWind = forecastDataModel.list?.get(0)?.wind?.speed.toString()
