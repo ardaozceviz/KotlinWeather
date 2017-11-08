@@ -7,16 +7,19 @@ import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.controller.LocalForecastData
 import com.ardaozceviz.weather.model.ForecastDataModel
 import com.ardaozceviz.weather.model.TAG_A_MAIN
+import com.ardaozceviz.weather.model.isErorExecuted
 import com.ardaozceviz.weather.view.UserInterface
 
 
 class MainActivity : AppCompatActivity() {
     private var storedForecastData: ForecastDataModel? = null
+    private lateinit var userInterface: UserInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG_A_MAIN, "onCreate() is executed.")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        userInterface = UserInterface(this)
     }
 
     override fun onResume() {
@@ -25,9 +28,12 @@ class MainActivity : AppCompatActivity() {
         storedForecastData = LocalForecastData(this).retrieve()
         if (storedForecastData != null) {
             Log.d(TAG_A_MAIN, "onResume() storedForecastData: $storedForecastData.")
-            UserInterface(this).updateUI(storedForecastData!!)
+            userInterface.updateUI(storedForecastData!!)
         }
-        UserInterface(this).initialize()
+        if (!isErorExecuted) {
+            userInterface.initialize()
+        }
+        userInterface.stopSwipeRefresh()
     }
 }
 

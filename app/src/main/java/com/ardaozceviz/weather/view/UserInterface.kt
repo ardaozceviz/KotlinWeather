@@ -8,12 +8,14 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.View
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.controller.LocalForecastData
 import com.ardaozceviz.weather.controller.LocationServices
 import com.ardaozceviz.weather.model.ForecastDataModel
 import com.ardaozceviz.weather.model.ListItem
 import com.ardaozceviz.weather.model.TAG_C_INTERFACE
+import com.ardaozceviz.weather.model.isErorExecuted
 import com.ardaozceviz.weather.view.adapter.ForecastListAdapter
 import com.ardaozceviz.weather.view.mappers.ForecastDataMapper
 import com.ardaozceviz.weather.view.mappers.ForecastItemMapper
@@ -28,12 +30,11 @@ class UserInterface(private val context: Context) {
     private val swipeRefreshLayout = activity.findViewById<SwipeRefreshLayout>(R.id.main_swipe_refresh_layout) as SwipeRefreshLayout
 
     // Snackbar
-    //private val constraintLayout = activity.findViewById<ConstraintLayout>(R.id.main_constraint_layout) as ConstraintLayout
     private var retrySnackBar = Snackbar.make(swipeRefreshLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_INDEFINITE)
 
     fun initialize() {
-        Log.i(TAG_C_INTERFACE, "initialize() is executed.")
-        swipeRefreshLayout.isRefreshing = true
+        Log.d(TAG_C_INTERFACE, "initialize() is executed.")
+        startSwipeRefresh()
         LocationServices(context).gpsPermission()
         /*
         Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
@@ -51,9 +52,11 @@ class UserInterface(private val context: Context) {
 
     fun updateUI(forecastDataModel: ForecastDataModel) {
         Log.d(TAG_C_INTERFACE, "updateUI() is executed.")
+        stopSwipeRefresh()
         val mappedForecastData = ForecastDataMapper(forecastDataModel)
         val mainViewImageResourceId = activity.resources.getIdentifier(mappedForecastData.iconName, "drawable", activity.packageName)
 
+        activity.main_view_wind_icon.visibility = View.VISIBLE
         // Today's information
         activity.main_view_city_name.text = mappedForecastData.location
         activity.main_view_date.text = mappedForecastData.currentDateTimeString
@@ -85,35 +88,47 @@ class UserInterface(private val context: Context) {
 
     fun onError() {
         Log.d(TAG_C_INTERFACE, "onError() is executed.")
-        stopRefresh()
-
+        isErorExecuted = true
+        showSnackbar()
         val localForecastData = LocalForecastData(context).retrieve()
         if (localForecastData == null) {
             Log.d(TAG_C_INTERFACE, "onError() localForecastData is null.")
             // No connection and no data info screen
             // ....
-        } else {
-            retrySnackBar = Snackbar.make(swipeRefreshLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_LONG)
-            if (!retrySnackBar.isShown) {
-                retrySnackBar.setAction("Retry") { _ ->
-                    Log.d(TAG_C_INTERFACE, "onError() Retry is clicked.")
-                    swipeRefreshLayout.isRefreshing = true
-                    LocationServices(context).gpsPermission()
-                    retrySnackBar.dismiss()
-                }
-                retrySnackBar.setActionTextColor(ContextCompat.getColor(context, R.color.colorAccent))
-                retrySnackBar.show()
-            }
         }
     }
 
-    fun stopRefresh(forecastDataModel: ForecastDataModel? = null) {
-        Log.d(TAG_C_INTERFACE, "stopRefresh() is executed.")
-        swipeRefreshLayout.isEnabled = true
-        swipeRefreshLayout.isRefreshing = false
-        if (forecastDataModel != null) {
-            Log.d(TAG_C_INTERFACE, "forecastDataModel is not null.")
-            updateUI(forecastDataModel)
+    private fun showSnackbar() {
+        Log.d(TAG_C_INTERFACE, "showSnackbar() is executed.")
+        stopSwipeRefresh()
+        retrySnackBar = Snackbar.make(swipeRefreshLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_LONG)
+        if (!retrySnackBar.isShown) {
+            retrySnackBar.setAction("Retry") { _ ->
+                Log.d(TAG_C_INTERFACE, "onError() Retry is clicked.")
+                swipeRefreshLayout.isRefreshing = true
+                LocationServices(context).gpsPermission()
+                retrySnackBar.dismiss()
+            }
+            retrySnackBar.setActionTextColor(ContextCompat.getColor(context, R.color.colorAccent))
+            retrySnackBar.show()
+        }
+    }
+
+    fun stopSwipeRefresh(){
+        Log.d(TAG_C_INTERFACE, "stopSwipeRefresh() is executed.")
+        if (swipeRefreshLayout.isRefreshing) {
+            Log.d(TAG_C_INTERFACE, "stopSwipeRefresh() isRefreshing: ${swipeRefreshLayout.isRefreshing}.")
+            swipeRefreshLayout.isRefreshing = false
+            swipeRefreshLayout.isEnabled = true
+        }
+    }
+
+    fun startSwipeRefresh(){
+        Log.d(TAG_C_INTERFACE, "startSwipeRefresh() is executed.")
+        if (!swipeRefreshLayout.isRefreshing) {
+            Log.d(TAG_C_INTERFACE, "startSwipeRefresh() isRefreshing: ${swipeRefreshLayout.isRefreshing}.")
+            swipeRefreshLayout.isRefreshing = true
+            swipeRefreshLayout.isEnabled = false
         }
     }
 }

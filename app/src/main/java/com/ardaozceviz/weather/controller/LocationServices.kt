@@ -79,10 +79,12 @@ class LocationServices(private val context: Context) {
 
                     override fun onPermissionDenied(response: PermissionDeniedResponse) {
                         Log.d(TAG_C_LOCATION, "gpsPermission() onPermissionDenied() is executed.")
+                        UserInterface(context).onError()
                     }
 
                     override fun onPermissionRationaleShouldBeShown(permission: PermissionRequest, token: PermissionToken) {
                         Log.d(TAG_C_LOCATION, "gpsPermission() onPermissionRationaleShouldBeShown() is executed.")
+                        token.continuePermissionRequest()
                     }
                 }).check()
     }
@@ -108,7 +110,7 @@ class LocationServices(private val context: Context) {
                     .setNegativeButton(android.R.string.cancel, { dialog, _ ->
                         Log.d(TAG_C_LOCATION, "checkGpsEnabledAndPrompt() AlertDialog cancel clicked.")
                         dialog.dismiss()
-                        UserInterface(context).stopRefresh()
+                        UserInterface(context).onError()
                     })
                     .create()
                     .show()
