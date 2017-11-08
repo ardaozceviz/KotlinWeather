@@ -5,13 +5,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion "26.0.2"
     defaultConfig {
         buildConfigField("String", "API_KEY", API_KEY)
         applicationId "com.ardaozceviz.weather"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -27,19 +27,18 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    // Loopj - HTTP,Async
-    compile 'com.loopj.android:android-async-http:1.4.9'
-    // Dexter - PermissonHandler
-    compile 'com.karumi:dexter:4.1.0'
-    // GSON
-    compile 'com.google.code.gson:gson:2.8.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    // Blurry
-    // compile 'jp.wasabeef:blurry:2.1.1'
-    //Recycler Pull and Refresh
+    // Recycler Pull and Refresh
     compile 'com.dinuscxj:recyclerrefreshlayout:2.0.5'
+    compile 'com.android.support:design:27.0.0'
+    // Loopj - HTTP,Async
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    // GSON
+    compile 'com.google.code.gson:gson:2.8.2'
+    // Dexter, requesting permissions
+    compile 'com.karumi:dexter:4.2.0'
 }
