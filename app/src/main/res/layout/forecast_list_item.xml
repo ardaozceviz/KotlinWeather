@@ -47,7 +47,6 @@
         app:layout_constraintBottom_toTopOf="@+id/list_item_temperature"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_item_day"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/list_item_day" />
 
 </android.support.constraint.ConstraintLayout>

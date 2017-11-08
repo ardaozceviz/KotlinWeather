@@ -15,7 +15,7 @@ import com.ardaozceviz.weather.controller.LocationServices
 import com.ardaozceviz.weather.model.ForecastDataModel
 import com.ardaozceviz.weather.model.ListItem
 import com.ardaozceviz.weather.model.TAG_C_INTERFACE
-import com.ardaozceviz.weather.model.isErorExecuted
+import com.ardaozceviz.weather.model.isErrorExecuted
 import com.ardaozceviz.weather.view.adapter.ForecastListAdapter
 import com.ardaozceviz.weather.view.mappers.ForecastDataMapper
 import com.ardaozceviz.weather.view.mappers.ForecastItemMapper
@@ -88,7 +88,7 @@ class UserInterface(private val context: Context) {
 
     fun onError() {
         Log.d(TAG_C_INTERFACE, "onError() is executed.")
-        isErorExecuted = true
+        isErrorExecuted = true
         showSnackbar()
         val localForecastData = LocalForecastData(context).retrieve()
         if (localForecastData == null) {
@@ -114,7 +114,7 @@ class UserInterface(private val context: Context) {
         }
     }
 
-    fun stopSwipeRefresh(){
+    fun stopSwipeRefresh() {
         Log.d(TAG_C_INTERFACE, "stopSwipeRefresh() is executed.")
         if (swipeRefreshLayout.isRefreshing) {
             Log.d(TAG_C_INTERFACE, "stopSwipeRefresh() isRefreshing: ${swipeRefreshLayout.isRefreshing}.")
@@ -123,7 +123,7 @@ class UserInterface(private val context: Context) {
         }
     }
 
-    fun startSwipeRefresh(){
+    fun startSwipeRefresh() {
         Log.d(TAG_C_INTERFACE, "startSwipeRefresh() is executed.")
         if (!swipeRefreshLayout.isRefreshing) {
             Log.d(TAG_C_INTERFACE, "startSwipeRefresh() isRefreshing: ${swipeRefreshLayout.isRefreshing}.")

@@ -10,4 +10,4 @@ const val TAG_C_INTERFACE = "UserInterface"
 const val TAG_C_LOCAL_DATA = "LocalForecastData"
 const val TAG_M_FORECAST = "ForecastDataMapper"
 
-var isErorExecuted : Boolean = false
+var isErrorExecuted: Boolean = false

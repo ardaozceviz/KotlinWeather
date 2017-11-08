@@ -7,7 +7,7 @@ import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.controller.LocalForecastData
 import com.ardaozceviz.weather.model.ForecastDataModel
 import com.ardaozceviz.weather.model.TAG_A_MAIN
-import com.ardaozceviz.weather.model.isErorExecuted
+import com.ardaozceviz.weather.model.isErrorExecuted
 import com.ardaozceviz.weather.view.UserInterface
 
 
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG_A_MAIN, "onResume() storedForecastData: $storedForecastData.")
             userInterface.updateUI(storedForecastData!!)
         }
-        if (!isErorExecuted) {
+        if (!isErrorExecuted) {
             userInterface.initialize()
         }
         userInterface.stopSwipeRefresh()
