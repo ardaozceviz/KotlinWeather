@@ -35,7 +35,7 @@ class UserInterface(private val context: Context) {
     fun initialize() {
         Log.d(TAG_C_INTERFACE, "initialize() is executed.")
         startSwipeRefresh()
-        LocationServices(context).gpsPermission()
+        LocationServices(context).locationPermission()
         /*
         Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
         performs a swipe-to-refresh gesture.
@@ -45,7 +45,7 @@ class UserInterface(private val context: Context) {
                     Log.i(TAG_C_INTERFACE, "onRefresh called from swipeRefreshLayout")
                     // This method performs the actual data-refresh operation.
                     // The method calls setRefreshing(false) when it's finished.
-                    LocationServices(context).gpsPermission()
+                    LocationServices(context).locationPermission()
                 }
         )
     }
@@ -106,7 +106,7 @@ class UserInterface(private val context: Context) {
             retrySnackBar.setAction("Retry") { _ ->
                 Log.d(TAG_C_INTERFACE, "onError() Retry is clicked.")
                 swipeRefreshLayout.isRefreshing = true
-                LocationServices(context).gpsPermission()
+                LocationServices(context).locationPermission()
                 retrySnackBar.dismiss()
             }
             retrySnackBar.setActionTextColor(ContextCompat.getColor(context, R.color.colorAccent))

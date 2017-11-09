@@ -18,6 +18,7 @@ import org.json.JSONObject
  */
 class Server(val context: Context) {
     private val forecastUrl = "http://api.openweathermap.org/data/2.5/forecast"
+    private val userInterface = UserInterface(context)
     fun getWeatherForCurrentLocation(longitude: String, latitude: String) {
         Log.d(TAG_C_SERVER, "getWeatherForCurrentLocation() is executed.")
         Log.d(TAG_C_SERVER, "getWeatherForCurrentLocation() longitude: $longitude, latitude: $latitude.")
@@ -39,7 +40,7 @@ class Server(val context: Context) {
                     val forecastDataModel = Gson().fromJson(response.toString(), ForecastDataModel::class.java)
                     LocalForecastData(context).save(forecastDataModel)
                     Log.d(TAG_C_SERVER, "forecastDataModel: $forecastDataModel")
-                    UserInterface(context).updateUI(forecastDataModel)
+                    userInterface.updateUI(forecastDataModel)
                     //activity.updateUI(ForecastDataMapper(forecastDataModel))
                 }
                 Log.d(TAG_C_SERVER, "requestForecastData() onSuccess response: ${response.toString()}.")
@@ -48,7 +49,7 @@ class Server(val context: Context) {
             override fun onFailure(statusCode: Int, headers: Array<out Header>?, throwable: Throwable?, errorResponse: JSONObject?) {
                 Log.e(TAG_C_SERVER, "requestForecastData() onFailure() ${throwable.toString()}.")
                 Log.d(TAG_C_SERVER, "requestForecastData() statusCode: $statusCode.")
-                UserInterface(context).onError()
+                userInterface.onError()
             }
         })
     }
