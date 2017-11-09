@@ -5,20 +5,15 @@ import android.content.Context
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.controller.LocalForecastData
 import com.ardaozceviz.weather.controller.LocationServices
 import com.ardaozceviz.weather.model.ForecastDataModel
-import com.ardaozceviz.weather.model.ListItem
 import com.ardaozceviz.weather.model.TAG_C_INTERFACE
 import com.ardaozceviz.weather.model.isErrorExecuted
-import com.ardaozceviz.weather.view.adapter.ForecastListAdapter
 import com.ardaozceviz.weather.view.mappers.ForecastDataMapper
-import com.ardaozceviz.weather.view.mappers.ForecastItemMapper
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -57,15 +52,16 @@ class UserInterface(private val context: Context) {
         val mainViewImageResourceId = activity.resources.getIdentifier(mappedForecastData.iconName, "drawable", activity.packageName)
 
         activity.main_view_wind_icon.visibility = View.VISIBLE
+        //
         // Today's information
         activity.main_view_city_name.text = mappedForecastData.location
         activity.main_view_date.text = mappedForecastData.currentDateTimeString
         activity.main_view_description.text = mappedForecastData.weatherDescription
-        activity.main_view_temperature.text = mappedForecastData.temperature
+        activity.main_view_temperature.text = mappedForecastData.celsiusTemperature
         activity.main_view_wind.text = mappedForecastData.wind
         activity.main_view_image.setImageResource(mainViewImageResourceId)
 
-        // Forecast recycler view information
+        /*// Forecast recycler view information
         val forecastRecyclerView = activity.findViewById<RecyclerView>(R.id.main_view_forecast_recycler_view) as RecyclerView
         val adapter = ForecastListAdapter(context, mappedForecastData.listOfDaysForecastData)
         adapter.addOnclickListener { forecast: ListItem ->
@@ -79,11 +75,10 @@ class UserInterface(private val context: Context) {
             activity.main_view_wind.text = mappedItemData.wind
             activity.main_view_image.setImageResource(itemImageResourceId)
         }
-
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         forecastRecyclerView.adapter = adapter
         forecastRecyclerView.layoutManager = layoutManager
-        forecastRecyclerView.setHasFixedSize(true)
+        forecastRecyclerView.setHasFixedSize(true)*/
     }
 
     fun onError() {

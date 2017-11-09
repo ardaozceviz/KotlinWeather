@@ -1,20 +1,9 @@
 package com.ardaozceviz.weather.view.adapter
 
-import android.content.Context
-import android.support.v7.widget.RecyclerView
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import com.ardaozceviz.weather.R
-import com.ardaozceviz.weather.model.ListItem
-import com.ardaozceviz.weather.view.mappers.ForecastCommonMapper
-
 /**
  * Created by arda on 07/11/2017.
  */
+/*
 class ForecastListAdapter(private val context: Context, private val forecastList: List<ListItem>) : RecyclerView.Adapter<ForecastListAdapter.WeatherInfoHolder>() {
 
     /*
@@ -74,5 +63,5 @@ class ForecastListAdapter(private val context: Context, private val forecastList
     fun addOnclickListener(listener: (forecast: ListItem) -> Unit) {
         clickListener = listener
     }
-
 }
+        */

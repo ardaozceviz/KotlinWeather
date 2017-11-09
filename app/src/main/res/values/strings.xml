@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="powered_by_dark_sky">Powered by Dark Sky</string>
 </resources>

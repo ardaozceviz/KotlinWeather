@@ -2,50 +2,53 @@ package com.ardaozceviz.weather.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ForecastDataModel(val city: City? = null,
-                             val cnt: Int = 0,
-                             val cod: String = "",
-                             val message: Double = 0.0,
-                             val list: List<ListItem>? = null)
+data class ForecastDataModel(val currently: Currently? = null,
+                             val offset: Double = 0.0,
+                             val timezone: String = "",
+                             val latitude: Double = 0.0,
+                             val daily: Daily? = null,
+                             val flags: Flags? = null,
+                             val hourly: Hourly? = null,
+                             val minutely: Minutely? = null,
+                             val longitude: Double = 0.0)
 
-data class City(val country: String = "",
-                val coord: Coord? = null,
-                val name: String = "",
-                val id: Int = 0)
+data class Currently(val summary: String = "",
+                     val precipProbability: Double = 0.0,
+                     val visibility: Double = 0.0,
+                     val windGust: Double = 0.0,
+                     val precipIntensity: Double = 0.0,
+                     val icon: String = "",
+                     val cloudCover: Double = 0.0,
+                     val windBearing: Double = 0.0,
+                     val apparentTemperature: Double = 0.0,
+                     val pressure: Double = 0.0,
+                     val dewPoint: Double = 0.0,
+                     val ozone: Double = 0.0,
+                     val nearestStormBearing: Int = 0,
+                     val nearestStormDistance: Int = 0,
+                     val temperature: Double = 0.0,
+                     val humidity: Double = 0.0,
+                     val time: Double = 0.0,
+                     val windSpeed: Double = 0.0,
+                     val uvIndex: Double = 0.0)
 
-data class Coord(val lon: Double = 0.0,
-                 val lat: Double = 0.0)
+data class Daily(val summary: String = "",
+                 val data: List<DataItem>? = null,
+                 val icon: String = "")
 
-data class ListItem(val dt: Int = 0,
-                    @SerializedName("dt_txt")
-                    val dtTxt: String = "",
-                    val weather: List<WeatherItem>? = null,
-                    val main: Main? = null,
-                    val clouds: Clouds? = null,
-                    val sys: Sys? = null,
-                    val wind: Wind? = null)
+data class Flags(val sources: List<String>? = null,
+                 @SerializedName("isd-stations")
+                 val isdStations: List<String>? = null,
+                 val units: String = "")
 
-data class WeatherItem(val icon: String = "",
-                       val description: String = "",
-                       val main: String = "",
-                       val id: Int = 0)
+data class Hourly(val summary: String = "",
+                  val data: List<DataItem>? = null,
+                  val icon: String = "")
 
-data class Clouds(val all: Int = 0)
-data class Sys(val pod: String = "")
+data class Minutely(val summary: String = "",
+                    val data: List<DataItem>? = null,
+                    val icon: String = "")
 
-data class Main(val temp: Double = 0.0,
-                @SerializedName("temp_min")
-                val tempMin: Double = 0.0,
-                @SerializedName("grnd_level")
-                val grndLevel: Double = 0.0,
-                @SerializedName("temp_kf")
-                val tempKf: Double = 0.0,
-                val humidity: Int = 0,
-                val pressure: Double = 0.0,
-                @SerializedName("sea_level")
-                val seaLevel: Double = 0.0,
-                @SerializedName("temp_max")
-                val tempMax: Double = 0.0)
-
-data class Wind(val deg: Double = 0.0,
-                val speed: Double = 0.0)
+data class DataItem(val precipProbability: Double = 0.0,
+                    val precipIntensity: Double = 0.0,
+                    val time: Double = 0.0)

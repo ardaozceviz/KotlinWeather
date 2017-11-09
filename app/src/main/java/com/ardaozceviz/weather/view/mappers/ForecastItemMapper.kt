@@ -1,12 +1,9 @@
 package com.ardaozceviz.weather.view.mappers
 
-import android.util.Log
-import com.ardaozceviz.weather.model.ListItem
-import java.util.*
-
 /**
  * Created by arda on 07/11/2017.
  */
+/*
 class ForecastItemMapper(listItem: ListItem) {
 
     var temperature = "NA"
@@ -30,4 +27,4 @@ class ForecastItemMapper(listItem: ListItem) {
         Log.d("ForecastItemMapper", "${listItem.dt}")
         Log.d("ForecastItemMapper", "${Date(listItem.dt.toLong()).time}")
     }
-}
+}*/

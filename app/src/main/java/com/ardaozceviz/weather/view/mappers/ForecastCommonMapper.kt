@@ -13,6 +13,25 @@ object ForecastCommonMapper {
         return "%.0f".format(temperature) + "°C"
     }
 
+    fun calculateWind(w: Double?): String {
+        return if (w != null) {
+            val wind = w.times(3.6)
+            "%.2f".format(wind) + " km/h"
+        } else {
+            "NA"
+        }
+
+    }
+
+    fun fahrenheitToCelsius(f: Double?): String {
+        return if (f != null) {
+            val temperature = (f - 32) * 0.5556
+            "%.0f".format(temperature) + "°C"
+        } else {
+            "NA"
+        }
+    }
+
     fun getListItemDay(date: Int): String {
         val time = java.util.Date(date.toLong() * 1000)
         val sdf = SimpleDateFormat("EE")
@@ -20,72 +39,36 @@ object ForecastCommonMapper {
 
     }
 
-    fun dayConditionToIcon(condition: Int): String {
+    fun dayConditionToIcon(condition: String?): String {
         return when (condition) {
-        // Group 2xx: Thunderstorm
-            in 200..202 -> "day_thunderstorm_rain"
-            in 203..299 -> "day_thunderstorm"
-        // Group 3xx: Drizzle
-            in 300..399 -> "day_drizzle"
-        // Group 5xx: Rain
-            in 500..501 -> "day_rain"
-            in 502..599 -> "day_heavy_rain"
-        // Group 6xx: Snow
-            in 600..601 -> "day_snow"
-            in 602..610 -> "day_heavy_snow"
-            in 611..699 -> "day_sleet"
-        // Group 7xx: Atmosphere
-            in 700..710 -> "day_fog"
-            711 -> "day_night_smoke"
-            in 712..720 -> "day_fog"
-            721 -> "day_night_haze"
-            in 722..780 -> "day_fog"
-            781 -> "day_night_tornado"
-            in 782..799 -> "day_fog"
-            800 -> "day_clear_sky"
-            in 801..804 -> "day_few_clouds"
-        // Group 90x: Extreme
-            in 900..902 -> "day_night_tornado"
-        //903 -> "cold"
-            904 -> "day_clear_sky"
-            905 -> "day_night_breeze"
-            906 -> "day_hail"
-            in 951..962 -> "day_night_breeze"
+            "clear-day", "clear-night" -> "day_clear_sky"
+            "rain" -> "day_rain"
+            "snow" -> "day_snow"
+            "sleet" -> "day_sleet"
+            "wind" -> "day_night_breeze"
+            "fog" -> "day_fog"
+            "cloudy" -> "day_few_clouds"
+            "partly-cloudy-day", "partly-cloudy-night" -> "day_night_smoke"
+            "hail" -> "day_hail"
+            "thunderstorm" -> "day_thunderstorm"
+            "tornado" -> "day_night_tornado"
             else -> "day_clear_sky"
         }
     }
 
-    fun nightConditionToIcon(condition: Int): String {
+    fun nightConditionToIcon(condition: String?): String {
         return when (condition) {
-        // Group 2xx: Thunderstorm
-            in 200..202 -> "night_thunderstorm_rain"
-            in 203..299 -> "night_thunderstorm"
-        // Group 3xx: Drizzle
-            in 300..399 -> "night_drizzle"
-        // Group 5xx: Rain
-            in 500..501 -> "night_rain"
-            in 502..599 -> "night_heavy_rain"
-        // Group 6xx: Snow
-            in 600..601 -> "night_snow"
-            in 602..610 -> "night_heavy_snow"
-            in 611..699 -> "night_sleet"
-        // Group 7xx: Atmosphere
-            in 700..710 -> "night_fog"
-            711 -> "day_night_smoke"
-            in 712..720 -> "night_fog"
-            721 -> "day_night_haze"
-            in 722..780 -> "night_fog"
-            781 -> "day_night_tornado"
-            in 782..799 -> "night_fog"
-            800 -> "night_clear_sky"
-            in 801..804 -> "night_few_clouds"
-        // Group 90x: Extreme
-            in 900..902 -> "day_night_tornado"
-        //903 -> "cold"
-            904 -> "night_clear_sky"
-            905 -> "day_night_breeze"
-            906 -> "night_hail"
-            in 951..962 -> "day_night_breeze"
+            "clear-day", "clear-night" -> "night_clear_sky"
+            "rain" -> "night_rain"
+            "snow" -> "night_snow"
+            "sleet" -> "night_sleet"
+            "wind" -> "day_night_breeze"
+            "fog" -> "night_fog"
+            "cloudy" -> "night_few_clouds"
+            "partly-cloudy-day", "partly-cloudy-night" -> "day_night_smoke"
+            "hail" -> "night_hail"
+            "thunderstorm" -> "night_thunderstorm"
+            "tornado" -> "day_night_tornado"
             else -> "night_clear_sky"
         }
     }
