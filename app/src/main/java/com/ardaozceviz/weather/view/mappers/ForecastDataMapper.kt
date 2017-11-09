@@ -24,8 +24,8 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
     private val hour = cal.get(Calendar.HOUR_OF_DAY)
 
     init {
-        val fahrenheit = forecastDataModel.currently?.temperature
-        val condition = forecastDataModel.currently?.icon
+        val fahrenheit = forecastDataModel.currently.apparentTemperature
+        val condition = forecastDataModel.currently.icon
 
         currentDateTimeString = simpleDateFormatDate.format(Date().time)
         location = forecastDataModel.timezone
@@ -38,8 +38,8 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
             Log.d(TAG_M_FORECAST, "isNight: $isNight")
             ForecastCommonMapper.dayConditionToIcon(condition)
         }
-        weatherDescription = forecastDataModel.currently?.summary.toString()
-        wind = ForecastCommonMapper.calculateWind(forecastDataModel.currently?.windSpeed)
+        weatherDescription = forecastDataModel.currently.summary
+        wind = ForecastCommonMapper.calculateWind(forecastDataModel.currently.windSpeed)
 
 
     }

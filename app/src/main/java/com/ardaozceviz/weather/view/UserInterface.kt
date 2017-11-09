@@ -18,6 +18,7 @@ import com.ardaozceviz.weather.model.TAG_C_INTERFACE
 import com.ardaozceviz.weather.model.isErrorExecuted
 import com.ardaozceviz.weather.view.adapter.ForecastListAdapter
 import com.ardaozceviz.weather.view.mappers.ForecastDataMapper
+import com.ardaozceviz.weather.view.mappers.ForecastItemMapper
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -68,16 +69,17 @@ class UserInterface(private val context: Context) {
         // Forecast recycler view information
         val forecastRecyclerView = activity.findViewById<RecyclerView>(R.id.main_view_forecast_recycler_view) as RecyclerView
         val adapter = ForecastListAdapter(context, forecastDataModel.daily)
+
+        // Selected list item information
         adapter.addOnclickListener { forecast: Data ->
             Log.d(TAG_C_INTERFACE, "$forecast")
-            /*// Selected list item information
             val mappedItemData = ForecastItemMapper(forecast)
             val itemImageResourceId = activity.resources.getIdentifier(mappedItemData.iconName, "drawable", activity.packageName)
             activity.main_view_date.text = mappedItemData.dateTimeString
             activity.main_view_description.text = mappedItemData.weatherDescription
-            activity.main_view_temperature.text = mappedItemData.temperature
+            activity.main_view_temperature.text = mappedItemData.celsiusTemperature
             activity.main_view_wind.text = mappedItemData.wind
-            activity.main_view_image.setImageResource(itemImageResourceId)*/
+            activity.main_view_image.setImageResource(itemImageResourceId)
         }
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         forecastRecyclerView.adapter = adapter

@@ -1,20 +1,29 @@
 package com.ardaozceviz.weather.view.mappers
 
+import com.ardaozceviz.weather.model.Data
+
 /**
  * Created by arda on 07/11/2017.
  */
-/*
-class ForecastItemMapper(listItem: ListItem) {
 
-    var temperature = "NA"
-    var iconName = ""
+class ForecastItemMapper(forecast: Data) {
+
     var weatherDescription = ""
-    var dateTimeString = ""
+    var iconName = ""
+    var celsiusTemperature = "NA"
     var wind = ""
+    var dateTimeString = ""
 
-    private val condition: Int? = listItem.weather?.get(0)?.id
+    private val fahrenheit = forecast.apparentTemperatureHigh
 
     init {
+        celsiusTemperature = ForecastCommonMapper.fahrenheitToCelsius(fahrenheit)
+        dateTimeString = ForecastCommonMapper.unixToDate(forecast.time.toLong())
+        iconName = ForecastCommonMapper.dayConditionToIcon(forecast.icon)
+        weatherDescription = forecast.summary
+        wind = ForecastCommonMapper.calculateWind(forecast.windSpeed)
+
+        /*
         dateTimeString = ForecastCommonMapper.unixToDate(listItem.dt.toLong())
         val tmpWeatherDescription = listItem.weather?.get(0)?.description?.capitalize()
         val tmpWind = listItem.wind?.speed?.times(3.6)
@@ -25,6 +34,6 @@ class ForecastItemMapper(listItem: ListItem) {
         wind = "%.2f".format(tmpWind) + " km/h"
 
         Log.d("ForecastItemMapper", "${listItem.dt}")
-        Log.d("ForecastItemMapper", "${Date(listItem.dt.toLong()).time}")
+        Log.d("ForecastItemMapper", "${Date(listItem.dt.toLong()).time}")*/
     }
-}*/
+}

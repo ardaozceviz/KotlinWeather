@@ -32,10 +32,10 @@ object ForecastCommonMapper {
         }
     }
 
-    fun getListItemDay(date: Int): String {
-        val time = java.util.Date(date.toLong() * 1000)
-        val sdf = SimpleDateFormat("EE")
-        return sdf.format(time).toUpperCase()
+    fun getListItemDay(unixTime: Long): String {
+        val date = Date(unixTime * 1000L) // *1000 is to convert seconds to milliseconds
+        val sdf = SimpleDateFormat("EE", Locale.getDefault())
+        return sdf.format(date).toUpperCase()
 
     }
 

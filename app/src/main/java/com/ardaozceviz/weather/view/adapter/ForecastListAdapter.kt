@@ -28,13 +28,12 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
     private var clickListener: (forecast: Data) -> Unit = {}
 
     override fun onBindViewHolder(holder: WeatherInfoHolder?, position: Int) {
-        if (dailyForecast.data != null) {
-            holder?.bindForecastItem(dailyForecast.data[position])
-        }
+        Log.d(TAG_AD_LIST, "onBindViewHolder() position: $position")
+        holder?.bindForecastItem(dailyForecast.data[position])
     }
 
     override fun getItemCount(): Int {
-        Log.d(TAG_AD_LIST, "getItemCount(): ${dailyForecast.data?.count()}")
+        Log.d(TAG_AD_LIST, "getItemCount(): ${dailyForecast.data.count()}")
         return dailyForecast.data.count()
     }
 
@@ -61,7 +60,7 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
             val iconName = ForecastCommonMapper.dayConditionToIcon(condition)
             val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
             iconImageView?.setImageResource(listItemImageResourceId)
-            dayTextView?.text = ForecastCommonMapper.getListItemDay(forecast.time.toInt())
+            dayTextView?.text = ForecastCommonMapper.getListItemDay(forecast.time.toLong())
             temperatureTextView?.text = ForecastCommonMapper.fahrenheitToCelsius(forecast.apparentTemperatureLow)
             //descriptionTextView?.text = description
         }
