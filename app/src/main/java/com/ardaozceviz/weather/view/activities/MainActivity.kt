@@ -1,7 +1,6 @@
 package com.ardaozceviz.weather.view.activities
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.controller.LocalForecastData
@@ -11,7 +10,7 @@ import com.ardaozceviz.weather.model.isErrorExecuted
 import com.ardaozceviz.weather.view.UserInterface
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private var storedForecastData: ForecastDataModel? = null
     private lateinit var userInterface: UserInterface
 

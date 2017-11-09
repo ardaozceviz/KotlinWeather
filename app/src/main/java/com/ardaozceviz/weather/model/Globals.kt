@@ -9,5 +9,6 @@ const val TAG_C_SERVER = "Server"
 const val TAG_C_INTERFACE = "UserInterface"
 const val TAG_C_LOCAL_DATA = "LocalForecastData"
 const val TAG_M_FORECAST = "ForecastDataMapper"
+const val TAG_O_BASE = "BaseActivity"
 
 var isErrorExecuted: Boolean = false
