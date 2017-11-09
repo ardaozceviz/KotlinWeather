@@ -75,7 +75,8 @@ object ForecastCommonMapper {
 
     fun unixToDate(unixTime: Long): String {
         val date = Date(unixTime * 1000L) // *1000 is to convert seconds to milliseconds
-        val sdf = SimpleDateFormat("E, MMM dd, yyyy", Locale.getDefault())
+        //val sdf = SimpleDateFormat("E, MMM dd, yyyy", Locale.getDefault())
+        val sdf = SimpleDateFormat("E, MMM dd", Locale.getDefault())
         return sdf.format(date)
     }
 
