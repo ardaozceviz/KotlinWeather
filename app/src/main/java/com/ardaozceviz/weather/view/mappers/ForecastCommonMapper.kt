@@ -1,5 +1,7 @@
 package com.ardaozceviz.weather.view.mappers
 
+import android.util.Log
+import com.ardaozceviz.weather.model.TAG_M_FORECAST
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,6 +41,19 @@ object ForecastCommonMapper {
 
     }
 
+    fun getIcon(condition: String?): String {
+        val cal = Calendar.getInstance()
+        val hour = cal.get(Calendar.HOUR_OF_DAY)
+        val isNight = hour < 6 || hour > 18
+        return if (isNight) {
+            Log.d(TAG_M_FORECAST, "isNight: $isNight")
+            ForecastCommonMapper.nightConditionToIcon(condition)
+        } else {
+            Log.d(TAG_M_FORECAST, "isNight: $isNight")
+            ForecastCommonMapper.dayConditionToIcon(condition)
+        }
+    }
+
     fun dayConditionToIcon(condition: String?): String {
         return when (condition) {
             "clear-day", "clear-night" -> "day_clear_sky"
@@ -56,7 +71,7 @@ object ForecastCommonMapper {
         }
     }
 
-    fun nightConditionToIcon(condition: String?): String {
+    private fun nightConditionToIcon(condition: String?): String {
         return when (condition) {
             "clear-day", "clear-night" -> "night_clear_sky"
             "rain" -> "night_rain"

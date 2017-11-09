@@ -1,8 +1,6 @@
 package com.ardaozceviz.weather.view.mappers
 
-import android.util.Log
 import com.ardaozceviz.weather.model.ForecastDataModel
-import com.ardaozceviz.weather.model.TAG_M_FORECAST
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -18,26 +16,15 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
     var currentDateTimeString = ""
     var wind = ""
 
-    private var isNight = false
-
     init {
         val simpleDateFormatDate = SimpleDateFormat("E, MMM dd", Locale.getDefault())
-        val cal = Calendar.getInstance()
-        val hour = cal.get(Calendar.HOUR_OF_DAY)
         val fahrenheit = forecastDataModel.currently.apparentTemperature
         val condition = forecastDataModel.currently.icon
 
         currentDateTimeString = simpleDateFormatDate.format(Date().time)
         location = forecastDataModel.timezone
-        isNight = hour < 6 || hour > 18
         celsiusTemperature = ForecastCommonMapper.fahrenheitToCelsius(fahrenheit)
-        iconName = if (isNight) {
-            Log.d(TAG_M_FORECAST, "isNight: $isNight")
-            ForecastCommonMapper.nightConditionToIcon(condition)
-        } else {
-            Log.d(TAG_M_FORECAST, "isNight: $isNight")
-            ForecastCommonMapper.dayConditionToIcon(condition)
-        }
+        iconName = ForecastCommonMapper.getIcon(condition)
         weatherDescription = forecastDataModel.currently.summary
         wind = ForecastCommonMapper.calculateWind(forecastDataModel.currently.windSpeed)
     }

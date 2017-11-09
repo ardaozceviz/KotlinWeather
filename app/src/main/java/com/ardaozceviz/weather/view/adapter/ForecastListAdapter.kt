@@ -68,9 +68,10 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
                 dayTextView?.text = ForecastCommonMapper.getListItemDay(forecast.time.toLong())
                 temperatureTextView?.text = ForecastCommonMapper.fahrenheitToCelsius(forecast.apparentTemperatureLow)
             } else if (currently != null) {
+                // First item on the list
                 Log.d(TAG_AD_LIST, "bindForecastItem() forecast: $forecast")
                 val condition = currently.icon
-                val iconName = ForecastCommonMapper.dayConditionToIcon(condition)
+                val iconName = ForecastCommonMapper.getIcon(condition)
                 val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
                 iconImageView?.setImageResource(listItemImageResourceId)
                 dayTextView?.text = ForecastCommonMapper.getListItemDay(currently.time.toLong())
