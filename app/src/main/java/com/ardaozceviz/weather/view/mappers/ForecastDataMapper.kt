@@ -19,11 +19,11 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
     var wind = ""
 
     private var isNight = false
-    private val simpleDateFormatDate = SimpleDateFormat("E, MMM dd, yyyy", Locale.getDefault())
-    private val cal = Calendar.getInstance()
-    private val hour = cal.get(Calendar.HOUR_OF_DAY)
 
     init {
+        val simpleDateFormatDate = SimpleDateFormat("E, MMM dd", Locale.getDefault())
+        val cal = Calendar.getInstance()
+        val hour = cal.get(Calendar.HOUR_OF_DAY)
         val fahrenheit = forecastDataModel.currently.apparentTemperature
         val condition = forecastDataModel.currently.icon
 
