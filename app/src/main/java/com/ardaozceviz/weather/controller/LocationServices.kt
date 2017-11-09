@@ -20,6 +20,7 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.PermissionRequestErrorListener
 import com.karumi.dexter.listener.single.PermissionListener
 
 
@@ -72,6 +73,7 @@ class LocationServices(private val context: Context) {
 
     fun locationPermission() {
         Log.d(TAG_C_LOCATION, "locationPermission() is executed.")
+
         Dexter.withActivity(activity)
                 .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 .withListener(object : PermissionListener {
@@ -89,7 +91,12 @@ class LocationServices(private val context: Context) {
                         Log.d(TAG_C_LOCATION, "locationPermission() onPermissionDenied() is executed.")
                         userInterface.onError()
                     }
+                })
+                .withErrorListener(PermissionRequestErrorListener { e ->
+                    Log.d(TAG_C_LOCATION, "locationPermission() PermissionRequestErrorListener: $e")
                 }).check()
+
+
     }
 
     fun checkLocationEnabledAndPrompt() {
