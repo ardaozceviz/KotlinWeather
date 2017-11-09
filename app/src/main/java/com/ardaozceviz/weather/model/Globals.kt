@@ -10,5 +10,6 @@ const val TAG_C_INTERFACE = "UserInterface"
 const val TAG_C_LOCAL_DATA = "LocalForecastData"
 const val TAG_M_FORECAST = "ForecastDataMapper"
 const val TAG_O_BASE = "BaseActivity"
+const val TAG_AD_LIST = "ForecastListAdapter"
 
 var isErrorExecuted: Boolean = false

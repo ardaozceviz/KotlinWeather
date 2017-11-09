@@ -31,11 +31,10 @@
             android:layout_height="0dp"
             android:layout_marginEnd="32dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_view_date" />
+            app:layout_constraintTop_toBottomOf="@+id/main_view_description" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline"
@@ -74,13 +73,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:textColor="@color/colorText"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toTopOf="@+id/guideline2"
-            tools:text="Scattered Clouds" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_view_date"
+            tools:text="Mostly cloudy in the morning" />
 
         <TextView
             android:id="@+id/main_view_temperature"
@@ -129,17 +128,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="16dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:textColor="@color/colorText"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/main_view_wind_icon"
-            app:layout_constraintTop_toBottomOf="@+id/main_view_description"
             tools:text="11 km/h" />
 
         <TextView

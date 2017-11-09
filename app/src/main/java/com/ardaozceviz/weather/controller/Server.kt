@@ -24,14 +24,6 @@ class Server(val context: Context) {
         val link = forecastUrl + "$latitude,$longitude"
         Log.d(TAG_C_SERVER, "getWeatherForCurrentLocation() link: $link")
         requestForecastData(link)
-        /*
-        val params = RequestParams()
-        params.put("appid", BuildConfig.API_KEY)
-        params.put("lon", longitude)
-        params.put("lat", latitude)
-        System.out.println(params)
-        requestForecastData(params)
-        */
     }
 
     private fun requestForecastData(link: String) {
@@ -43,8 +35,7 @@ class Server(val context: Context) {
                     val forecastDataModel = Gson().fromJson(response.toString(), ForecastDataModel::class.java)
                     LocalForecastData(context).save(forecastDataModel)
                     Log.d(TAG_C_SERVER, "forecastDataModel: $forecastDataModel")
-                    //userInterface.updateUI(forecastDataModel)
-                    //activity.updateUI(ForecastDataMapper(forecastDataModel))
+                    userInterface.updateUI(forecastDataModel)
                 }
                 Log.d(TAG_C_SERVER, "requestForecastData() onSuccess response: ${response.toString()}.")
             }
