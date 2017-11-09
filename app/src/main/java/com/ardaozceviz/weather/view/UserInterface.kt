@@ -12,10 +12,7 @@ import android.view.View
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.controller.LocalForecastData
 import com.ardaozceviz.weather.controller.LocationServices
-import com.ardaozceviz.weather.model.Data
-import com.ardaozceviz.weather.model.ForecastDataModel
-import com.ardaozceviz.weather.model.TAG_C_INTERFACE
-import com.ardaozceviz.weather.model.isErrorExecuted
+import com.ardaozceviz.weather.model.*
 import com.ardaozceviz.weather.view.adapter.ForecastListAdapter
 import com.ardaozceviz.weather.view.mappers.ForecastDataMapper
 import com.ardaozceviz.weather.view.mappers.ForecastItemMapper
@@ -54,37 +51,44 @@ class UserInterface(private val context: Context) {
         Log.d(TAG_C_INTERFACE, "updateUI() is executed.")
         stopSwipeRefresh()
         val mappedForecastData = ForecastDataMapper(forecastDataModel)
-        val mainViewImageResourceId = activity.resources.getIdentifier(mappedForecastData.iconName, "drawable", activity.packageName)
-
         activity.main_view_wind_icon.visibility = View.VISIBLE
         //
         // Today's information
+        setViews(mappedForecastData)
+
+        // Forecast recycler view information
+        val forecastRecyclerView = activity.findViewById<RecyclerView>(R.id.main_view_forecast_recycler_view) as RecyclerView
+        val adapter = ForecastListAdapter(context, forecastDataModel.daily)
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        // Selected list item information
+        adapter.addOnclickListener { data: Data?, currently: Currently? ->
+            if (data != null) {
+                Log.d(TAG_C_INTERFACE, "$data")
+                val mappedItemData = ForecastItemMapper(data)
+                val itemImageResourceId = activity.resources.getIdentifier(mappedItemData.iconName, "drawable", activity.packageName)
+                activity.main_view_date.text = mappedItemData.dateTimeString
+                activity.main_view_description.text = mappedItemData.weatherDescription
+                activity.main_view_temperature.text = mappedItemData.celsiusTemperature
+                activity.main_view_wind.text = mappedItemData.wind
+                activity.main_view_image.setImageResource(itemImageResourceId)
+            } else if (currently != null) {
+                setViews(mappedForecastData)
+            }
+        }
+        forecastRecyclerView.adapter = adapter
+        forecastRecyclerView.layoutManager = layoutManager
+        forecastRecyclerView.setHasFixedSize(true)
+    }
+
+    private fun setViews(mappedForecastData: ForecastDataMapper) {
+        val mainViewImageResourceId = activity.resources.getIdentifier(mappedForecastData.iconName, "drawable", activity.packageName)
         activity.main_view_city_name.text = mappedForecastData.location
         activity.main_view_date.text = mappedForecastData.currentDateTimeString
         activity.main_view_description.text = mappedForecastData.weatherDescription
         activity.main_view_temperature.text = mappedForecastData.celsiusTemperature
         activity.main_view_wind.text = mappedForecastData.wind
         activity.main_view_image.setImageResource(mainViewImageResourceId)
-
-        // Forecast recycler view information
-        val forecastRecyclerView = activity.findViewById<RecyclerView>(R.id.main_view_forecast_recycler_view) as RecyclerView
-        val adapter = ForecastListAdapter(context, forecastDataModel.daily)
-
-        // Selected list item information
-        adapter.addOnclickListener { forecast: Data ->
-            Log.d(TAG_C_INTERFACE, "$forecast")
-            val mappedItemData = ForecastItemMapper(forecast)
-            val itemImageResourceId = activity.resources.getIdentifier(mappedItemData.iconName, "drawable", activity.packageName)
-            activity.main_view_date.text = mappedItemData.dateTimeString
-            activity.main_view_description.text = mappedItemData.weatherDescription
-            activity.main_view_temperature.text = mappedItemData.celsiusTemperature
-            activity.main_view_wind.text = mappedItemData.wind
-            activity.main_view_image.setImageResource(itemImageResourceId)
-        }
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        forecastRecyclerView.adapter = adapter
-        forecastRecyclerView.layoutManager = layoutManager
-        forecastRecyclerView.setHasFixedSize(true)
     }
 
     fun onError() {

@@ -40,7 +40,5 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
         }
         weatherDescription = forecastDataModel.currently.summary
         wind = ForecastCommonMapper.calculateWind(forecastDataModel.currently.windSpeed)
-
-
     }
 }
