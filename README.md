@@ -22,6 +22,14 @@ API_KEY = "your_api_key_goes_here"
 ```
 * Build the project!
 
+## Others
+* Welcome anyone to raise a new issue.
+* Welcome anyone to push a pull request to improve the project.
+
+## Find it helpful?
+* Support me by clicking the :star: button on the upper right of this page.
+* Spread it to others to let more people to have an access to this project. 
+
 ## Reference
 * [Android O & Java](https://www.udemy.com/android-app-development-with-java/)
 * [Kotlin for Android](https://www.udemy.com/devslopes-android-kotlin/)
