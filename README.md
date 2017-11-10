@@ -15,7 +15,7 @@ This app basically uses GPS to determine the device's location and retrieves the
 
 ## Build the project
  * Clone or download the project
- * Obtain your API key [here](https://darksky.net/dev)
+ * Obtain your API key from [darksky](https://darksky.net/dev)
  * Add the following attribute to your "gradle.properties" file using this format.
 ```groovy
 API_KEY = "your_api_key_goes_here"
