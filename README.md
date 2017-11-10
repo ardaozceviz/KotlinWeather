@@ -26,6 +26,7 @@ API_KEY = "your_api_key_goes_here"
 * [Android O & Java](https://www.udemy.com/android-app-development-with-java/)
 * [Kotlin for Android](https://www.udemy.com/devslopes-android-kotlin/)
 * [Introduction to Kotlin Programming](http://shop.oreilly.com/product/0636920052982.do)
+* [Kotlin-Weather](https://github.com/gurleensethi/kotlin-weather) by gurleensethi
 
 ## License
 ```license
