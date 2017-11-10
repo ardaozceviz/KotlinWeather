@@ -130,12 +130,14 @@
             android:layout_marginBottom="32dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
             android:textColor="@color/colorText"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/main_view_wind_icon"
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
             tools:text="11 km/h" />
 
         <TextView
