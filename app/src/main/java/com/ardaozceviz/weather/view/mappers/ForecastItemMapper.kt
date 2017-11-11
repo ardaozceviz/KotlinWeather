@@ -14,7 +14,9 @@ class ForecastItemMapper(forecast: Data) {
     var wind = ""
     var dateTimeString = ""
 
-    private val fahrenheit = forecast.apparentTemperatureHigh
+    private val fahrenheitLow = forecast.apparentTemperatureLow
+    private val fahrenheitHigh = forecast.apparentTemperatureHigh
+    private val fahrenheit = (fahrenheitLow + fahrenheitHigh) / 2
 
     init {
         celsiusTemperature = ForecastCommonMapper.fahrenheitToCelsius(fahrenheit)

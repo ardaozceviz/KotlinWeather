@@ -25,12 +25,23 @@ object ForecastCommonMapper {
 
     }
 
-    fun fahrenheitToCelsius(f: Double?): String {
-        return if (f != null) {
-            val temperature = (f - 32) * 0.5556
-            "%.0f".format(temperature) + "°C"
+    // f1 = low, f2 = high
+    fun fahrenheitToCelsius(f1: Double?, f2: Double? = null): String {
+        return if (f2 == null) {
+            if (f1 != null) {
+                val temperature = (f1 - 32) * 0.5556
+                "%.0f".format(temperature) + "°C"
+            } else {
+                "NA"
+            }
         } else {
-            "NA"
+            if (f1 != null) {
+                val temperatureLow = (f1 - 32) * 0.5556
+                val temperatureHigh = (f2 - 32) * 0.5556
+                "%.0f".format(temperatureLow) + "/" + "%.0f".format(temperatureHigh) + "°"
+            } else {
+                "NA"
+            }
         }
     }
 

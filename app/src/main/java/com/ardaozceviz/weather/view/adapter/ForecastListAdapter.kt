@@ -56,7 +56,7 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
         private val dayTextView = itemView?.findViewById<TextView>(R.id.list_item_day)
         private val iconImageView = itemView?.findViewById<ImageView>(R.id.list_item_image)
         //private val descriptionTextView = itemView?.findViewById<TextView>(R.id.list_item_description)
-        private val temperatureTextView = itemView?.findViewById<TextView>(R.id.list_item_temperature)
+        private val temperatureTextView = itemView?.findViewById<TextView>(R.id.list_item_temperature_high)
 
         fun bindForecastItem(forecast: Data? = null, currently: Currently? = null) {
             if (forecast != null) {
@@ -66,7 +66,7 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
                 val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
                 iconImageView?.setImageResource(listItemImageResourceId)
                 dayTextView?.text = ForecastCommonMapper.getListItemDay(forecast.time.toLong())
-                temperatureTextView?.text = ForecastCommonMapper.fahrenheitToCelsius(forecast.apparentTemperatureLow)
+                temperatureTextView?.text = ForecastCommonMapper.fahrenheitToCelsius(forecast.apparentTemperatureLow, forecast.apparentTemperatureHigh)
             } else if (currently != null) {
                 // First item on the list
                 Log.d(TAG_AD_LIST, "bindForecastItem() forecast: $forecast")

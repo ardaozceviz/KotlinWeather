@@ -39,7 +39,7 @@ class UserInterface(private val context: Context) {
         */
         swipeRefreshLayout.setOnRefreshListener(
                 {
-                    Log.i(TAG_C_INTERFACE, "onRefresh called from swipeRefreshLayout")
+                    Log.d(TAG_C_INTERFACE, "onRefresh called from swipeRefreshLayout")
                     // This method performs the actual data-refresh operation.
                     // The method calls setRefreshing(false) when it's finished.
                     LocationServices(context).locationPermission()
