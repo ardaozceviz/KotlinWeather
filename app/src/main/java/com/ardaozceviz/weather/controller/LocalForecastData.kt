@@ -1,6 +1,7 @@
 package com.ardaozceviz.weather.controller
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.util.Log
 import com.ardaozceviz.weather.model.ForecastDataModel
@@ -21,8 +22,18 @@ class LocalForecastData(private val context: Context) {
         val forecastDataModelJson = gson.toJson(forecastDataModel)
         Log.d(TAG_C_LOCAL_DATA, "save() forecastDataModelJson: $forecastDataModelJson.")
         PreferenceManager.getDefaultSharedPreferences(context).edit()
-                .putString("forecastDataModel", forecastDataModelJson.toString()).apply()
+                .putString("forecastDataModel", forecastDataModelJson.toString())
+                .putDouble("longitude", forecastDataModel.longitude)
+                .putDouble("latitude", forecastDataModel.latitude).apply()
     }
+
+    // SharedPreferences extension functions which will allow us to put double types
+    private fun SharedPreferences.Editor.putDouble(key: String, double: Double) =
+            putLong(key, java.lang.Double.doubleToRawLongBits(double))
+
+    private fun SharedPreferences.getDouble(key: String, default: Double) =
+            java.lang.Double.longBitsToDouble(getLong(key, java.lang.Double.doubleToRawLongBits(default)))
+
 
     /*
     * Retrieve the saved weather data from the file
@@ -33,5 +44,16 @@ class LocalForecastData(private val context: Context) {
         val forecastDataModel: ForecastDataModel? = Gson().fromJson(jsonObject.toString(), ForecastDataModel::class.java)
         Log.d(TAG_C_LOCAL_DATA, "retrieve(): $forecastDataModel.")
         return forecastDataModel
+    }
+
+    fun retrieveLocation(): Pair<Double, Double>? {
+        Log.d(TAG_C_LOCAL_DATA, "retrieveLocation() is executed.")
+        val longitude = PreferenceManager.getDefaultSharedPreferences(context).getDouble("longitude", 999.999)
+        val latitude = PreferenceManager.getDefaultSharedPreferences(context).getDouble("latitude", 999.999)
+        Log.d(TAG_C_LOCAL_DATA, "retrieveLocation() longitude: $longitude, latitude: $latitude.")
+        if (longitude != 999.999 && latitude != 999.999) {
+            return Pair(longitude, latitude)
+        }
+        return null
     }
 }

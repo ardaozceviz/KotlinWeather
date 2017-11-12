@@ -47,6 +47,11 @@ class LocationServices(private val context: Context) {
                 Server(context).getWeatherForCurrentLocation(longitude, latitude)
             } else {
                 Log.d(TAG_C_LOCATION, "location is null.")
+                if (LocalForecastData(context).retrieveLocation() != null) {
+                    Log.d(TAG_C_LOCATION, "locationListener LocalForecastData is not null.")
+                    val savedLocation = LocalForecastData(context).retrieveLocation()
+                    Server(context).getWeatherForCurrentLocation(savedLocation?.first.toString(), savedLocation?.second.toString())
+                }
                 //userInterface.onError()
             }
             //Check if the location is not null
@@ -120,7 +125,13 @@ class LocationServices(private val context: Context) {
                     .setNegativeButton(android.R.string.cancel, { dialog, _ ->
                         Log.d(TAG_C_LOCATION, "checkLocationEnabledAndPrompt() AlertDialog cancel clicked.")
                         dialog.dismiss()
-                        userInterface.onError()
+                        if (LocalForecastData(context).retrieveLocation() != null) {
+                            Log.d(TAG_C_LOCATION, "locationListener LocalForecastData is not null.")
+                            val savedLocation = LocalForecastData(context).retrieveLocation()
+                            Server(context).getWeatherForCurrentLocation(savedLocation?.first.toString(), savedLocation?.second.toString())
+                        } else {
+                            userInterface.onError()
+                        }
                     })
                     .create()
                     .show()
