@@ -35,7 +35,7 @@ class Server(val context: Context) {
                     val forecastDataModel = Gson().fromJson(response.toString(), ForecastDataModel::class.java)
                     LocalForecastData(context).save(forecastDataModel)
                     Log.d(TAG_C_SERVER, "forecastDataModel: $forecastDataModel")
-                    userInterface.updateUI(forecastDataModel)
+                    userInterface.updateUI(forecastDataModel, true)
                 }
                 Log.d(TAG_C_SERVER, "requestForecastData() onSuccess response: ${response.toString()}.")
             }

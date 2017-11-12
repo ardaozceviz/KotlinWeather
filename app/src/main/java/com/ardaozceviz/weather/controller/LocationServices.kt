@@ -20,7 +20,6 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.PermissionRequestErrorListener
 import com.karumi.dexter.listener.single.PermissionListener
 
 
@@ -84,7 +83,13 @@ class LocationServices(private val context: Context) {
                 .withListener(object : PermissionListener {
                     override fun onPermissionGranted(response: PermissionGrantedResponse?) {
                         Log.d(TAG_C_LOCATION, "locationPermission() onPermissionGranted() is executed.")
-                        checkLocationEnabledAndPrompt()
+                        if (LocalForecastData(context).retrieveLocation() != null) {
+                            Log.d(TAG_C_LOCATION, "locationPermission() LocalForecastData().retrieveLocation() is not null.")
+                            val savedLocation = LocalForecastData(context).retrieveLocation()
+                            Server(context).getWeatherForCurrentLocation(savedLocation?.first.toString(), savedLocation?.second.toString())
+                        } else {
+                            checkLocationEnabledAndPrompt()
+                        }
                     }
 
                     override fun onPermissionRationaleShouldBeShown(permission: PermissionRequest?, token: PermissionToken?) {
@@ -97,7 +102,7 @@ class LocationServices(private val context: Context) {
                         userInterface.onError()
                     }
                 })
-                .withErrorListener(PermissionRequestErrorListener { e ->
+                .withErrorListener({ e ->
                     Log.d(TAG_C_LOCATION, "locationPermission() PermissionRequestErrorListener: $e")
                 }).check()
 
@@ -125,13 +130,7 @@ class LocationServices(private val context: Context) {
                     .setNegativeButton(android.R.string.cancel, { dialog, _ ->
                         Log.d(TAG_C_LOCATION, "checkLocationEnabledAndPrompt() AlertDialog cancel clicked.")
                         dialog.dismiss()
-                        if (LocalForecastData(context).retrieveLocation() != null) {
-                            Log.d(TAG_C_LOCATION, "locationListener LocalForecastData is not null.")
-                            val savedLocation = LocalForecastData(context).retrieveLocation()
-                            Server(context).getWeatherForCurrentLocation(savedLocation?.first.toString(), savedLocation?.second.toString())
-                        } else {
-                            userInterface.onError()
-                        }
+                        userInterface.onError()
                     })
                     .create()
                     .show()
@@ -141,7 +140,6 @@ class LocationServices(private val context: Context) {
             requestLocationUpdates()
         }
     }
-
 
     /*
     * Start receiving the location updates

@@ -27,7 +27,7 @@ class MainActivity : BaseActivity() {
         storedForecastData = LocalForecastData(this).retrieve()
         if (storedForecastData != null) {
             Log.d(TAG_A_MAIN, "onResume() storedForecastData: $storedForecastData.")
-            userInterface.updateUI(storedForecastData!!)
+            userInterface.updateUI(storedForecastData!!, false)
         }
         if (!isErrorExecuted) {
             userInterface.initialize()

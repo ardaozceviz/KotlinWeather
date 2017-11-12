@@ -165,11 +165,13 @@
             android:text="@string/powered_by_dark_sky"
             android:textColor="@android:color/white"
             android:textSize="10sp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/main_view_temperature"
             app:layout_constraintEnd_toEndOf="@+id/main_view_temperature"
             app:layout_constraintStart_toStartOf="@+id/main_view_temperature"
             app:layout_constraintTop_toTopOf="@+id/guideline2"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/main_view_humidity_icon"

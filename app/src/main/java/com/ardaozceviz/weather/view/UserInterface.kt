@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.controller.LocalForecastData
 import com.ardaozceviz.weather.controller.LocationServices
@@ -47,13 +48,20 @@ class UserInterface(private val context: Context) {
         )
     }
 
-    fun updateUI(forecastDataModel: ForecastDataModel) {
+    fun updateUI(forecastDataModel: ForecastDataModel, isDataComingFromInternet: Boolean) {
         Log.d(TAG_C_INTERFACE, "updateUI() is executed.")
         stopSwipeRefresh()
-        val mappedForecastData = ForecastDataMapper(forecastDataModel)
+        if (isDataComingFromInternet) {
+            toast("Weather data is updated!")
+        }
+
+        // Set stable views visible
+        activity.main_view_dark_sky.visibility = View.VISIBLE
         activity.main_view_wind_icon.visibility = View.VISIBLE
         activity.main_view_humidity_icon.visibility = View.VISIBLE
+
         // Today's information
+        val mappedForecastData = ForecastDataMapper(forecastDataModel)
         setViews(mappedForecastData)
 
         // Forecast recycler view information
@@ -137,5 +145,9 @@ class UserInterface(private val context: Context) {
             swipeRefreshLayout.isRefreshing = true
             swipeRefreshLayout.isEnabled = false
         }
+    }
+
+    fun toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+        Toast.makeText(context, message, duration).show()
     }
 }
