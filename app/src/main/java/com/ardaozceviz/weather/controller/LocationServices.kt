@@ -62,15 +62,15 @@ class LocationServices(private val context: Context) {
         }
 
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-            Log.d(TAG, "locationListener onStatusChanged() is executed.")
+            Log.d(TAG_C_LOCATION, "locationListener onStatusChanged() is executed.")
         }
 
         override fun onProviderEnabled(provider: String?) {
-            Log.d(TAG, "locationListener onProviderEnabled() is executed.")
+            Log.d(TAG_C_LOCATION, "locationListener onProviderEnabled() is executed.")
         }
 
         override fun onProviderDisabled(provider: String?) {
-            Log.d(TAG, "locationListener onProviderDisabled() is executed.")
+            Log.d(TAG_C_LOCATION, "locationListener onProviderDisabled() is executed.")
             userInterface.onError()
         }
     }
