@@ -8,11 +8,12 @@ import com.ardaozceviz.weather.model.Data
 
 class ForecastItemMapper(forecast: Data) {
 
-    var weatherDescription = ""
+    var weatherDescription = "NA"
     var iconName = ""
     var celsiusTemperature = "NA"
-    var wind = ""
-    var dateTimeString = ""
+    var humidity = "NA"
+    var wind = "NA"
+    var dateTimeString = "NA"
 
     private val fahrenheitLow = forecast.apparentTemperatureLow
     private val fahrenheitHigh = forecast.apparentTemperatureHigh
@@ -23,6 +24,7 @@ class ForecastItemMapper(forecast: Data) {
         dateTimeString = ForecastCommonMapper.unixToDate(forecast.time.toLong())
         iconName = ForecastCommonMapper.dayConditionToIcon(forecast.icon)
         weatherDescription = forecast.summary
+        humidity = forecast.humidity.toString()
         wind = ForecastCommonMapper.calculateWind(forecast.windSpeed)
     }
 }

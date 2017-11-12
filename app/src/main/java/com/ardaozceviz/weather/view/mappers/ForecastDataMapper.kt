@@ -12,9 +12,10 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
     var location = "NA"
     var celsiusTemperature = "NA"
     var iconName: String = ""
-    var weatherDescription = ""
-    var currentDateTimeString = ""
-    var wind = ""
+    var weatherDescription = "NA"
+    var currentDateTimeString = "NA"
+    var humidity = "NA"
+    var wind = "NA"
 
     init {
         val simpleDateFormatDate = SimpleDateFormat("E, MMM dd", Locale.getDefault())
@@ -26,6 +27,7 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
         celsiusTemperature = ForecastCommonMapper.fahrenheitToCelsius(fahrenheit)
         iconName = ForecastCommonMapper.getIcon(condition)
         weatherDescription = forecastDataModel.currently.summary
+        humidity = forecastDataModel.currently.humidity.toString()
         wind = ForecastCommonMapper.calculateWind(forecastDataModel.currently.windSpeed)
     }
 }

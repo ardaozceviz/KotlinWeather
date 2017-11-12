@@ -52,7 +52,7 @@ class UserInterface(private val context: Context) {
         stopSwipeRefresh()
         val mappedForecastData = ForecastDataMapper(forecastDataModel)
         activity.main_view_wind_icon.visibility = View.VISIBLE
-        //
+        activity.main_view_humidity_icon.visibility = View.VISIBLE
         // Today's information
         setViews(mappedForecastData)
 
@@ -70,6 +70,7 @@ class UserInterface(private val context: Context) {
                 activity.main_view_date.text = mappedItemData.dateTimeString
                 activity.main_view_description.text = mappedItemData.weatherDescription
                 activity.main_view_temperature.text = mappedItemData.celsiusTemperature
+                activity.main_view_humidity.text = mappedItemData.humidity
                 activity.main_view_wind.text = mappedItemData.wind
                 activity.main_view_image.setImageResource(itemImageResourceId)
             } else if (currently != null) {
@@ -87,6 +88,7 @@ class UserInterface(private val context: Context) {
         activity.main_view_date.text = mappedForecastData.currentDateTimeString
         activity.main_view_description.text = mappedForecastData.weatherDescription
         activity.main_view_temperature.text = mappedForecastData.celsiusTemperature
+        activity.main_view_humidity.text = mappedForecastData.humidity
         activity.main_view_wind.text = mappedForecastData.wind
         activity.main_view_image.setImageResource(mainViewImageResourceId)
     }

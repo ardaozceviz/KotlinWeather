@@ -38,7 +38,7 @@ object ForecastCommonMapper {
             if (f1 != null) {
                 val temperatureLow = (f1 - 32) * 0.5556
                 val temperatureHigh = (f2 - 32) * 0.5556
-                "%.0f".format(temperatureLow) + "/" + "%.0f".format(temperatureHigh) + "°"
+                "%.0f".format(temperatureLow) + "°" + "/" + "%.0f".format(temperatureHigh) + "°"
             } else {
                 "NA"
             }
