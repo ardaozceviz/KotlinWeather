@@ -10,9 +10,21 @@ import java.util.*
  */
 object ForecastCommonMapper {
 
-    fun calculateTemperature(temp: Double): String {
-        val temperature = temp - 273.15
-        return "%.0f".format(temperature) + "°C"
+    fun getWeatherDescription(icon: String): String {
+        return when (icon) {
+            "clear-day", "clear-night" -> "Clear sky"
+            "rain" -> "Rain"
+            "snow" -> "Snow"
+            "sleet" -> "Sleet"
+            "wind" -> "Windy"
+            "fog" -> "Fog"
+            "cloudy" -> "Cloudy"
+            "partly-cloudy-day", "partly-cloudy-night" -> "Partly cloudy"
+            "hail" -> "Hail"
+            "thunderstorm" -> "Thunderstorms"
+            "tornado" -> "Tornado"
+            else -> "NA"
+        }
     }
 
     fun calculateWind(w: Double?): String {
@@ -55,8 +67,8 @@ object ForecastCommonMapper {
 
     fun getListItemDay(unixTime: Long): String {
         val date = Date(unixTime * 1000L) // *1000 is to convert seconds to milliseconds
-        val sdf = SimpleDateFormat("EE", Locale.getDefault())
-        return sdf.format(date).toUpperCase()
+        val sdf = SimpleDateFormat("E", Locale.getDefault())
+        return sdf.format(date)
 
     }
 

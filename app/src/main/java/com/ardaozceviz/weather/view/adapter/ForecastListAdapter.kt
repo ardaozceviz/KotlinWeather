@@ -74,7 +74,8 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
                 val iconName = ForecastCommonMapper.getIcon(condition)
                 val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
                 iconImageView?.setImageResource(listItemImageResourceId)
-                dayTextView?.text = ForecastCommonMapper.getListItemDay(currently.time.toLong())
+                //dayTextView?.text = ForecastCommonMapper.getListItemDay(currently.time.toLong())
+                dayTextView?.setText(R.string.day_today)
                 temperatureTextView?.text = ForecastCommonMapper.fahrenheitToCelsius(currently.temperature)
             }
 

@@ -20,13 +20,13 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
     init {
         val simpleDateFormatDate = SimpleDateFormat("E, MMM dd", Locale.getDefault())
         val fahrenheit = forecastDataModel.currently.apparentTemperature
-        val condition = forecastDataModel.currently.icon
+        val icon = forecastDataModel.currently.icon
 
         currentDateTimeString = simpleDateFormatDate.format(Date().time)
         location = forecastDataModel.timezone
         celsiusTemperature = ForecastCommonMapper.fahrenheitToCelsius(fahrenheit)
-        iconName = ForecastCommonMapper.getIcon(condition)
-        weatherDescription = forecastDataModel.currently.summary
+        iconName = ForecastCommonMapper.getIcon(icon)
+        weatherDescription = ForecastCommonMapper.getWeatherDescription(icon)
         humidity = ForecastCommonMapper.calculateHumidity(forecastDataModel.currently.humidity)
         wind = ForecastCommonMapper.calculateWind(forecastDataModel.currently.windSpeed)
     }
