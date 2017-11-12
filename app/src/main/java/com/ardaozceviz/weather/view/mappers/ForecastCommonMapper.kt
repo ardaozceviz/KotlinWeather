@@ -22,7 +22,15 @@ object ForecastCommonMapper {
         } else {
             "NA"
         }
+    }
 
+    fun calculateHumidity(h: Double?): String {
+        return if (h != null) {
+            val humidity = h.times(100)
+            "%.0f".format(humidity) + " %"
+        } else {
+            "NA"
+        }
     }
 
     // f1 = low, f2 = high

@@ -27,8 +27,8 @@
 
         <ImageView
             android:id="@+id/main_view_image"
-            android:layout_width="190dp"
-            android:layout_height="190dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="32dp"
             android:layout_marginStart="32dp"
@@ -128,11 +128,9 @@
 
         <TextView
             android:id="@+id/main_view_wind"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="16dp"
             android:layout_marginStart="8dp"
             android:textColor="@color/colorText"
             android:textSize="18sp"
@@ -144,14 +142,15 @@
 
         <TextView
             android:id="@+id/main_view_humidity"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
             android:textColor="@color/colorText"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/main_view_humidity_icon"
-            app:layout_constraintEnd_toEndOf="@+id/main_view_wind"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/main_view_wind"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/main_view_humidity_icon"
             app:layout_constraintTop_toTopOf="@+id/main_view_humidity_icon"
             tools:text="12 %" />
 

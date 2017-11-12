@@ -27,7 +27,7 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
         celsiusTemperature = ForecastCommonMapper.fahrenheitToCelsius(fahrenheit)
         iconName = ForecastCommonMapper.getIcon(condition)
         weatherDescription = forecastDataModel.currently.summary
-        humidity = forecastDataModel.currently.humidity.toString()
+        humidity = ForecastCommonMapper.calculateHumidity(forecastDataModel.currently.humidity)
         wind = ForecastCommonMapper.calculateWind(forecastDataModel.currently.windSpeed)
     }
 }

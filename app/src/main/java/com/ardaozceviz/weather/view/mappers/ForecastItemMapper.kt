@@ -24,7 +24,7 @@ class ForecastItemMapper(forecast: Data) {
         dateTimeString = ForecastCommonMapper.unixToDate(forecast.time.toLong())
         iconName = ForecastCommonMapper.dayConditionToIcon(forecast.icon)
         weatherDescription = forecast.summary
-        humidity = forecast.humidity.toString()
+        humidity = ForecastCommonMapper.calculateHumidity(forecast.humidity)
         wind = ForecastCommonMapper.calculateWind(forecast.windSpeed)
     }
 }
