@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Clean Weather</string>
     <string name="powered_by_dark_sky">Powered by Dark Sky</string>
     <string name="day_today">Today</string>
 </resources>
