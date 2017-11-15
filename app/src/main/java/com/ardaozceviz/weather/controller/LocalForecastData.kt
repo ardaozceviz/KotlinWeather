@@ -63,9 +63,9 @@ class LocalForecastData(private val context: Context) {
         val longitude = PreferenceManager.getDefaultSharedPreferences(context).getDouble("longitude", 999.999)
         val latitude = PreferenceManager.getDefaultSharedPreferences(context).getDouble("latitude", 999.999)
         Log.d(TAG_C_LOCAL_DATA, "retrieveLocation() longitude: $longitude, latitude: $latitude.")
-        if (longitude != 999.999 && latitude != 999.999) {
-            return Pair(longitude, latitude)
-        }
-        return null
+        return if (longitude != 999.999 && latitude != 999.999) {
+            Pair(longitude, latitude)
+        } else
+            null
     }
 }

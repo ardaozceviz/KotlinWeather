@@ -103,6 +103,7 @@ class UserInterface(private val context: Context) {
 
     fun onError(message: String) {
         Log.d(TAG_C_INTERFACE, "onError() is executed.")
+        stopSwipeRefresh()
         isErrorExecuted = true
         showSnackbar(message)
         val localForecastData = LocalForecastData(context).retrieve()
@@ -115,7 +116,7 @@ class UserInterface(private val context: Context) {
 
     private fun showSnackbar(message: String) {
         Log.d(TAG_C_INTERFACE, "showSnackbar() is executed.")
-        stopSwipeRefresh()
+        Log.d(TAG_C_INTERFACE, "showSnackbar() message: $message")
         retrySnackBar = Snackbar.make(swipeRefreshLayout, message, Snackbar.LENGTH_LONG)
         if (!retrySnackBar.isShown) {
             retrySnackBar.setAction("Retry") { _ ->
@@ -129,7 +130,7 @@ class UserInterface(private val context: Context) {
         }
     }
 
-    fun stopSwipeRefresh() {
+    private fun stopSwipeRefresh() {
         Log.d(TAG_C_INTERFACE, "stopSwipeRefresh() is executed.")
         if (swipeRefreshLayout.isRefreshing) {
             Log.d(TAG_C_INTERFACE, "stopSwipeRefresh() isRefreshing: ${swipeRefreshLayout.isRefreshing}.")
@@ -138,7 +139,7 @@ class UserInterface(private val context: Context) {
         }
     }
 
-    fun startSwipeRefresh() {
+    private fun startSwipeRefresh() {
         Log.d(TAG_C_INTERFACE, "startSwipeRefresh() is executed.")
         if (!swipeRefreshLayout.isRefreshing) {
             Log.d(TAG_C_INTERFACE, "startSwipeRefresh() isRefreshing: ${swipeRefreshLayout.isRefreshing}.")
@@ -146,9 +147,6 @@ class UserInterface(private val context: Context) {
                 swipeRefreshLayout.isRefreshing = true
                 swipeRefreshLayout.isEnabled = false
             }
-            //swipeRefreshLayout.isEnabled = false
-            /*swipeRefreshLayout.isRefreshing = true
-            swipeRefreshLayout.isEnabled = false*/
         }
     }
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import com.ardaozceviz.weather.R
 import com.ardaozceviz.weather.controller.LocalForecastData
+import com.ardaozceviz.weather.model.ERR_RETRIEVE
 import com.ardaozceviz.weather.model.ForecastDataModel
 import com.ardaozceviz.weather.model.TAG_A_MAIN
 import com.ardaozceviz.weather.model.isErrorExecuted
@@ -19,20 +20,19 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         userInterface = UserInterface(this)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG_A_MAIN, "onResume() is executed.")
         storedForecastData = LocalForecastData(this).retrieve()
         if (storedForecastData != null) {
             Log.d(TAG_A_MAIN, "onResume() storedForecastData: $storedForecastData.")
             userInterface.updateUI(storedForecastData!!, false)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG_A_MAIN, "onResume() is executed.")
         if (!isErrorExecuted) {
             userInterface.initialize()
         }
-        userInterface.stopSwipeRefresh()
     }
 
     override fun onPause() {

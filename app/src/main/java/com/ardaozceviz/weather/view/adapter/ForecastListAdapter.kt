@@ -30,7 +30,7 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
     private var clickListener: (forecast: Data?, currently: Currently?) -> Unit = { _: Data?, _: Currently? -> }
 
     override fun onBindViewHolder(holder: WeatherInfoHolder?, position: Int) {
-        Log.d(TAG_AD_LIST, "onBindViewHolder() position: $position")
+        //Log.d(TAG_AD_LIST, "onBindViewHolder() position: $position")
         if (position == 0) {
             holder?.bindForecastItem(null, LocalForecastData(context).retrieve()?.currently)
         } else {
@@ -38,10 +38,7 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
         }
     }
 
-    override fun getItemCount(): Int {
-        Log.d(TAG_AD_LIST, "getItemCount(): ${dailyForecast.data.count()}")
-        return dailyForecast.data.count()
-    }
+    override fun getItemCount(): Int = dailyForecast.data.count()
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): WeatherInfoHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.forecast_list_item, parent, false)
@@ -55,12 +52,11 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
 
         private val dayTextView = itemView?.findViewById<TextView>(R.id.list_item_day)
         private val iconImageView = itemView?.findViewById<ImageView>(R.id.list_item_image)
-        //private val descriptionTextView = itemView?.findViewById<TextView>(R.id.list_item_description)
         private val temperatureTextView = itemView?.findViewById<TextView>(R.id.list_item_temperature_high)
 
         fun bindForecastItem(forecast: Data? = null, currently: Currently? = null) {
             if (forecast != null) {
-                Log.d(TAG_AD_LIST, "bindForecastItem() forecast: $forecast")
+                //Log.d(TAG_AD_LIST, "bindForecastItem() forecast: $forecast")
                 val condition = forecast.icon
                 val iconName = ForecastCommonMapper.dayConditionToIcon(condition)
                 val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
@@ -69,7 +65,7 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
                 temperatureTextView?.text = ForecastCommonMapper.fahrenheitToCelsius(forecast.apparentTemperatureLow, forecast.apparentTemperatureHigh)
             } else if (currently != null) {
                 // First item on the list
-                Log.d(TAG_AD_LIST, "bindForecastItem() forecast: $forecast")
+                //Log.d(TAG_AD_LIST, "bindForecastItem() forecast: $forecast")
                 val condition = currently.icon
                 val iconName = ForecastCommonMapper.getIcon(condition)
                 val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
