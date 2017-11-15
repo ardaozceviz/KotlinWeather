@@ -134,8 +134,8 @@ class UserInterface(private val context: Context) {
         Log.d(TAG_C_INTERFACE, "stopSwipeRefresh() is executed.")
         if (swipeRefreshLayout.isRefreshing) {
             Log.d(TAG_C_INTERFACE, "stopSwipeRefresh() isRefreshing: ${swipeRefreshLayout.isRefreshing}.")
-            swipeRefreshLayout.isRefreshing = false
             swipeRefreshLayout.isEnabled = true
+            swipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -144,8 +144,8 @@ class UserInterface(private val context: Context) {
         if (!swipeRefreshLayout.isRefreshing) {
             Log.d(TAG_C_INTERFACE, "startSwipeRefresh() isRefreshing: ${swipeRefreshLayout.isRefreshing}.")
             swipeRefreshLayout.post {
-                swipeRefreshLayout.isRefreshing = true
                 swipeRefreshLayout.isEnabled = false
+                swipeRefreshLayout.isRefreshing = true
             }
         }
     }
