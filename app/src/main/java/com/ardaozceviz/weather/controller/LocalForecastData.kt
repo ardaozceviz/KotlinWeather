@@ -27,6 +27,18 @@ class LocalForecastData(private val context: Context) {
                 .putDouble("latitude", forecastDataModel.latitude).apply()
     }
 
+    /*
+     We can save users location when we have access to device location and dont have access to internet
+     and we might need that data when we dont have an access to location but the internet.
+     We can retrieve that data and make search with that over internet.
+     */
+    fun saveLocation(longitude: Double, latitude: Double) {
+        Log.d(TAG_C_LOCAL_DATA, "saveLocation() is executed.")
+        PreferenceManager.getDefaultSharedPreferences(context).edit()
+                .putDouble("longitude", longitude)
+                .putDouble("latitude", latitude).apply()
+    }
+
     // SharedPreferences extension functions which will allow us to put double types
     private fun SharedPreferences.Editor.putDouble(key: String, double: Double) =
             putLong(key, java.lang.Double.doubleToRawLongBits(double))

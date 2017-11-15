@@ -34,5 +34,10 @@ class MainActivity : BaseActivity() {
         }
         userInterface.stopSwipeRefresh()
     }
+
+    override fun onPause() {
+        super.onPause()
+        isErrorExecuted = false
+    }
 }
 

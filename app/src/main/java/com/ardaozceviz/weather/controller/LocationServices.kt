@@ -13,6 +13,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import com.ardaozceviz.weather.model.ERR_LOCATE
 import com.ardaozceviz.weather.model.TAG_C_LOCATION
 import com.ardaozceviz.weather.view.UserInterface
 import com.karumi.dexter.Dexter
@@ -42,16 +43,17 @@ class LocationServices(private val context: Context) {
             if (location != null) {
                 val longitude = location.longitude.toString()
                 val latitude = location.latitude.toString()
-                Log.d(TAG_C_LOCATION, "longitude: $longitude, latitude: $latitude")
+                Log.d(TAG_C_LOCATION, "locationListener longitude: $longitude, latitude: $latitude")
+
                 Server(context).getWeatherForCurrentLocation(longitude, latitude)
             } else {
-                Log.d(TAG_C_LOCATION, "location is null.")
+                Log.d(TAG_C_LOCATION, "locationListener location: $location")
+                userInterface.onError(ERR_LOCATE)
                 if (LocalForecastData(context).retrieveLocation() != null) {
                     Log.d(TAG_C_LOCATION, "locationListener LocalForecastData is not null.")
                     val savedLocation = LocalForecastData(context).retrieveLocation()
                     Server(context).getWeatherForCurrentLocation(savedLocation?.first.toString(), savedLocation?.second.toString())
                 }
-                //userInterface.onError()
             }
             //Check if the location is not null
             //Remove the location listener as we don't need to fetch the weather again and again
@@ -71,7 +73,7 @@ class LocationServices(private val context: Context) {
 
         override fun onProviderDisabled(provider: String?) {
             Log.d(TAG_C_LOCATION, "locationListener onProviderDisabled() is executed.")
-            userInterface.onError()
+            userInterface.onError(ERR_LOCATE)
         }
     }
 
@@ -99,7 +101,7 @@ class LocationServices(private val context: Context) {
 
                     override fun onPermissionDenied(response: PermissionDeniedResponse?) {
                         Log.d(TAG_C_LOCATION, "locationPermission() onPermissionDenied() is executed.")
-                        userInterface.onError()
+                        userInterface.onError(ERR_LOCATE)
                     }
                 })
                 .withErrorListener({ e ->
@@ -130,7 +132,7 @@ class LocationServices(private val context: Context) {
                     .setNegativeButton(android.R.string.cancel, { dialog, _ ->
                         Log.d(TAG_C_LOCATION, "checkLocationEnabledAndPrompt() AlertDialog cancel clicked.")
                         dialog.dismiss()
-                        userInterface.onError()
+                        userInterface.onError(ERR_LOCATE)
                     })
                     .create()
                     .show()

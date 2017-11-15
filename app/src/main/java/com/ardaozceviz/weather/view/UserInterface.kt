@@ -101,10 +101,10 @@ class UserInterface(private val context: Context) {
         activity.main_view_image.setImageResource(mainViewImageResourceId)
     }
 
-    fun onError() {
+    fun onError(message: String) {
         Log.d(TAG_C_INTERFACE, "onError() is executed.")
         isErrorExecuted = true
-        showSnackbar()
+        showSnackbar(message)
         val localForecastData = LocalForecastData(context).retrieve()
         if (localForecastData == null) {
             Log.d(TAG_C_INTERFACE, "onError() localForecastData is null.")
@@ -113,10 +113,10 @@ class UserInterface(private val context: Context) {
         }
     }
 
-    private fun showSnackbar() {
+    private fun showSnackbar(message: String) {
         Log.d(TAG_C_INTERFACE, "showSnackbar() is executed.")
         stopSwipeRefresh()
-        retrySnackBar = Snackbar.make(swipeRefreshLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_LONG)
+        retrySnackBar = Snackbar.make(swipeRefreshLayout, message, Snackbar.LENGTH_LONG)
         if (!retrySnackBar.isShown) {
             retrySnackBar.setAction("Retry") { _ ->
                 Log.d(TAG_C_INTERFACE, "onError() Retry is clicked.")
@@ -142,8 +142,13 @@ class UserInterface(private val context: Context) {
         Log.d(TAG_C_INTERFACE, "startSwipeRefresh() is executed.")
         if (!swipeRefreshLayout.isRefreshing) {
             Log.d(TAG_C_INTERFACE, "startSwipeRefresh() isRefreshing: ${swipeRefreshLayout.isRefreshing}.")
-            swipeRefreshLayout.isRefreshing = true
-            swipeRefreshLayout.isEnabled = false
+            swipeRefreshLayout.post {
+                swipeRefreshLayout.isRefreshing = true
+                swipeRefreshLayout.isEnabled = false
+            }
+            //swipeRefreshLayout.isEnabled = false
+            /*swipeRefreshLayout.isRefreshing = true
+            swipeRefreshLayout.isEnabled = false*/
         }
     }
 

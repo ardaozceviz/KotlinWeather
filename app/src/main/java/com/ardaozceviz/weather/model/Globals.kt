@@ -14,3 +14,6 @@ const val TAG_O_BASE = "BaseActivity"
 const val TAG_AD_LIST = "ForecastListAdapter"
 
 var isErrorExecuted: Boolean = false
+
+const val ERR_RETRIEVE = "Unable to retrieve weather data."
+const val ERR_LOCATE = "Unable to detect location."

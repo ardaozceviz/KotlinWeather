@@ -3,6 +3,7 @@ package com.ardaozceviz.weather.controller
 import android.content.Context
 import android.util.Log
 import com.ardaozceviz.weather.BuildConfig
+import com.ardaozceviz.weather.model.ERR_RETRIEVE
 import com.ardaozceviz.weather.model.ForecastDataModel
 import com.ardaozceviz.weather.model.TAG_C_SERVER
 import com.ardaozceviz.weather.view.UserInterface
@@ -43,7 +44,7 @@ class Server(val context: Context) {
             override fun onFailure(statusCode: Int, headers: Array<out Header>?, throwable: Throwable?, errorResponse: JSONObject?) {
                 Log.e(TAG_C_SERVER, "requestForecastData() onFailure() ${throwable.toString()}.")
                 Log.d(TAG_C_SERVER, "requestForecastData() statusCode: $statusCode.")
-                userInterface.onError()
+                userInterface.onError(ERR_RETRIEVE)
             }
         })
     }
