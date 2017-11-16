@@ -1,6 +1,12 @@
 # Kotlin Weather
 This is a clean and simple weather app for Android developed in Kotlin which I believe it might be a useful source for those who want the see how Kotlin language works in Android development.
 
+<a href="https://play.google.com/store/apps/details?id=com.ardaozceviz.cleanweather">
+    <img alt="Get it on Google Play"
+        height="80"
+        src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
+</a>
+
 ## Screenshots
 ![Demo screenshot](./screenshots/gif.gif)
 
