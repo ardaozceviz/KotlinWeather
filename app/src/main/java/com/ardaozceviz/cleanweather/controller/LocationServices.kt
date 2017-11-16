@@ -100,6 +100,10 @@ class LocationServices(private val context: Context) {
 
                     override fun onPermissionDenied(response: PermissionDeniedResponse?) {
                         Log.d(TAG_C_LOCATION, "locationPermission() onPermissionDenied() is executed.")
+                        val savedLocation = LocalForecastData(context).retrieveLocation()
+                        if (savedLocation != null){
+                            Server(context).getWeatherForCurrentLocation(savedLocation.first.toString(), savedLocation.second.toString())
+                        }
                         userInterface.onError(ERR_LOCATE)
                     }
                 })
