@@ -1,4 +1,4 @@
-package com.ardaozceviz.weather.view.adapter
+package com.ardaozceviz.cleanweather.view.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.ardaozceviz.weather.R
-import com.ardaozceviz.weather.controller.LocalForecastData
-import com.ardaozceviz.weather.model.Currently
-import com.ardaozceviz.weather.model.Daily
-import com.ardaozceviz.weather.model.Data
-import com.ardaozceviz.weather.model.TAG_AD_LIST
-import com.ardaozceviz.weather.view.mappers.ForecastCommonMapper
+import com.ardaozceviz.cleanweather.R
+import com.ardaozceviz.cleanweather.controller.LocalForecastData
+import com.ardaozceviz.cleanweather.model.Currently
+import com.ardaozceviz.cleanweather.model.Daily
+import com.ardaozceviz.cleanweather.model.Data
+import com.ardaozceviz.cleanweather.model.TAG_AD_LIST
+import com.ardaozceviz.cleanweather.view.mappers.ForecastCommonMapper
 
 /**
  * Created by arda on 07/11/2017.

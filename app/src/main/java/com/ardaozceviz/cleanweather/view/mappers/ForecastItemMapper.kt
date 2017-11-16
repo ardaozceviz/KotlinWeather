@@ -1,6 +1,6 @@
-package com.ardaozceviz.weather.view.mappers
+package com.ardaozceviz.cleanweather.view.mappers
 
-import com.ardaozceviz.weather.model.Data
+import com.ardaozceviz.cleanweather.model.Data
 
 /**
  * Created by arda on 07/11/2017.

@@ -1,7 +1,7 @@
-package com.ardaozceviz.weather.view.mappers
+package com.ardaozceviz.cleanweather.view.mappers
 
 import android.util.Log
-import com.ardaozceviz.weather.model.TAG_M_FORECAST
+import com.ardaozceviz.cleanweather.model.TAG_M_FORECAST
 import java.text.SimpleDateFormat
 import java.util.*
 

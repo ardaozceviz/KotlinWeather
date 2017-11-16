@@ -1,14 +1,13 @@
-package com.ardaozceviz.weather.view.activities
+package com.ardaozceviz.cleanweather.view.activities
 
 import android.os.Bundle
 import android.util.Log
-import com.ardaozceviz.weather.R
-import com.ardaozceviz.weather.controller.LocalForecastData
-import com.ardaozceviz.weather.model.ERR_RETRIEVE
-import com.ardaozceviz.weather.model.ForecastDataModel
-import com.ardaozceviz.weather.model.TAG_A_MAIN
-import com.ardaozceviz.weather.model.isErrorExecuted
-import com.ardaozceviz.weather.view.UserInterface
+import com.ardaozceviz.cleanweather.R
+import com.ardaozceviz.cleanweather.controller.LocalForecastData
+import com.ardaozceviz.cleanweather.model.ForecastDataModel
+import com.ardaozceviz.cleanweather.model.TAG_A_MAIN
+import com.ardaozceviz.cleanweather.model.isErrorExecuted
+import com.ardaozceviz.cleanweather.view.UserInterface
 
 
 class MainActivity : BaseActivity() {

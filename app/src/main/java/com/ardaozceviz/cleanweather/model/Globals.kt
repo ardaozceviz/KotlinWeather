@@ -1,4 +1,4 @@
-package com.ardaozceviz.weather.model
+package com.ardaozceviz.cleanweather.model
 
 /**
  * Created by arda on 06/11/2017.

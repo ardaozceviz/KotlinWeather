@@ -1,4 +1,4 @@
-package com.ardaozceviz.weather
+package com.ardaozceviz.cleanweather
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

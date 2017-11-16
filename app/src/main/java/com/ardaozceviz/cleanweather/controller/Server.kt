@@ -1,12 +1,12 @@
-package com.ardaozceviz.weather.controller
+package com.ardaozceviz.cleanweather.controller
 
 import android.content.Context
 import android.util.Log
-import com.ardaozceviz.weather.BuildConfig
-import com.ardaozceviz.weather.model.ERR_RETRIEVE
-import com.ardaozceviz.weather.model.ForecastDataModel
-import com.ardaozceviz.weather.model.TAG_C_SERVER
-import com.ardaozceviz.weather.view.UserInterface
+import com.ardaozceviz.cleanweather.BuildConfig
+import com.ardaozceviz.cleanweather.model.ERR_RETRIEVE
+import com.ardaozceviz.cleanweather.model.ForecastDataModel
+import com.ardaozceviz.cleanweather.model.TAG_C_SERVER
+import com.ardaozceviz.cleanweather.view.UserInterface
 import com.google.gson.Gson
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.JsonHttpResponseHandler

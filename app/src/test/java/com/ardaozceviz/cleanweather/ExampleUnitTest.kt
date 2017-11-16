@@ -1,4 +1,4 @@
-package com.ardaozceviz.weather
+package com.ardaozceviz.cleanweather
 
 import org.junit.Test
 

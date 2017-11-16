@@ -9,7 +9,7 @@ android {
     buildToolsVersion "26.0.2"
     defaultConfig {
         buildConfigField("String", "API_KEY", API_KEY)
-        applicationId "com.ardaozceviz.weather"
+        applicationId "com.ardaozceviz.cleanweather"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1

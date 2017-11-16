@@ -1,4 +1,4 @@
-package com.ardaozceviz.weather.model
+package com.ardaozceviz.cleanweather.model
 
 import com.google.gson.annotations.SerializedName
 

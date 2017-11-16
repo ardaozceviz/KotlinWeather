@@ -1,10 +1,10 @@
-package com.ardaozceviz.weather.view.activities
+package com.ardaozceviz.cleanweather.view.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.ardaozceviz.weather.model.TAG_O_BASE
+import com.ardaozceviz.cleanweather.model.TAG_O_BASE
 
 @SuppressLint("Registered")
 /**

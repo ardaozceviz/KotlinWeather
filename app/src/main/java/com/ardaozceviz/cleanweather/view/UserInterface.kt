@@ -1,4 +1,4 @@
-package com.ardaozceviz.weather.view
+package com.ardaozceviz.cleanweather.view
 
 import android.app.Activity
 import android.content.Context
@@ -10,13 +10,13 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.ardaozceviz.weather.R
-import com.ardaozceviz.weather.controller.LocalForecastData
-import com.ardaozceviz.weather.controller.LocationServices
-import com.ardaozceviz.weather.model.*
-import com.ardaozceviz.weather.view.adapter.ForecastListAdapter
-import com.ardaozceviz.weather.view.mappers.ForecastDataMapper
-import com.ardaozceviz.weather.view.mappers.ForecastItemMapper
+import com.ardaozceviz.cleanweather.R
+import com.ardaozceviz.cleanweather.controller.LocalForecastData
+import com.ardaozceviz.cleanweather.controller.LocationServices
+import com.ardaozceviz.cleanweather.model.*
+import com.ardaozceviz.cleanweather.view.adapter.ForecastListAdapter
+import com.ardaozceviz.cleanweather.view.mappers.ForecastDataMapper
+import com.ardaozceviz.cleanweather.view.mappers.ForecastItemMapper
 import kotlinx.android.synthetic.main.activity_main.*
 
 

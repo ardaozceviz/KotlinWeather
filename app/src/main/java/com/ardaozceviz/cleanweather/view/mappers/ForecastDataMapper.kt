@@ -1,6 +1,6 @@
-package com.ardaozceviz.weather.view.mappers
+package com.ardaozceviz.cleanweather.view.mappers
 
-import com.ardaozceviz.weather.model.ForecastDataModel
+import com.ardaozceviz.cleanweather.model.ForecastDataModel
 import java.text.SimpleDateFormat
 import java.util.*
 
