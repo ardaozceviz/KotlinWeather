@@ -56,7 +56,15 @@ object ForecastCommonMapper {
             if (f1 != null) {
                 val temperatureLow = (f1 - 32) * 0.5556
                 val temperatureHigh = (f2 - 32) * 0.5556
-                "%.0f".format(temperatureLow) + "°" + "/" + "%.0f".format(temperatureHigh) + "°"
+                if ("%.0f".format(temperatureLow) == "-0") {
+                    "0°" + "/" + "%.0f".format(temperatureHigh) + "°"
+                } else if ("%.0f".format(temperatureHigh) == "-0") {
+                    "%.0f".format(temperatureLow) + "°" + "/" + "0°"
+                } else if ("%.0f".format(temperatureLow) == "-0" && "%.0f".format(temperatureHigh) == "-0") {
+                    "0°" + "/" + "0°"
+                } else {
+                    "%.0f".format(temperatureLow) + "°" + "/" + "%.0f".format(temperatureHigh) + "°"
+                }
             } else {
                 "NA"
             }
