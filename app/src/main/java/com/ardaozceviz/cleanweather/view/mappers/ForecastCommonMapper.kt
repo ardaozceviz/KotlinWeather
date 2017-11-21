@@ -91,19 +91,22 @@ object ForecastCommonMapper {
         }
     }
 
-    fun dayConditionToIcon(condition: String?): String = when (condition) {
-        "clear-day", "clear-night" -> "day_clear_sky"
-        "rain" -> "day_rain"
-        "snow" -> "day_snow"
-        "sleet" -> "day_sleet"
-        "wind" -> "day_night_breeze"
-        "fog" -> "day_fog"
-        "cloudy" -> "day_clouds"
-        "partly-cloudy-day" -> "day_few_clouds"
-        "hail" -> "day_hail"
-        "thunderstorm" -> "day_thunderstorm"
-        "tornado" -> "day_night_tornado"
-        else -> "day_clear_sky"
+    fun dayConditionToIcon(condition: String?): String {
+        Log.d(TAG_M_FORECAST, "condition:$condition")
+        return when (condition) {
+            "clear-day", "clear-night" -> "day_clear_sky"
+            "rain" -> "day_rain"
+            "snow" -> "day_snow"
+            "sleet" -> "day_sleet"
+            "wind" -> "day_night_breeze"
+            "fog" -> "day_fog"
+            "cloudy" -> "day_clouds"
+            "partly-cloudy-day", "partly-cloudy-night" -> "day_few_clouds"
+            "hail" -> "day_hail"
+            "thunderstorm" -> "day_thunderstorm"
+            "tornado" -> "day_night_tornado"
+            else -> "day_clear_sky"
+        }
     }
 
     private fun nightConditionToIcon(condition: String?): String = when (condition) {
@@ -114,7 +117,7 @@ object ForecastCommonMapper {
         "wind" -> "day_night_breeze"
         "fog" -> "night_fog"
         "cloudy" -> "night_clouds"
-        "partly-cloudy-night" -> "night_few_clouds"
+        "partly-cloudy-night", "partly-cloudy-day" -> "night_few_clouds"
         "hail" -> "night_hail"
         "thunderstorm" -> "night_thunderstorm"
         "tornado" -> "day_night_tornado"
