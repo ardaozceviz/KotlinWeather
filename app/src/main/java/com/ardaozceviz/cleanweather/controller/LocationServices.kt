@@ -85,12 +85,7 @@ class LocationServices(private val context: Context) {
                 .withListener(object : PermissionListener {
                     override fun onPermissionGranted(response: PermissionGrantedResponse?) {
                         Log.d(TAG_C_LOCATION, "locationPermission() onPermissionGranted() is executed.")
-                        val savedLocation = LocalForecastData(context).retrieveLocation()
-                        if (savedLocation != null){
-                            Server(context).getWeatherForCurrentLocation(savedLocation.first.toString(), savedLocation.second.toString())
-                        } else {
-                            checkLocationEnabledAndPrompt()
-                        }
+                        checkLocationEnabledAndPrompt()
                     }
 
                     override fun onPermissionRationaleShouldBeShown(permission: PermissionRequest?, token: PermissionToken?) {

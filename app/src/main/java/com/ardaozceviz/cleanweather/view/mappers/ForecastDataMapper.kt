@@ -19,7 +19,7 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
 
     init {
         val simpleDateFormatDate = SimpleDateFormat("E, MMM dd", Locale.getDefault())
-        val fahrenheit = forecastDataModel.currently.apparentTemperature
+        val fahrenheit = forecastDataModel.currently.temperature
         val icon = forecastDataModel.currently.icon
 
         currentDateTimeString = simpleDateFormatDate.format(Date().time)
