@@ -48,7 +48,10 @@ class LocationServices(private val context: Context) {
                 Server(context).getWeatherForCurrentLocation(longitude, latitude)
             } else {
                 Log.d(TAG_C_LOCATION, "locationListener location: $location")
-                userInterface.onError(ERR_LOCATE)
+                val isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                if (!isLocationEnabled) {
+                    userInterface.onError(ERR_LOCATE)
+                }
                 if (LocalForecastData(context).retrieveLocation() != null) {
                     Log.d(TAG_C_LOCATION, "locationListener LocalForecastData is not null.")
                     val savedLocation = LocalForecastData(context).retrieveLocation()
@@ -96,7 +99,7 @@ class LocationServices(private val context: Context) {
                     override fun onPermissionDenied(response: PermissionDeniedResponse?) {
                         Log.d(TAG_C_LOCATION, "locationPermission() onPermissionDenied() is executed.")
                         val savedLocation = LocalForecastData(context).retrieveLocation()
-                        if (savedLocation != null){
+                        if (savedLocation != null) {
                             Server(context).getWeatherForCurrentLocation(savedLocation.first.toString(), savedLocation.second.toString())
                         }
                         userInterface.onError(ERR_LOCATE)
@@ -111,10 +114,15 @@ class LocationServices(private val context: Context) {
 
     fun checkLocationEnabledAndPrompt() {
         Log.d(TAG_C_LOCATION, "checkLocationEnabledAndPrompt() is executed.")
+        val savedLocation = LocalForecastData(context).retrieveLocation()
         // Check if Location is enabled
         // NETWORK_PROVIDER determines location based on availability of cell tower and WiFi access points. Results are retrieved by means of a network lookup.
         val isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        if (!isLocationEnabled) {
+        if (!isLocationEnabled && savedLocation != null) {
+            Log.d(TAG_C_LOCATION, "isLocationEnabled: $isLocationEnabled && savedLocation: $savedLocation")
+            userInterface.onError(ERR_LOCATE)
+            Server(context).getWeatherForCurrentLocation(savedLocation.first.toString(), savedLocation.second.toString())
+        } else if (!isLocationEnabled) {
             // Location is not enabled
             Log.d(TAG_C_LOCATION, "isLocationEnabled: $isLocationEnabled")
             Log.d(TAG_C_LOCATION, "checkLocationEnabledAndPrompt() AlertDialog show.")
@@ -146,12 +154,12 @@ class LocationServices(private val context: Context) {
     * */
     @SuppressLint("MissingPermission")
     private fun requestLocationUpdates() {
-        Log.d(TAG, "requestLocationUpdates() is executed.")
+        Log.d(TAG_C_LOCATION, "requestLocationUpdates() is executed.")
         val provider = LocationManager.GPS_PROVIDER
         //Add the location listener and listen updates
         locationManager.requestLocationUpdates(provider, 0, 0.0f, locationListener)
         val location = locationManager.getLastKnownLocation(provider)
-        Log.d(TAG, "requestLocationUpdates() location: $location.")
+        Log.d(TAG_C_LOCATION, "requestLocationUpdates() location: $location.")
         locationListener.onLocationChanged(location)
     }
 

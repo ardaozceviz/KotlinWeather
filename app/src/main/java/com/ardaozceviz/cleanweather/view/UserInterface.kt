@@ -117,7 +117,7 @@ class UserInterface(private val context: Context) {
     private fun showSnackbar(message: String) {
         Log.d(TAG_C_INTERFACE, "showSnackbar() is executed.")
         Log.d(TAG_C_INTERFACE, "showSnackbar() message: $message")
-        retrySnackBar = Snackbar.make(swipeRefreshLayout, message, Snackbar.LENGTH_LONG)
+        retrySnackBar = Snackbar.make(swipeRefreshLayout, message, Snackbar.LENGTH_SHORT)
         if (!retrySnackBar.isShown) {
             retrySnackBar.setAction("Retry") { _ ->
                 Log.d(TAG_C_INTERFACE, "onError() Retry is clicked.")
