@@ -200,16 +200,16 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:checked="false"
-            android:textOff="Daily"
-            android:textOn="Hourly"
+            android:showText="true"
+            android:textOff="@string/switch_daily"
+            android:textOn="@string/switch_hourly"
             android:textSize="18sp"
-            android:thumb="@color/colorPrimary"
-            android:thumbTint="@color/colorPrimary"
+            android:thumb="@color/colorAccent"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/main_view_forecast_recycler_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/main_view_temperature" />
-
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>

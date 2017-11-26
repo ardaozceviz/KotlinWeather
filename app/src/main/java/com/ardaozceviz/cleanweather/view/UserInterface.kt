@@ -4,12 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
-import android.widget.CompoundButton
 import android.widget.Toast
 import com.ardaozceviz.cleanweather.R
 import com.ardaozceviz.cleanweather.controller.LocalForecastData
@@ -50,33 +47,33 @@ class UserInterface(private val context: Context) {
 
         switchData.setOnCheckedChangeListener { _, isChecked ->
             val forecastDataModel = LocalForecastData(context).retrieve()
-            if (isChecked){
+            if (isChecked) {
                 // Show hourly data
                 Log.d(TAG_C_INTERFACE, "isChecked(Hourly): $isChecked.")
-                if (forecastDataModel != null){
-                    updateUI(forecastDataModel,false, true)
+                if (forecastDataModel != null) {
+                    updateUI(forecastDataModel, false, true)
                 }
             } else {
                 // Show daily data
                 Log.d(TAG_C_INTERFACE, "isChecked(Daily): $isChecked.")
-                if (forecastDataModel != null){
-                    updateUI(forecastDataModel,false, false)
+                if (forecastDataModel != null) {
+                    updateUI(forecastDataModel, false, false)
                 }
             }
         }
     }
 
-    fun updateUI(forecastDataModel: ForecastDataModel, isDataComingFromInternet: Boolean, isHourly: Boolean? =null) {
+    fun updateUI(forecastDataModel: ForecastDataModel, isDataComingFromInternet: Boolean, isHourly: Boolean? = null) {
         Log.d(TAG_C_INTERFACE, "updateUI() is executed.")
         stopSwipeRefresh()
         if (isDataComingFromInternet) {
             toast("Weather data is updated!")
         }
-
         // Set stable views visible
         activity.main_view_dark_sky.visibility = View.VISIBLE
         activity.main_view_wind_icon.visibility = View.VISIBLE
         activity.main_view_humidity_icon.visibility = View.VISIBLE
+        activity.main_view_switch_data.visibility = View.VISIBLE
 
         // Today's information
         val mappedForecastData = ForecastDataMapper(forecastDataModel)
@@ -85,7 +82,7 @@ class UserInterface(private val context: Context) {
         // Forecast recycler view information
         val forecastRecyclerView = activity.main_view_forecast_recycler_view
         var adapter = ForecastListAdapter(context, dailyForecast = forecastDataModel.daily)
-        if (isHourly == true){
+        if (isHourly == true || switchData.isChecked) {
             adapter = ForecastListAdapter(context, hourlyForecast = forecastDataModel.hourly)
         }
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
