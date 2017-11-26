@@ -49,18 +49,24 @@ class UserInterface(private val context: Context) {
         )
 
         switchData.setOnCheckedChangeListener { _, isChecked ->
+            val forecastDataModel = LocalForecastData(context).retrieve()
             if (isChecked){
                 // Show hourly data
                 Log.d(TAG_C_INTERFACE, "isChecked(Hourly): $isChecked.")
+                if (forecastDataModel != null){
+                    updateUI(forecastDataModel,false, true)
+                }
             } else {
                 // Show daily data
                 Log.d(TAG_C_INTERFACE, "isChecked(Daily): $isChecked.")
-                LocationServices(context).locationPermission()
+                if (forecastDataModel != null){
+                    updateUI(forecastDataModel,false, false)
+                }
             }
         }
     }
 
-    fun updateUI(forecastDataModel: ForecastDataModel, isDataComingFromInternet: Boolean) {
+    fun updateUI(forecastDataModel: ForecastDataModel, isDataComingFromInternet: Boolean, isHourly: Boolean? =null) {
         Log.d(TAG_C_INTERFACE, "updateUI() is executed.")
         stopSwipeRefresh()
         if (isDataComingFromInternet) {
@@ -78,7 +84,10 @@ class UserInterface(private val context: Context) {
 
         // Forecast recycler view information
         val forecastRecyclerView = activity.main_view_forecast_recycler_view
-        val adapter = ForecastListAdapter(context, hourlyForecast = forecastDataModel.hourly)
+        var adapter = ForecastListAdapter(context, dailyForecast = forecastDataModel.daily)
+        if (isHourly == true){
+            adapter = ForecastListAdapter(context, hourlyForecast = forecastDataModel.hourly)
+        }
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         // Selected list item information
