@@ -10,18 +10,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.ardaozceviz.cleanweather.R
 import com.ardaozceviz.cleanweather.controller.LocalForecastData
-import com.ardaozceviz.cleanweather.model.Currently
-import com.ardaozceviz.cleanweather.model.Daily
-import com.ardaozceviz.cleanweather.model.Data
-import com.ardaozceviz.cleanweather.model.TAG_AD_LIST
+import com.ardaozceviz.cleanweather.model.*
 import com.ardaozceviz.cleanweather.view.mappers.ForecastCommonMapper
 
 /**
  * Created by arda on 07/11/2017.
  */
 
-class ForecastListAdapter(private val context: Context, private val dailyForecast: Daily) : RecyclerView.Adapter<ForecastListAdapter.WeatherInfoHolder>() {
-
+class ForecastListAdapter(private val context: Context, private val dailyForecast: Daily? = null, private val hourlyForecast: Hourly? = null) : RecyclerView.Adapter<ForecastListAdapter.WeatherInfoHolder>() {
     /*
     * Using Lambda function
     * to listen to click events
@@ -30,19 +26,47 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
     private var clickListener: (forecast: Data?, currently: Currently?) -> Unit = { _: Data?, _: Currently? -> }
 
     override fun onBindViewHolder(holder: WeatherInfoHolder?, position: Int) {
-        //Log.d(TAG_AD_LIST, "onBindViewHolder() position: $position")
-        if (position == 0) {
-            holder?.bindForecastItem(null, LocalForecastData(context).retrieve()?.currently)
-        } else {
-            holder?.bindForecastItem(dailyForecast.data[position])
+        if (dailyForecast != null) {
+            //Log.d(TAG_AD_LIST, "onBindViewHolder() position: $position")
+            if (position == 0) {
+                holder?.bindForecastItem(null, LocalForecastData(context).retrieve()?.currently)
+            } else {
+                holder?.bindForecastItem(forecast = dailyForecast.data[position])
+            }
+        } else if (hourlyForecast != null) {
+            Log.d(TAG_AD_LIST, "onBindViewHolder() position: $position")
+            holder?.bindForecastItem(hourly = hourlyForecast.data[position])
         }
     }
 
-    override fun getItemCount(): Int = dailyForecast.data.count()
+    override fun getItemCount(): Int {
+        return if (dailyForecast != null) {
+            dailyForecast.data.count()
+        } else if (hourlyForecast != null) {
+            Log.d(TAG_AD_LIST, "getItemCount() returns: ${hourlyForecast.data.count()}")
+            hourlyForecast.data.count()
+        } else {
+            0
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): WeatherInfoHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.forecast_list_item, parent, false)
-        return WeatherInfoHolder(view)
+        return when {
+            dailyForecast != null -> {
+                val view = LayoutInflater.from(context).inflate(R.layout.forecast_list_item, parent, false)
+                WeatherInfoHolder(view)
+            }
+            hourlyForecast != null -> {
+                Log.d(TAG_AD_LIST, "onCreateViewHolder() hourlyForecast: is not null")
+                val view = LayoutInflater.from(context).inflate(R.layout.forecast_list_item_hourly, parent, false)
+                WeatherInfoHolder(view)
+            }
+            else -> {
+                Log.d(TAG_AD_LIST, "onCreateViewHolder() hourlyForecast: is null")
+                val view = LayoutInflater.from(context).inflate(R.layout.forecast_list_item, parent, false)
+                WeatherInfoHolder(view)
+            }
+        }
     }
 
     inner class WeatherInfoHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -50,41 +74,59 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
             itemView?.setOnClickListener(this)
         }
 
-        private val dayTextView = itemView?.findViewById<TextView>(R.id.list_item_day)
-        private val iconImageView = itemView?.findViewById<ImageView>(R.id.list_item_image)
-        private val temperatureTextView = itemView?.findViewById<TextView>(R.id.list_item_temperature_high)
+        fun bindForecastItem(forecast: Data? = null, currently: Currently? = null, hourly: Data? = null) {
+            val dayTextView = itemView?.findViewById<TextView>(R.id.list_item_day)
+            val iconImageView = itemView?.findViewById<ImageView>(R.id.list_item_image)
+            val temperatureTextView = itemView?.findViewById<TextView>(R.id.list_item_temperature_high)
+            Log.d(TAG_AD_LIST, "bindForecastItem() is executed.")
+            when {
+                forecast != null -> {
+                    //Log.d(TAG_AD_LIST, "bindForecastItem() forecast: $forecast")
+                    val condition = forecast.icon
+                    val iconName = ForecastCommonMapper.dayConditionToIcon(condition)
+                    val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
+                    iconImageView?.setImageResource(listItemImageResourceId)
+                    dayTextView?.text = ForecastCommonMapper.getListItemDay(forecast.time.toLong())
+                    temperatureTextView?.text = ForecastCommonMapper.fahrenheitToCelsius(forecast.apparentTemperatureLow, forecast.apparentTemperatureHigh)
+                }
+                currently != null -> {
+                    // First item on the list
+                    //Log.d(TAG_AD_LIST, "bindForecastItem() currently: $forecast")
+                    val condition = currently.icon
+                    val iconName = ForecastCommonMapper.getIcon(condition)
+                    val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
+                    iconImageView?.setImageResource(listItemImageResourceId)
+                    //dayTextView?.text = ForecastCommonMapper.getListItemDay(currently.time.toLong())
+                    dayTextView?.setText(R.string.day_today)
+                    temperatureTextView?.text = ForecastCommonMapper.fahrenheitToCelsius(currently.temperature)
+                }
+                hourly != null -> {
+                    val hourTextView = itemView?.findViewById<TextView>(R.id.list_item_hourly_hour)
+                    val hourlyImageView = itemView?.findViewById<ImageView>(R.id.list_item_hourly_image)
+                    Log.d(TAG_AD_LIST, "bindForecastItem() hourly: $hourly")
+                    hourTextView?.text = ForecastCommonMapper.timestampToHour(hourly.time.toLong())
 
-        fun bindForecastItem(forecast: Data? = null, currently: Currently? = null) {
-            if (forecast != null) {
-                //Log.d(TAG_AD_LIST, "bindForecastItem() forecast: $forecast")
-                val condition = forecast.icon
-                val iconName = ForecastCommonMapper.dayConditionToIcon(condition)
-                val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
-                iconImageView?.setImageResource(listItemImageResourceId)
-                dayTextView?.text = ForecastCommonMapper.getListItemDay(forecast.time.toLong())
-                temperatureTextView?.text = ForecastCommonMapper.fahrenheitToCelsius(forecast.apparentTemperatureLow, forecast.apparentTemperatureHigh)
-            } else if (currently != null) {
-                // First item on the list
-                //Log.d(TAG_AD_LIST, "bindForecastItem() forecast: $forecast")
-                val condition = currently.icon
-                val iconName = ForecastCommonMapper.getIcon(condition)
-                val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
-                iconImageView?.setImageResource(listItemImageResourceId)
-                //dayTextView?.text = ForecastCommonMapper.getListItemDay(currently.time.toLong())
-                dayTextView?.setText(R.string.day_today)
-                temperatureTextView?.text = ForecastCommonMapper.fahrenheitToCelsius(currently.temperature)
+                    val condition = hourly.icon
+                    val iconName = ForecastCommonMapper.getIcon(condition)
+                    val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
+                    hourlyImageView?.setImageResource(listItemImageResourceId)
+                }
             }
 
         }
 
         override fun onClick(p0: View?) {
-            if (adapterPosition == 0) {
-                // If it is first item then we will put the today's information
-                val forecastDataModel = LocalForecastData(context).retrieve()
-                Log.d(TAG_AD_LIST, "data[0]: $forecastDataModel!!.daily.data[adapterPosition]")
-                clickListener(null, forecastDataModel!!.currently)
-            } else {
-                clickListener(dailyForecast.data[adapterPosition], null)
+            if (dailyForecast != null) {
+                if (adapterPosition == 0) {
+                    // If it is first item then we will put the today's information
+                    val forecastDataModel = LocalForecastData(context).retrieve()
+                    // Log.d(TAG_AD_LIST, "data[0]: $forecastDataModel!!.daily.data[adapterPosition]")
+                    clickListener(null, forecastDataModel!!.currently)
+                } else {
+                    clickListener(dailyForecast.data[adapterPosition], null)
+                }
+            } else if (hourlyForecast != null) {
+                Log.d(TAG_AD_LIST, "onClick() hourlyForecast is not null")
             }
         }
     }

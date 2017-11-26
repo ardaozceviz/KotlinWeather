@@ -5,6 +5,7 @@ import com.ardaozceviz.cleanweather.model.TAG_M_FORECAST
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 /**
  * Created by arda on 07/11/2017.
  */
@@ -124,10 +125,16 @@ object ForecastCommonMapper {
         else -> "night_clear_sky"
     }
 
-    fun unixToDate(unixTime: Long): String {
-        val date = Date(unixTime * 1000L) // *1000 is to convert seconds to milliseconds
+    fun timestampToDate(timeStamp: Long): String {
+        val date = Date(timeStamp * 1000L) // *1000 is to convert seconds to milliseconds
         //val sdf = SimpleDateFormat("E, MMM dd, yyyy", Locale.getDefault())
         val sdf = SimpleDateFormat("E, MMM dd", Locale.getDefault())
+        return sdf.format(date)
+    }
+
+    fun timestampToHour(timeStamp: Long): String {
+        val date = Date(timeStamp * 1000L)
+        val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
         return sdf.format(date)
     }
 

@@ -21,7 +21,7 @@ class ForecastItemMapper(forecast: Data) {
 
     init {
         celsiusTemperature = ForecastCommonMapper.fahrenheitToCelsius(fahrenheit)
-        dateTimeString = ForecastCommonMapper.unixToDate(forecast.time.toLong())
+        dateTimeString = ForecastCommonMapper.timestampToDate(forecast.time.toLong())
         iconName = ForecastCommonMapper.dayConditionToIcon(forecast.icon)
         weatherDescription = ForecastCommonMapper.getWeatherDescription(forecast.icon)
         humidity = ForecastCommonMapper.calculateHumidity(forecast.humidity)

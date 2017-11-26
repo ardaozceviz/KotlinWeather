@@ -27,13 +27,11 @@
 
         <ImageView
             android:id="@+id/main_view_image"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="190dp"
+            android:layout_height="190dp"
             android:layout_marginEnd="32dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/main_view_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/main_view_date" />
@@ -73,20 +71,22 @@
             android:id="@+id/main_view_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:textColor="@color/colorText"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_view_image"
             tools:text="Mostly cloudy in the morning" />
 
         <TextView
             android:id="@+id/main_view_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:includeFontPadding="false"
@@ -97,7 +97,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline2"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_bias="0.3"
             tools:text="10 C" />
 
         <android.support.constraint.Guideline
@@ -105,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.54" />
+            app:layout_constraintGuide_percent="0.5" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline4"
@@ -131,6 +131,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="16dp"
             android:layout_marginStart="8dp"
             android:textAlignment="center"
             android:textColor="@color/colorText"
@@ -146,6 +148,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:textAlignment="center"
             android:textColor="@color/colorText"
             android:textSize="18sp"
@@ -187,6 +190,25 @@
             app:layout_constraintStart_toStartOf="@+id/main_view_wind_icon"
             app:layout_constraintTop_toBottomOf="@+id/main_view_dark_sky"
             app:srcCompat="@drawable/humidity" />
+
+        <Switch
+            android:id="@+id/main_view_switch_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:checked="false"
+            android:textOff="Daily"
+            android:textOn="Hourly"
+            android:textSize="18sp"
+            android:thumb="@color/colorPrimary"
+            android:thumbTint="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/main_view_forecast_recycler_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_view_temperature" />
 
     </android.support.constraint.ConstraintLayout>
 

@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
+import android.widget.CompoundButton
 import android.widget.Toast
 import com.ardaozceviz.cleanweather.R
 import com.ardaozceviz.cleanweather.controller.LocalForecastData
@@ -25,8 +26,8 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 class UserInterface(private val context: Context) {
     private var activity = context as Activity
-    private val swipeRefreshLayout = activity.findViewById<SwipeRefreshLayout>(R.id.main_swipe_refresh_layout) as SwipeRefreshLayout
-
+    private val swipeRefreshLayout = activity.main_swipe_refresh_layout
+    private val switchData = activity.main_view_switch_data
     // Snackbar
     private var retrySnackBar = Snackbar.make(swipeRefreshLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_INDEFINITE)
 
@@ -46,6 +47,17 @@ class UserInterface(private val context: Context) {
                     LocationServices(context).locationPermission()
                 }
         )
+
+        switchData.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                // Show hourly data
+                Log.d(TAG_C_INTERFACE, "isChecked(Hourly): $isChecked.")
+            } else {
+                // Show daily data
+                Log.d(TAG_C_INTERFACE, "isChecked(Daily): $isChecked.")
+                LocationServices(context).locationPermission()
+            }
+        }
     }
 
     fun updateUI(forecastDataModel: ForecastDataModel, isDataComingFromInternet: Boolean) {
@@ -65,8 +77,8 @@ class UserInterface(private val context: Context) {
         setViews(mappedForecastData)
 
         // Forecast recycler view information
-        val forecastRecyclerView = activity.findViewById<RecyclerView>(R.id.main_view_forecast_recycler_view) as RecyclerView
-        val adapter = ForecastListAdapter(context, forecastDataModel.daily)
+        val forecastRecyclerView = activity.main_view_forecast_recycler_view
+        val adapter = ForecastListAdapter(context, hourlyForecast = forecastDataModel.hourly)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         // Selected list item information
