@@ -44,7 +44,11 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
             dailyForecast.data.count()
         } else if (hourlyForecast != null) {
             Log.d(TAG_AD_LIST, "getItemCount() returns: ${hourlyForecast.data.count()}")
-            hourlyForecast.data.count()
+            if (hourlyForecast.data.count() > 24) {
+                24
+            } else {
+                hourlyForecast.data.count()
+            }
         } else {
             0
         }
@@ -103,13 +107,16 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
                 hourly != null -> {
                     val hourTextView = itemView?.findViewById<TextView>(R.id.list_item_hourly_hour)
                     val hourlyImageView = itemView?.findViewById<ImageView>(R.id.list_item_hourly_image)
+                    val hourlyTemperatureTextView = itemView?.findViewById<TextView>(R.id.list_item_hourly_temperature)
+
                     Log.d(TAG_AD_LIST, "bindForecastItem() hourly: $hourly")
                     hourTextView?.text = ForecastCommonMapper.timestampToHour(hourly.time.toLong())
 
                     val condition = hourly.icon
-                    val iconName = ForecastCommonMapper.getIcon(condition)
+                    val iconName = ForecastCommonMapper.getIcon(condition,hourly.time.toLong())
                     val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
                     hourlyImageView?.setImageResource(listItemImageResourceId)
+                    hourlyTemperatureTextView?.text = ForecastCommonMapper.fahrenheitToCelsius(hourly.temperature)
                 }
             }
 

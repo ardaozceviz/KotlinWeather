@@ -79,9 +79,14 @@ object ForecastCommonMapper {
 
     }
 
-    fun getIcon(condition: String?): String {
+    fun getIcon(condition: String?, timeStamp: Long? = null): String {
         val cal = Calendar.getInstance()
-        val hour = cal.get(Calendar.HOUR_OF_DAY)
+        var hour = cal.get(Calendar.HOUR_OF_DAY)
+        if (timeStamp != null) {
+            val date = Date(timeStamp * 1000L)
+            val sdf = SimpleDateFormat("H", Locale.getDefault())
+            hour = sdf.format(date).toInt()
+        }
         val isNight = hour < 6 || hour > 18
         return if (isNight) {
             Log.d(TAG_M_FORECAST, "isNight: $isNight")
@@ -134,8 +139,8 @@ object ForecastCommonMapper {
 
     fun timestampToHour(timeStamp: Long): String {
         val date = Date(timeStamp * 1000L)
-        val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
-        return sdf.format(date)
+        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+        return sdf.format(date).toLowerCase()
     }
 
 }

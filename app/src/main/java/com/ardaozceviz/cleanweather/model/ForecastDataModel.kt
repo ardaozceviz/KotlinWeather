@@ -52,6 +52,7 @@ data class Data(
         @SerializedName("uvIndex") val uvIndex: Int = 0, //2
         @SerializedName("uvIndexTime") val uvIndexTime: Int = 0, //1510207200
         @SerializedName("ozone") val ozone: Double = 0.0, //276.06
+        @SerializedName("temperature") val temperature: Double? = 0.0, //14.78
         @SerializedName("temperatureMin") val temperatureMin: Double = 0.0, //14.78
         @SerializedName("temperatureMinTime") val temperatureMinTime: Int = 0, //1510171200
         @SerializedName("temperatureMax") val temperatureMax: Double = 0.0, //22.31
