@@ -11,4 +11,5 @@
     <color name="colorAccent">#819ca9</color>
 
     <color name="colorText">#ffffff</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

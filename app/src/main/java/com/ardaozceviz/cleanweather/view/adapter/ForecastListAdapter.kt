@@ -43,10 +43,11 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
         return if (dailyForecast != null) {
             dailyForecast.data.count()
         } else if (hourlyForecast != null) {
-            Log.d(TAG_AD_LIST, "getItemCount() returns: ${hourlyForecast.data.count()}")
-            if (hourlyForecast.data.count() > 24) {
-                24
+            if (hourlyForecast.data.count() > 25) {
+                Log.d(TAG_AD_LIST, "getItemCount() returns: 25")
+                25
             } else {
+                Log.d(TAG_AD_LIST, "getItemCount() returns: ${hourlyForecast.data.count()}")
                 hourlyForecast.data.count()
             }
         } else {

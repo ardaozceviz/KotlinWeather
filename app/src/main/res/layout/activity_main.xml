@@ -88,16 +88,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
             android:includeFontPadding="false"
             android:textAlignment="center"
             android:textColor="@color/colorText"
             android:textSize="70sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline2"
-            app:layout_constraintVertical_bias="0.3"
             tools:text="10 C" />
 
         <android.support.constraint.Guideline
@@ -191,25 +189,50 @@
             app:layout_constraintTop_toBottomOf="@+id/main_view_dark_sky"
             app:srcCompat="@drawable/humidity" />
 
-        <Switch
-            android:id="@+id/main_view_switch_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RadioGroup
+            android:id="@+id/main_view_toggle_data"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:checked="false"
-            android:showText="true"
-            android:textOff="@string/switch_daily"
-            android:textOn="@string/switch_hourly"
-            android:textSize="18sp"
-            android:thumb="@color/colorAccent"
+            android:background="@drawable/toggle_outline"
+            android:checkedButton="@+id/offer"
+            android:orientation="horizontal"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/main_view_forecast_recycler_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_view_temperature" />
+            app:layout_constraintEnd_toEndOf="@+id/main_view_wind"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/main_view_temperature"
+            app:layout_constraintTop_toBottomOf="@+id/main_view_temperature">
+
+            <RadioButton
+                android:id="@+id/main_view_toggle_data_daily"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/toggle_widget_background"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/switch_daily"
+                android:textColor="@color/colorText" />
+
+            <RadioButton
+                android:id="@+id/main_view_toggle_data_hourly"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/toggle_widget_background"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/switch_hourly"
+                android:textColor="@color/colorText" />
+        </RadioGroup>
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>

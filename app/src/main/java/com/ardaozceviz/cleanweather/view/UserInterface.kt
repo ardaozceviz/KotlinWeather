@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class UserInterface(private val context: Context) {
     private var activity = context as Activity
     private val swipeRefreshLayout = activity.main_swipe_refresh_layout
-    private val switchData = activity.main_view_switch_data
+    private val toggleData = activity.main_view_toggle_data
     // Snackbar
     private var retrySnackBar = Snackbar.make(swipeRefreshLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_INDEFINITE)
 
@@ -45,19 +45,19 @@ class UserInterface(private val context: Context) {
                 }
         )
 
-        switchData.setOnCheckedChangeListener { _, isChecked ->
+        toggleData.setOnCheckedChangeListener { _, checkedId ->
             val forecastDataModel = LocalForecastData(context).retrieve()
-            if (isChecked) {
-                // Show hourly data
-                Log.d(TAG_C_INTERFACE, "isChecked(Hourly): $isChecked.")
-                if (forecastDataModel != null) {
-                    updateUI(forecastDataModel, false, true)
-                }
-            } else {
+            val selectedButton = toggleData.findViewById<View>(checkedId)
+            val position = toggleData.indexOfChild(selectedButton)
+            if (position == 0) {
                 // Show daily data
-                Log.d(TAG_C_INTERFACE, "isChecked(Daily): $isChecked.")
                 if (forecastDataModel != null) {
                     updateUI(forecastDataModel, false, false)
+                }
+            } else {
+                // Show hourly data
+                if (forecastDataModel != null) {
+                    updateUI(forecastDataModel, false, true)
                 }
             }
         }
@@ -73,7 +73,7 @@ class UserInterface(private val context: Context) {
         activity.main_view_dark_sky.visibility = View.VISIBLE
         activity.main_view_wind_icon.visibility = View.VISIBLE
         activity.main_view_humidity_icon.visibility = View.VISIBLE
-        activity.main_view_switch_data.visibility = View.VISIBLE
+        activity.main_view_toggle_data.visibility = View.VISIBLE
 
         // Today's information
         val mappedForecastData = ForecastDataMapper(forecastDataModel)
@@ -82,7 +82,10 @@ class UserInterface(private val context: Context) {
         // Forecast recycler view information
         val forecastRecyclerView = activity.main_view_forecast_recycler_view
         var adapter = ForecastListAdapter(context, dailyForecast = forecastDataModel.daily)
-        if (isHourly == true || switchData.isChecked) {
+        val checkedRadioButtonId = toggleData.checkedRadioButtonId
+        val selectedButton = toggleData.findViewById<View>(checkedRadioButtonId)
+        val positionOfCheckedButton = toggleData.indexOfChild(selectedButton)
+        if (isHourly == true || positionOfCheckedButton == 1) {
             adapter = ForecastListAdapter(context, hourlyForecast = forecastDataModel.hourly)
         }
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
