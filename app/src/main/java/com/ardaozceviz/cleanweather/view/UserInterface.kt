@@ -2,6 +2,7 @@ package com.ardaozceviz.cleanweather.view
 
 import android.app.Activity
 import android.content.Context
+import android.location.Geocoder
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import com.ardaozceviz.cleanweather.view.adapter.ForecastListAdapter
 import com.ardaozceviz.cleanweather.view.mappers.ForecastDataMapper
 import com.ardaozceviz.cleanweather.view.mappers.ForecastItemMapper
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 
 /**
@@ -77,8 +79,11 @@ class UserInterface(private val context: Context) {
         activity.main_view_humidity_icon.visibility = View.VISIBLE
         activity.main_view_toggle_data.visibility = View.VISIBLE
 
+        // For letting the user where exactly he/she is.
+        val geocoder = Geocoder(context, Locale.getDefault())
+
         // Today's information
-        val mappedForecastData = ForecastDataMapper(forecastDataModel)
+        val mappedForecastData = ForecastDataMapper(forecastDataModel, geocoder)
         setViewsForTodayInformation(mappedForecastData)
 
         // Forecast recycler view information

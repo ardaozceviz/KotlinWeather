@@ -112,7 +112,7 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
                     hourTextView?.text = ForecastCommonMapper.timestampToHour(hourly.time.toLong())
 
                     val condition = hourly.icon
-                    val iconName = ForecastCommonMapper.getIcon(condition,hourly.time.toLong())
+                    val iconName = ForecastCommonMapper.getIcon(condition, hourly.time.toLong())
                     val listItemImageResourceId = context.resources.getIdentifier(iconName, "drawable", context.packageName)
                     hourlyImageView?.setImageResource(listItemImageResourceId)
                     hourlyTemperatureTextView?.text = ForecastCommonMapper.fahrenheitToCelsius(hourly.temperature)
