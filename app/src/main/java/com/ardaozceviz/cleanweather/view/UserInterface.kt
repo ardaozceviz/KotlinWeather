@@ -47,17 +47,19 @@ class UserInterface(private val context: Context) {
 
         toggleData.setOnCheckedChangeListener { _, checkedId ->
             val forecastDataModel = LocalForecastData(context).retrieve()
-            val selectedButton = toggleData.findViewById<View>(checkedId)
-            val position = toggleData.indexOfChild(selectedButton)
-            if (position == 0) {
-                // Show daily data
-                if (forecastDataModel != null) {
-                    updateUI(forecastDataModel, false, false)
+
+            when (checkedId) {
+                R.id.main_view_toggle_data_daily -> {
+                    // Show daily data
+                    if (forecastDataModel != null) {
+                        updateUI(forecastDataModel, false, false)
+                    }
                 }
-            } else {
-                // Show hourly data
-                if (forecastDataModel != null) {
-                    updateUI(forecastDataModel, false, true)
+                R.id.main_view_toggle_data_hourly -> {
+                    // Show hourly data
+                    if (forecastDataModel != null) {
+                        updateUI(forecastDataModel, false, true)
+                    }
                 }
             }
         }

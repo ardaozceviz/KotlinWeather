@@ -34,7 +34,7 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
                 holder?.bindForecastItem(forecast = dailyForecast.data[position])
             }
         } else if (hourlyForecast != null) {
-            Log.d(TAG_AD_LIST, "onBindViewHolder() position: $position")
+            //Log.d(TAG_AD_LIST, "onBindViewHolder() position: $position")
             holder?.bindForecastItem(hourly = hourlyForecast.data[position])
         }
     }
@@ -47,7 +47,7 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
                 Log.d(TAG_AD_LIST, "getItemCount() returns: 25")
                 25
             } else {
-                Log.d(TAG_AD_LIST, "getItemCount() returns: ${hourlyForecast.data.count()}")
+                //Log.d(TAG_AD_LIST, "getItemCount() returns: ${hourlyForecast.data.count()}")
                 hourlyForecast.data.count()
             }
         } else {
@@ -109,8 +109,6 @@ class ForecastListAdapter(private val context: Context, private val dailyForecas
                     val hourTextView = itemView?.findViewById<TextView>(R.id.list_item_hourly_hour)
                     val hourlyImageView = itemView?.findViewById<ImageView>(R.id.list_item_hourly_image)
                     val hourlyTemperatureTextView = itemView?.findViewById<TextView>(R.id.list_item_hourly_temperature)
-
-                    Log.d(TAG_AD_LIST, "bindForecastItem() hourly: $hourly")
                     hourTextView?.text = ForecastCommonMapper.timestampToHour(hourly.time.toLong())
 
                     val condition = hourly.icon
