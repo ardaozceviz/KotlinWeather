@@ -89,6 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="24dp"
             android:includeFontPadding="false"
             android:textAlignment="center"
@@ -115,8 +116,8 @@
 
         <ImageView
             android:id="@+id/main_view_wind_icon"
-            android:layout_width="40dp"
-            android:layout_height="18dp"
+            android:layout_width="35dp"
+            android:layout_height="16dp"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
@@ -178,8 +179,8 @@
 
         <ImageView
             android:id="@+id/main_view_humidity_icon"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
