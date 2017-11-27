@@ -18,7 +18,7 @@ class ForecastDataMapper(forecastDataModel: ForecastDataModel) {
     var wind = "NA"
 
     init {
-        val simpleDateFormatDate = SimpleDateFormat("E, MMM dd", Locale.getDefault())
+        val simpleDateFormatDate = SimpleDateFormat("E, MMM dd - HH:mm", Locale.getDefault())
         val fahrenheit = forecastDataModel.currently.temperature
         val icon = forecastDataModel.currently.icon
 

@@ -26,10 +26,19 @@ object ForecastCommonMapper {
         else -> "NA"
     }
 
-    fun calculateWind(w: Double?): String {
+    // This is for km/h
+    /*fun calculateWind(w: Double?): String {
         return if (w != null) {
             val wind = w.times(3.6)
             "%.2f".format(wind) + " km/h"
+        } else {
+            "NA"
+        }
+    }*/
+
+    fun calculateWind(w: Double?): String {
+        return if (w != null) {
+            "%.2f".format(w) + " m/s"
         } else {
             "NA"
         }

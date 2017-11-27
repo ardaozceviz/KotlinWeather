@@ -79,7 +79,7 @@ class UserInterface(private val context: Context) {
 
         // Today's information
         val mappedForecastData = ForecastDataMapper(forecastDataModel)
-        setViews(mappedForecastData)
+        setViewsForTodayInformation(mappedForecastData)
 
         // Forecast recycler view information
         val forecastRecyclerView = activity.main_view_forecast_recycler_view
@@ -105,7 +105,8 @@ class UserInterface(private val context: Context) {
                 activity.main_view_wind.text = mappedItemData.wind
                 activity.main_view_image.setImageResource(itemImageResourceId)
             } else if (currently != null) {
-                setViews(mappedForecastData)
+                // Today is selected from the list.
+                setViewsForTodayInformation(mappedForecastData)
             }
         }
         forecastRecyclerView.adapter = adapter
@@ -113,7 +114,7 @@ class UserInterface(private val context: Context) {
         forecastRecyclerView.setHasFixedSize(true)
     }
 
-    private fun setViews(mappedForecastData: ForecastDataMapper) {
+    private fun setViewsForTodayInformation(mappedForecastData: ForecastDataMapper) {
         val mainViewImageResourceId = activity.resources.getIdentifier(mappedForecastData.iconName, "drawable", activity.packageName)
         activity.main_view_city_name.text = mappedForecastData.location
         activity.main_view_date.text = mappedForecastData.currentDateTimeString
