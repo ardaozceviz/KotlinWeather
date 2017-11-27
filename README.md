@@ -9,10 +9,6 @@ This is a clean and simple weather app for Android developed in Kotlin which I b
 
 ## Screenshots
 
-<img src="https://github.com/ardaozceviz/KotlinWeather/blob/master/screenshots/ss1.png" width="150"/> <img src="https://github.com/ardaozceviz/KotlinWeather/blob/master/screenshots/ss1.png" width="150"/>
-
-## Screenshots
-
 <img src="https://github.com/ardaozceviz/KotlinWeather/blob/master/screenshots/ss1.png" width="430"/>         <img src="https://github.com/ardaozceviz/KotlinWeather/blob/master/screenshots/ss1.png" width="430"/>
 
 ## Overview
