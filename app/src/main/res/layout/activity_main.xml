@@ -194,14 +194,15 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
             android:background="@drawable/toggle_outline"
             android:checkedButton="@+id/offer"
             android:orientation="horizontal"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/main_view_forecast_recycler_view"
-            app:layout_constraintEnd_toEndOf="@+id/main_view_wind"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/main_view_temperature"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/main_view_temperature">
 
             <RadioButton
@@ -217,7 +218,8 @@
                 android:checked="true"
                 android:gravity="center"
                 android:text="@string/switch_daily"
-                android:textColor="@color/colorText" />
+                android:textColor="@color/colorText"
+                android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/main_view_toggle_data_hourly"
@@ -231,7 +233,8 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="@string/switch_hourly"
-                android:textColor="@color/colorText" />
+                android:textColor="@color/colorText"
+                android:textSize="18sp" />
         </RadioGroup>
     </android.support.constraint.ConstraintLayout>
 
