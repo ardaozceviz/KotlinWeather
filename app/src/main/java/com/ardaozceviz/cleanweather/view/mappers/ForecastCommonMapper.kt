@@ -1,7 +1,5 @@
 package com.ardaozceviz.cleanweather.view.mappers
 
-import android.util.Log
-import com.ardaozceviz.cleanweather.model.TAG_M_FORECAST_COMMON
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -58,7 +56,11 @@ object ForecastCommonMapper {
         return if (f2 == null) {
             if (f1 != null) {
                 val temperature = (f1 - 32) * 0.5556
-                "%.0f".format(temperature) + "°C"
+                if ("%.0f".format(temperature) == "-0") {
+                    "0°C"
+                } else {
+                    "%.0f".format(temperature) + "°C"
+                }
             } else {
                 "NA"
             }
@@ -98,16 +100,13 @@ object ForecastCommonMapper {
         }
         val isNight = hour < 6 || hour > 18
         return if (isNight) {
-            Log.d(TAG_M_FORECAST_COMMON, "isNight: $isNight")
             ForecastCommonMapper.nightConditionToIcon(condition)
         } else {
-            Log.d(TAG_M_FORECAST_COMMON, "isNight: $isNight")
             ForecastCommonMapper.dayConditionToIcon(condition)
         }
     }
 
     fun dayConditionToIcon(condition: String?): String {
-        Log.d(TAG_M_FORECAST_COMMON, "condition:$condition")
         return when (condition) {
             "clear-day", "clear-night" -> "day_clear_sky"
             "rain" -> "day_rain"
