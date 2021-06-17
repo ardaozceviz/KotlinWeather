@@ -9,7 +9,7 @@ This is a clean and simple weather app for Android developed in Kotlin which I b
 
 ## Screenshots
 
-<img src="https://github.com/ardaozceviz/KotlinWeather/blob/master/screenshots/ss1.png" width="425"/>         <img src="https://github.com/ardaozceviz/KotlinWeather/blob/master/screenshots/ss2.png" width="425"/>
+<img src="https://github.com/ardaozceviz/KotlinWeather/blob/master/screenshots/ss1.png" width="400"/>         <img src="https://github.com/ardaozceviz/KotlinWeather/blob/master/screenshots/ss2.png" width="400"/>
 
 ## Overview
 This app basically uses GPS to determine the device's location and retrieves the 7 days forecast data accordingly from darksky's API service. In order to build this project, you will need to apply for your own API key from [darksky](https://darksky.net/dev). They have free plan which allows you to make 1000 requests per day.
