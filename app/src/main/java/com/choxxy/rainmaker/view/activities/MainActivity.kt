@@ -1,13 +1,13 @@
-package com.ardaozceviz.cleanweather.view.activities
+package com.choxxy.rainmaker.view.activities
 
 import android.os.Bundle
 import android.util.Log
-import com.ardaozceviz.cleanweather.R
-import com.ardaozceviz.cleanweather.controller.LocalForecastData
-import com.ardaozceviz.cleanweather.model.ForecastDataModel
-import com.ardaozceviz.cleanweather.model.TAG_A_MAIN
-import com.ardaozceviz.cleanweather.model.isErrorExecuted
-import com.ardaozceviz.cleanweather.view.UserInterface
+import com.choxxy.rainmaker.R
+import com.choxxy.rainmaker.controller.LocalForecastData
+import com.choxxy.rainmaker.model.ForecastDataModel
+import com.choxxy.rainmaker.model.TAG_A_MAIN
+import com.choxxy.rainmaker.model.isErrorExecuted
+import com.choxxy.rainmaker.view.UserInterface
 
 
 class MainActivity : BaseActivity() {

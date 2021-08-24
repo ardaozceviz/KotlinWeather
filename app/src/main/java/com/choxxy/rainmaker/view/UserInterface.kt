@@ -1,21 +1,21 @@
-package com.ardaozceviz.cleanweather.view
+package com.choxxy.rainmaker.view
 
 import android.app.Activity
 import android.content.Context
 import android.location.Geocoder
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.ardaozceviz.cleanweather.R
-import com.ardaozceviz.cleanweather.controller.LocalForecastData
-import com.ardaozceviz.cleanweather.controller.LocationServices
-import com.ardaozceviz.cleanweather.model.*
-import com.ardaozceviz.cleanweather.view.adapter.ForecastListAdapter
-import com.ardaozceviz.cleanweather.view.mappers.ForecastDataMapper
-import com.ardaozceviz.cleanweather.view.mappers.ForecastItemMapper
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.choxxy.rainmaker.R
+import com.choxxy.rainmaker.controller.LocalForecastData
+import com.choxxy.rainmaker.controller.LocationServices
+import com.choxxy.rainmaker.model.*
+import com.choxxy.rainmaker.view.adapter.ForecastListAdapter
+import com.choxxy.rainmaker.view.mappers.ForecastDataMapper
+import com.choxxy.rainmaker.view.mappers.ForecastItemMapper
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 

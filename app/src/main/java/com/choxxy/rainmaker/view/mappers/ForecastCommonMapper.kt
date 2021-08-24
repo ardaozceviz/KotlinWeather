@@ -1,4 +1,4 @@
-package com.ardaozceviz.cleanweather.view.mappers
+package com.choxxy.rainmaker.view.mappers
 
 import java.text.SimpleDateFormat
 import java.util.*

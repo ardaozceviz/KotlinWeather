@@ -1,23 +1,24 @@
-package com.ardaozceviz.cleanweather.view.adapter
+package com.choxxy.rainmaker.view.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.ardaozceviz.cleanweather.R
-import com.ardaozceviz.cleanweather.controller.LocalForecastData
-import com.ardaozceviz.cleanweather.model.*
-import com.ardaozceviz.cleanweather.view.mappers.ForecastCommonMapper
+import androidx.recyclerview.widget.RecyclerView
+import com.choxxy.rainmaker.R
+import com.choxxy.rainmaker.controller.LocalForecastData
+import com.choxxy.rainmaker.model.*
+import com.choxxy.rainmaker.view.mappers.ForecastCommonMapper
 
 /**
  * Created by arda on 07/11/2017.
  */
 
-class ForecastListAdapter(private val context: Context, private val dailyForecast: Daily? = null, private val hourlyForecast: Hourly? = null) : RecyclerView.Adapter<ForecastListAdapter.WeatherInfoHolder>() {
+class ForecastListAdapter(private val context: Context, private val dailyForecast: Daily? = null, private val hourlyForecast: Hourly? = null) :
+    RecyclerView.Adapter<ForecastListAdapter.WeatherInfoHolder>() {
     /*
     * Using Lambda function
     * to listen to click events

@@ -1,6 +1,6 @@
-package com.ardaozceviz.cleanweather.view.mappers
+package com.choxxy.rainmaker.view.mappers
 
-import com.ardaozceviz.cleanweather.model.Data
+import com.choxxy.rainmaker.model.Data
 
 /**
  * Created by arda on 07/11/2017.

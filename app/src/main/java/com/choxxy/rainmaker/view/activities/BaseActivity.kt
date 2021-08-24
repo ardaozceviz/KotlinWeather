@@ -1,10 +1,10 @@
-package com.ardaozceviz.cleanweather.view.activities
+package com.choxxy.rainmaker.view.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.ardaozceviz.cleanweather.model.TAG_O_BASE
+import androidx.appcompat.app.AppCompatActivity
+import com.choxxy.rainmaker.model.TAG_O_BASE
 
 @SuppressLint("Registered")
 /**

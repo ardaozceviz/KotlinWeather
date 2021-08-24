@@ -1,4 +1,4 @@
-package com.ardaozceviz.cleanweather.model
+package com.choxxy.rainmaker.model
 
 import com.google.gson.annotations.SerializedName
 

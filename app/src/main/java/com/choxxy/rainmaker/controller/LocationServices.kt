@@ -1,4 +1,4 @@
-package com.ardaozceviz.cleanweather.controller
+package com.choxxy.rainmaker.controller
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -12,9 +12,9 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import com.ardaozceviz.cleanweather.model.ERR_LOCATE
-import com.ardaozceviz.cleanweather.model.TAG_C_LOCATION
-import com.ardaozceviz.cleanweather.view.UserInterface
+import com.choxxy.rainmaker.model.ERR_LOCATE
+import com.choxxy.rainmaker.model.TAG_C_LOCATION
+import com.choxxy.rainmaker.view.UserInterface
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse

@@ -1,11 +1,11 @@
-package com.ardaozceviz.cleanweather.controller
+package com.choxxy.rainmaker.controller
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.util.Log
-import com.ardaozceviz.cleanweather.model.ForecastDataModel
-import com.ardaozceviz.cleanweather.model.TAG_C_LOCAL_DATA
+import com.choxxy.rainmaker.model.ForecastDataModel
+import com.choxxy.rainmaker.model.TAG_C_LOCAL_DATA
 import com.google.gson.Gson
 
 /**

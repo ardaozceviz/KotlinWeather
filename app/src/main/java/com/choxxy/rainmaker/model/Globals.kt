@@ -1,4 +1,4 @@
-package com.ardaozceviz.cleanweather.model
+package com.choxxy.rainmaker.model
 
 /**
  * Created by arda on 06/11/2017.

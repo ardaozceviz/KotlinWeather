@@ -1,9 +1,9 @@
-package com.ardaozceviz.cleanweather.view.mappers
+package com.choxxy.rainmaker.view.mappers
 
 import android.location.Geocoder
 import android.util.Log
-import com.ardaozceviz.cleanweather.model.ForecastDataModel
-import com.ardaozceviz.cleanweather.model.TAG_M_FORECAST_DATA
+import com.choxxy.rainmaker.model.ForecastDataModel
+import com.choxxy.rainmaker.model.TAG_M_FORECAST_DATA
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
