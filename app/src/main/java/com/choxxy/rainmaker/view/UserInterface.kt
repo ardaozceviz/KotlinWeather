@@ -1,53 +1,49 @@
 package com.choxxy.rainmaker.view
 
-import android.app.Activity
 import android.content.Context
 import android.location.Geocoder
-import androidx.core.content.ContextCompat
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.choxxy.rainmaker.R
 import com.choxxy.rainmaker.controller.LocalForecastData
 import com.choxxy.rainmaker.controller.LocationServices
+import com.choxxy.rainmaker.databinding.ActivityMainBinding
 import com.choxxy.rainmaker.model.*
 import com.choxxy.rainmaker.view.adapter.ForecastListAdapter
 import com.choxxy.rainmaker.view.mappers.ForecastDataMapper
 import com.choxxy.rainmaker.view.mappers.ForecastItemMapper
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
-
 
 /**
  * Created by arda on 07/11/2017.
  */
-class UserInterface(private val context: Context) {
-    private var activity = context as Activity
-    private val swipeRefreshLayout = activity.main_swipe_refresh_layout
-    private val toggleData = activity.main_view_toggle_data
+class UserInterface(
+    private val context: Context,
+    private val binding: ActivityMainBinding
+) {
+
     // Snackbar
-    private var retrySnackBar = Snackbar.make(swipeRefreshLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_INDEFINITE)
+    private var retrySnackBar = Snackbar.make(binding.mainSwipeRefreshLayout, "Unable to retrieve weather data.", Snackbar.LENGTH_INDEFINITE)
 
     fun initialize() {
         Log.d(TAG_C_INTERFACE, "initialize() is executed.")
         startSwipeRefresh()
-        LocationServices(context).locationPermission()
+        LocationServices(context, this).locationPermission()
         /*
         Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
         performs a swipe-to-refresh gesture.
         */
-        swipeRefreshLayout.setOnRefreshListener(
-                {
-                    Log.d(TAG_C_INTERFACE, "onRefresh called from swipeRefreshLayout")
-                    // This method performs the actual data-refresh operation.
-                    // The method calls setRefreshing(false) when it's finished.
-                    LocationServices(context).locationPermission()
-                }
-        )
+        binding.mainSwipeRefreshLayout.setOnRefreshListener {
+            // This method performs the actual data-refresh operation.
+            // The method calls setRefreshing(false) when it's finished.
+            LocationServices(context, this).locationPermission()
+        }
 
-        toggleData.setOnCheckedChangeListener { _, checkedId ->
+        binding.mainViewToggleData.setOnCheckedChangeListener { _, checkedId ->
             val forecastDataModel = LocalForecastData(context).retrieve()
 
             when (checkedId) {
@@ -74,10 +70,10 @@ class UserInterface(private val context: Context) {
             toast("Weather data is updated!")
         }
         // Set stable views visible
-        activity.main_view_dark_sky.visibility = View.VISIBLE
-        activity.main_view_wind_icon.visibility = View.VISIBLE
-        activity.main_view_humidity_icon.visibility = View.VISIBLE
-        activity.main_view_toggle_data.visibility = View.VISIBLE
+        binding.mainViewDarkSky.visibility = View.VISIBLE
+        binding.mainViewWindIcon.visibility = View.VISIBLE
+        binding.mainViewHumidityIcon.visibility = View.VISIBLE
+        binding.mainViewToggleData.visibility = View.VISIBLE
 
         // For letting the user where exactly he/she is.
         val geocoder = Geocoder(context, Locale.getDefault())
@@ -87,11 +83,10 @@ class UserInterface(private val context: Context) {
         setViewsForTodayInformation(mappedForecastData)
 
         // Forecast recycler view information
-        val forecastRecyclerView = activity.main_view_forecast_recycler_view
         var adapter = ForecastListAdapter(context, dailyForecast = forecastDataModel.daily)
-        val checkedRadioButtonId = toggleData.checkedRadioButtonId
-        val selectedButton = toggleData.findViewById<View>(checkedRadioButtonId)
-        val positionOfCheckedButton = toggleData.indexOfChild(selectedButton)
+        val checkedRadioButtonId = binding.mainViewToggleData.checkedRadioButtonId
+        val selectedButton = binding.mainViewToggleData.findViewById<View>(checkedRadioButtonId)
+        val positionOfCheckedButton = binding.mainViewToggleData.indexOfChild(selectedButton)
         if (isHourly == true || positionOfCheckedButton == 1) {
             adapter = ForecastListAdapter(context, hourlyForecast = forecastDataModel.hourly)
         }
@@ -102,32 +97,34 @@ class UserInterface(private val context: Context) {
             if (data != null) {
                 Log.d(TAG_C_INTERFACE, "$data")
                 val mappedItemData = ForecastItemMapper(data)
-                val itemImageResourceId = activity.resources.getIdentifier(mappedItemData.iconName, "drawable", activity.packageName)
-                activity.main_view_date.text = mappedItemData.dateTimeString
-                activity.main_view_description.text = mappedItemData.weatherDescription
-                activity.main_view_temperature.text = mappedItemData.celsiusTemperature
-                activity.main_view_humidity.text = mappedItemData.humidity
-                activity.main_view_wind.text = mappedItemData.wind
-                activity.main_view_image.setImageResource(itemImageResourceId)
+                val itemImageResourceId = context.resources.getIdentifier(mappedItemData.iconName, "drawable", context.packageName)
+                binding.mainViewDate.text = mappedItemData.dateTimeString
+                binding.mainViewDescription.text = mappedItemData.weatherDescription
+                binding.mainViewTemperature.text = mappedItemData.celsiusTemperature
+                binding.mainViewHumidity.text = mappedItemData.humidity
+                binding.mainViewWind.text = mappedItemData.wind
+                binding.mainViewImage.setImageResource(itemImageResourceId)
             } else if (currently != null) {
                 // Today is selected from the list.
                 setViewsForTodayInformation(mappedForecastData)
             }
         }
-        forecastRecyclerView.adapter = adapter
-        forecastRecyclerView.layoutManager = layoutManager
-        forecastRecyclerView.setHasFixedSize(true)
+
+        binding.mainViewForecastRecyclerView.adapter = adapter
+        binding.mainViewForecastRecyclerView.layoutManager = layoutManager
+        binding.mainViewForecastRecyclerView.setHasFixedSize(true)
     }
 
     private fun setViewsForTodayInformation(mappedForecastData: ForecastDataMapper) {
-        val mainViewImageResourceId = activity.resources.getIdentifier(mappedForecastData.iconName, "drawable", activity.packageName)
-        activity.main_view_city_name.text = mappedForecastData.location
-        activity.main_view_date.text = mappedForecastData.currentDateTimeString
-        activity.main_view_description.text = mappedForecastData.weatherDescription
-        activity.main_view_temperature.text = mappedForecastData.celsiusTemperature
-        activity.main_view_humidity.text = mappedForecastData.humidity
-        activity.main_view_wind.text = mappedForecastData.wind
-        activity.main_view_image.setImageResource(mainViewImageResourceId)
+        val mainViewImageResourceId = context.resources
+            .getIdentifier(mappedForecastData.iconName, "drawable", context.packageName)
+        binding.mainViewCityName.text = mappedForecastData.location
+        binding.mainViewDate.text = mappedForecastData.currentDateTimeString
+        binding.mainViewDescription.text = mappedForecastData.weatherDescription
+        binding.mainViewTemperature.text = mappedForecastData.celsiusTemperature
+        binding.mainViewHumidity.text = mappedForecastData.humidity
+        binding.mainViewWind.text = mappedForecastData.wind
+        binding.mainViewImage.setImageResource(mainViewImageResourceId)
     }
 
     fun onError(message: String) {
@@ -146,12 +143,12 @@ class UserInterface(private val context: Context) {
     private fun showSnackbar(message: String) {
         Log.d(TAG_C_INTERFACE, "showSnackbar() is executed.")
         Log.d(TAG_C_INTERFACE, "showSnackbar() message: $message")
-        retrySnackBar = Snackbar.make(swipeRefreshLayout, message, Snackbar.LENGTH_SHORT)
+        retrySnackBar = Snackbar.make(binding.mainSwipeRefreshLayout, message, Snackbar.LENGTH_SHORT)
         if (!retrySnackBar.isShown) {
             retrySnackBar.setAction("Retry") { _ ->
                 Log.d(TAG_C_INTERFACE, "onError() Retry is clicked.")
-                swipeRefreshLayout.isRefreshing = true
-                LocationServices(context).locationPermission()
+                binding.mainSwipeRefreshLayout.isRefreshing = true
+                LocationServices(context, this).locationPermission()
                 retrySnackBar.dismiss()
             }
             retrySnackBar.setActionTextColor(ContextCompat.getColor(context, R.color.colorAccent))
@@ -161,20 +158,20 @@ class UserInterface(private val context: Context) {
 
     private fun stopSwipeRefresh() {
         Log.d(TAG_C_INTERFACE, "stopSwipeRefresh() is executed.")
-        if (swipeRefreshLayout.isRefreshing) {
-            Log.d(TAG_C_INTERFACE, "stopSwipeRefresh() isRefreshing: ${swipeRefreshLayout.isRefreshing}.")
-            swipeRefreshLayout.isEnabled = true
-            swipeRefreshLayout.isRefreshing = false
+        if (binding.mainSwipeRefreshLayout.isRefreshing) {
+            Log.d(TAG_C_INTERFACE, "stopSwipeRefresh() isRefreshing: ${binding.mainSwipeRefreshLayout.isRefreshing}.")
+            binding.mainSwipeRefreshLayout.isEnabled = true
+            binding.mainSwipeRefreshLayout.isRefreshing = false
         }
     }
 
     private fun startSwipeRefresh() {
         Log.d(TAG_C_INTERFACE, "startSwipeRefresh() is executed.")
-        if (!swipeRefreshLayout.isRefreshing) {
-            Log.d(TAG_C_INTERFACE, "startSwipeRefresh() isRefreshing: ${swipeRefreshLayout.isRefreshing}.")
-            swipeRefreshLayout.post {
-                swipeRefreshLayout.isEnabled = false
-                swipeRefreshLayout.isRefreshing = true
+        if (!binding.mainSwipeRefreshLayout.isRefreshing) {
+            Log.d(TAG_C_INTERFACE, "startSwipeRefresh() isRefreshing: ${binding.mainSwipeRefreshLayout.isRefreshing}.")
+            binding.mainSwipeRefreshLayout.post {
+                binding.mainSwipeRefreshLayout.isEnabled = false
+                binding.mainSwipeRefreshLayout.isRefreshing = true
             }
         }
     }

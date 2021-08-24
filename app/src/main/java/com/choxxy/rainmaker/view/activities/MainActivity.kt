@@ -2,23 +2,23 @@ package com.choxxy.rainmaker.view.activities
 
 import android.os.Bundle
 import android.util.Log
-import com.choxxy.rainmaker.R
 import com.choxxy.rainmaker.controller.LocalForecastData
+import com.choxxy.rainmaker.databinding.ActivityMainBinding
 import com.choxxy.rainmaker.model.ForecastDataModel
 import com.choxxy.rainmaker.model.TAG_A_MAIN
 import com.choxxy.rainmaker.model.isErrorExecuted
 import com.choxxy.rainmaker.view.UserInterface
 
-
 class MainActivity : BaseActivity() {
     private var storedForecastData: ForecastDataModel? = null
     private lateinit var userInterface: UserInterface
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d(TAG_A_MAIN, "onCreate() is executed.")
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        userInterface = UserInterface(this)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        userInterface = UserInterface(this, binding)
         storedForecastData = LocalForecastData(this).retrieve()
         if (storedForecastData != null) {
             Log.d(TAG_A_MAIN, "onResume() storedForecastData: $storedForecastData.")
@@ -39,4 +39,3 @@ class MainActivity : BaseActivity() {
         isErrorExecuted = false
     }
 }
-

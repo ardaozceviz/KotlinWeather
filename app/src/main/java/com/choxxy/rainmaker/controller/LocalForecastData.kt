@@ -22,9 +22,9 @@ class LocalForecastData(private val context: Context) {
         val forecastDataModelJson = gson.toJson(forecastDataModel)
         Log.d(TAG_C_LOCAL_DATA, "save() forecastDataModelJson: $forecastDataModelJson.")
         PreferenceManager.getDefaultSharedPreferences(context).edit()
-                .putString("forecastDataModel", forecastDataModelJson.toString())
-                .putDouble("longitude", forecastDataModel.longitude)
-                .putDouble("latitude", forecastDataModel.latitude).apply()
+            .putString("forecastDataModel", forecastDataModelJson.toString())
+            .putDouble("longitude", forecastDataModel.longitude)
+            .putDouble("latitude", forecastDataModel.latitude).apply()
     }
 
     /*
@@ -35,17 +35,16 @@ class LocalForecastData(private val context: Context) {
     fun saveLocation(longitude: Double, latitude: Double) {
         Log.d(TAG_C_LOCAL_DATA, "saveLocation() is executed.")
         PreferenceManager.getDefaultSharedPreferences(context).edit()
-                .putDouble("longitude", longitude)
-                .putDouble("latitude", latitude).apply()
+            .putDouble("longitude", longitude)
+            .putDouble("latitude", latitude).apply()
     }
 
     // SharedPreferences extension functions which will allow us to put double types
     private fun SharedPreferences.Editor.putDouble(key: String, double: Double) =
-            putLong(key, java.lang.Double.doubleToRawLongBits(double))
+        putLong(key, java.lang.Double.doubleToRawLongBits(double))
 
     private fun SharedPreferences.getDouble(key: String, default: Double) =
-            java.lang.Double.longBitsToDouble(getLong(key, java.lang.Double.doubleToRawLongBits(default)))
-
+        java.lang.Double.longBitsToDouble(getLong(key, java.lang.Double.doubleToRawLongBits(default)))
 
     /*
     * Retrieve the saved weather data from the file
