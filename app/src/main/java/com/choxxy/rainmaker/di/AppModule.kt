@@ -33,7 +33,7 @@ object AppModule {
                 val original: Request = chain.request()
                 val originalHttpUrl: HttpUrl = original.url
                 val url = originalHttpUrl.newBuilder()
-                    .addQueryParameter("appid", "56606991660a9192015ffcfc2b7eeb74")
+                    .addQueryParameter("appid", "")
                     .build()
                 // Request customization: add request heades
                 val requestBuilder: Request.Builder = original.newBuilder()

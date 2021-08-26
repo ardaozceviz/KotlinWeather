@@ -18,7 +18,7 @@ interface WeatherApiService {
         @Query("q") location: String
     ): Response<CurrentWeather>
 
-    // https://api.openweathermap.org/data/2.5/weather?id=2172797&appid=56606991660a9192015ffcfc2b7eeb74
+    // https://api.openweathermap.org/data/2.5/weather?id=2172797&appid=
     @GET("data/2.5/weather")
     suspend fun getCurrentWeather(
         @Query("id") cityId: Int
@@ -30,7 +30,7 @@ interface WeatherApiService {
         @Query("lon") longitude: Double,
     ): Response<CurrentWeather>
 
-    // https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,minutely&appid=56606991660a9192015ffcfc2b7eeb74
+    // https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,minutely&appid=
     // This function gets the weather information for the user's location.
     @GET("data/2.5/onecall")
     suspend fun getWeatherForecast(
@@ -39,7 +39,7 @@ interface WeatherApiService {
         @Query("exclude") excludes: String
     ): Response<WeatherResponse>
 
-    // http://api.openweathermap.org/geo/1.0/reverse?lat=51.5098&lon=-0.1180&limit=1&appid=56606991660a9192015ffcfc2b7eeb74
+    // http://api.openweathermap.org/geo/1.0/reverse?lat=51.5098&lon=-0.1180&limit=1&appid=
     // This function gets the weather forecast information for the user's location.
     @GET("geo/1.0/reverse")
     suspend fun getLocationName(
