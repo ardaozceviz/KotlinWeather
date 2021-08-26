@@ -3,7 +3,6 @@ package com.choxxy.rainmaker.view.mappers
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 /**
  * Created by arda on 07/11/2017.
  */
@@ -87,7 +86,6 @@ object ForecastCommonMapper {
         val date = Date(unixTime * 1000L) // *1000 is to convert seconds to milliseconds
         val sdf = SimpleDateFormat("E", Locale.getDefault())
         return sdf.format(date)
-
     }
 
     fun getIcon(condition: String?, timeStamp: Long? = null): String {
@@ -140,7 +138,7 @@ object ForecastCommonMapper {
 
     fun timestampToDate(timeStamp: Long): String {
         val date = Date(timeStamp * 1000L) // *1000 is to convert seconds to milliseconds
-        //val sdf = SimpleDateFormat("E, MMM dd, yyyy", Locale.getDefault())
+        // val sdf = SimpleDateFormat("E, MMM dd, yyyy", Locale.getDefault())
         val sdf = SimpleDateFormat("E, MMM dd", Locale.getDefault())
         return sdf.format(date)
     }
@@ -150,5 +148,4 @@ object ForecastCommonMapper {
         val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
         return sdf.format(date).toLowerCase()
     }
-
 }

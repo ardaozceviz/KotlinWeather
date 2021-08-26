@@ -1,16 +1,15 @@
-package com.mayokunadeniyi.instantweather.data.source.repository
+package com.choxxy.rainmaker.data.source.repository
 
+import com.choxxy.rainmaker.data.Resource
+import com.choxxy.rainmaker.data.model.CurrentWeather
 import com.choxxy.rainmaker.data.model.LocationModel
-import com.choxxy.rainmaker.data.model.Weather
-import com.choxxy.rainmaker.data.model.WeatherForecast
+import kotlinx.coroutines.flow.Flow
 
-/**
- * Created by Mayokun Adeniyi on 13/07/2020.
- */
 interface WeatherRepository {
 
-    suspend fun getWeather(location: LocationModel, refresh: Boolean): Result<Weather?>
+    fun getWeather(location: LocationModel, refresh: Boolean): Flow<Resource<CurrentWeather?>>
 
+    /*
     suspend fun getForecastWeather(cityId: Int, refresh: Boolean): Result<List<WeatherForecast>?>
 
     suspend fun getSearchWeather(location: String): Result<Weather?>
@@ -21,5 +20,5 @@ interface WeatherRepository {
 
     suspend fun deleteWeatherData()
 
-    suspend fun deleteForecastData()
+    suspend fun deleteForecastData()*/
 }

@@ -1,7 +1,5 @@
-package com.cerpit.mobile.api
+package com.choxxy.rainmaker.data
 
-import com.cerpit.mobile.util.RateLimiter
-import com.choxxy.rainmaker.data.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
@@ -10,7 +8,7 @@ fun <T, A> performGetOperations(
     databaseQuery: () -> Flow<T>,
     networkCall: suspend () -> Resource<A>,
     saveCallResult: suspend (A) -> Unit,
-    rateLimiter: RateLimiter
+    refresh: Boolean
 ): Flow<Resource<T>> =
     flow {
         coroutineScope {
@@ -20,7 +18,7 @@ fun <T, A> performGetOperations(
             }
             emit(source.first())
 
-            if (rateLimiter.shouldFetch()) {
+            if (refresh) {
                 val responseStatus = networkCall.invoke()
                 if (responseStatus.status == Resource.Status.SUCCESS) {
                     saveCallResult(responseStatus.data!!)
