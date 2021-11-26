@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Clean Weather</string>
-    <string name="powered_by_dark_sky">Powered by Dark Sky</string>
     <string name="day_today">Today</string>
     <string name="switch_daily">Daily</string>
     <string name="switch_hourly">Hourly</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
